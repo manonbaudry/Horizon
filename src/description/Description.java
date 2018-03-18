@@ -1,14 +1,16 @@
 package description;
 
+import java.util.ArrayList;
+
 /*Objet qui permet d'obtenir la structure du jeu. Au moyen des éléments suivants:
 La liste des tâches,
 la liste des aleas envisagés,
 les relations entre tâches (i.e. le dessin du graphe).
  **/
-public class Description {
+public class Description{
 
-	private Tache tache;
-	private Couleur couleur;
+	private ArrayList<Tache> liste_taches;
+	private ArrayList<Couleur> liste_couleurs;
 
 	/*Construit l'environnement standard pour le jeu.**/
 	public Description() {}
@@ -17,14 +19,14 @@ public class Description {
 	 * @returns La tâche initiale.
 	 */
 	public Tache getDebut() {		
-		return null;
+		return liste_taches.get(0);
 	}
 
 	/*Fournit la tâche terminale (elle est uniquye).
 	 * @returns La tâche terminale.
 	 */
 	public  Tache getFin() {
-		return null;
+		return liste_taches.get(liste_taches.size()-1);
 	}
 
 	/*Fournit une couleur d'alea au hasard (cf Couleur.tirage()).
@@ -41,5 +43,4 @@ public class Description {
 	public Tache getTacheById(String id) {
 		return null;
 	}
-
 }

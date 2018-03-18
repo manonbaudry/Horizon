@@ -18,9 +18,9 @@ public interface Tache {
 	public int coutAcceleration();
 	
 	/*Fournit l'alea associé à une couleur pour la tâche courante. Chaque couleur détermine un alea et un seul.
+	 * @param la couleur 
 	 * @returns L'alea associé à la couleur
 	 */
-	public Alea getAlea();
 	
 	public Alea getAlea(Couleur couleur);
 	
