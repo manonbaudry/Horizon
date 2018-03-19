@@ -43,7 +43,7 @@ public interface Tache {
 	
 	
 	/*Donne l'identifiant de la tâche. Toute tâche a 1 identifiant et un seul.
-	 *  Un identifiant désigne ne désigne pas plus d'une tâche.
+	 *  Un identifiant ne désigne pas plus d'une tâche.
 	 *  @returns La tâche désignée 
 	 */
 	public String getId();

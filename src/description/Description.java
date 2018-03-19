@@ -41,6 +41,9 @@ public class Description{
 	 * 			 La chaîne de caractère désignant la tâche.
 	 * @returns L'objet Tache.**/
 	public Tache getTacheById(String id) {
-		return null;
+		for(Tache t : liste_taches) {
+			if(t.getId().equals(id)) return t ;
+		}
+		return null;		
 	}
 }
