@@ -3,6 +3,10 @@ package description;
 import java.util.Collection;
 import java.util.HashMap;
 
+
+/*
+ * Cette classe implémente l'interface Tache et reprend donc toutes les fonctions décrites dans celle-ci
+ */
 public class UneTache implements Tache {
 
 	private String description;
