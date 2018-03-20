@@ -2,6 +2,7 @@ package description;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Random;
 
 
 /*
@@ -11,17 +12,19 @@ public class UneTache implements Tache {
 
 	private String description;
 	private int duree_initiale;
-	private int duree_max;
 	private String id;
 	private HashMap<Couleur, Alea> map;
 	
 	
 	
-	public UneTache(String description, int duree_initiale, int duree_max, String id) {
+	public UneTache(String description, int duree_initiale, String id) {
 		this.description = description;
 		this.duree_initiale = duree_initiale;
-		this.duree_max = duree_max;
 		this.id = id;
+		this.map = new HashMap<>();
+		map.put(Couleur.ROUGE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.DELAI));
+		map.put(Couleur.JAUNE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.EURO));
+		map.put(Couleur.VERT, new UnAlea(new Random().nextInt(3)+1, TypeAlea.QUALITE));
 	}
 
 	public int coutAcceleration() {
@@ -41,7 +44,7 @@ public class UneTache implements Tache {
 	}
 	
 	public int getDureeMax() {
-		return this.duree_max;
+		return this.duree_initiale + map.get(Couleur.ROUGE).getGravite();
 	}
 
 	public String getId() {
@@ -59,7 +62,7 @@ public class UneTache implements Tache {
 	@Override
 	public String toString() {
 		return "[description=" + description + ", duree_initiale=" + duree_initiale + ", duree_max="
-				+ duree_max + "]";
+				+ this.getDureeMax() + "]";
 	}
 	
 	
