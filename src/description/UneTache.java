@@ -56,4 +56,12 @@ public class UneTache implements Tache {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "[description=" + description + ", duree_initiale=" + duree_initiale + ", duree_max="
+				+ duree_max + "]";
+	}
+	
+	
+
 }

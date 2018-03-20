@@ -54,7 +54,7 @@ public interface Tache {
 	 */
 	public Collection<Tache> getPredecesseurs();
 	
-	/*Fournit la lliste des tâches suivantes.
+	/*Fournit la liste des tâches suivantes.
 	 *  La terminaison de la tâche courante peut éventuellement permettre 
 	 *  le commencement de chacune des tâches suivantes à conditions que tous leurs prédécesseurs respectifs soit terminés.
 	 *  @returns La liste des tâches suivante. La tâche terminale retourne une liste vide.

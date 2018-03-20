@@ -10,10 +10,19 @@ les relations entre tâches (i.e. le dessin du graphe).
 public class Description{
 
 	private ArrayList<Tache> liste_taches;
-	private ArrayList<Couleur> liste_couleurs;
 
 	/*Construit l'environnement standard pour le jeu.**/
-	public Description() {}
+	public Description() {
+		liste_taches = new ArrayList<>();
+	}
+	
+
+	public Description(ArrayList<Tache> liste_taches) {
+		super();
+		this.liste_taches = liste_taches;
+	}
+
+
 
 	/*Fournit la tâche initiale (elle est unique).
 	 * @returns La tâche initiale.
@@ -22,7 +31,7 @@ public class Description{
 		return liste_taches.get(0);
 	}
 
-	/*Fournit la tâche terminale (elle est uniquye).
+	/*Fournit la tâche terminale (elle est unique).
 	 * @returns La tâche terminale.
 	 */
 	public  Tache getFin() {

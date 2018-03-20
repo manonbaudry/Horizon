@@ -25,4 +25,11 @@ public class UnAlea implements Alea {
 		return this.type;
 	}
 
+	@Override
+	public String toString() {
+		return "[gravite=" + gravite + ", type=" + type + "]";
+	}
+	
+	
+
 }
