@@ -14,6 +14,7 @@ public class UneTache implements Tache {
 	private int duree_initiale;
 	private String id;
 	private HashMap<Couleur, Alea> map;
+	private int cout_acélération;
 	
 	
 	
@@ -27,8 +28,8 @@ public class UneTache implements Tache {
 		map.put(Couleur.VERT, new UnAlea(new Random().nextInt(3)+1, TypeAlea.QUALITE));
 	}
 
-	public int coutAcceleration() {
-		return 0;
+	public int getCoutAcceleration() {
+		return this.cout_acélération;
 	}
 
 	public Alea getAlea(Couleur couleur) {

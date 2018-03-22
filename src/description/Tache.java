@@ -15,7 +15,7 @@ public interface Tache {
 	 *  Une tâche ne peut être accélérée qu'une seule fois.
 	 *  @returns Le cout d'accélération de la tâche
 	 */
-	public int coutAcceleration();
+	public int getCoutAcceleration();
 	
 	/*Fournit l'alea associé à une couleur pour la tâche courante. Chaque couleur détermine un alea et un seul.
 	 * @param la couleur 
