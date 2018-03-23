@@ -1,5 +1,6 @@
 package description;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
@@ -15,6 +16,8 @@ public class UneTache implements Tache {
 	private String id;
 	private HashMap<Couleur, Alea> map;
 	private int cout_acélération;
+	private ArrayList<Tache> predecesseurs;
+	private ArrayList<Tache> successeurs;
 	
 	
 	
@@ -23,6 +26,8 @@ public class UneTache implements Tache {
 		this.duree_initiale = duree_initiale;
 		this.id = id;
 		this.map = new HashMap<>();
+		predecesseurs=new ArrayList<>();
+		successeurs=new ArrayList<>();
 		map.put(Couleur.ROUGE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.DELAI));
 		map.put(Couleur.JAUNE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.EURO));
 		map.put(Couleur.VERT, new UnAlea(new Random().nextInt(3)+1, TypeAlea.QUALITE));
@@ -51,13 +56,33 @@ public class UneTache implements Tache {
 	public String getId() {
 		return this.id;
 	}
-
-	public Collection<Tache> getPredecesseurs() {
-		return null;
+	
+	public boolean addPredecesseurs(Tache t) {
+		for(Tache tache: predecesseurs) {
+			if(tache.getId().equals(t.getId())) {
+				return false;
+			}
+		}
+		predecesseurs.add(t);
+		return true;
+	}
+	
+	public boolean addSuccesseurs(Tache t) {
+		for(Tache tache: successeurs) {
+			if(tache.getId().equals(t.getId())) {
+				return false;
+			}
+		}
+		successeurs.add(t);
+		return true;
 	}
 
-	public Collection<Tache> getSuccesseurs() {
-		return null;
+	public ArrayList<Tache> getPredecesseurs() {
+		return predecesseurs;
+	}
+
+	public ArrayList<Tache> getSuccesseurs() {
+		return successeurs;
 	}
 
 	@Override
