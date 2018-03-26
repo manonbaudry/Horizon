@@ -1,12 +1,11 @@
 package description;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Random;
 
 
-/*
+/**
  * Cette classe implémente l'interface Tache et reprend donc toutes les fonctions décrites dans celle-ci
  */
 public class UneTache implements Tache {
@@ -15,7 +14,7 @@ public class UneTache implements Tache {
 	private int duree_initiale;
 	private String id;
 	private HashMap<Couleur, Alea> map;
-	private int cout_acélération;
+	private int cout_aceleration;
 	private ArrayList<Tache> predecesseurs;
 	private ArrayList<Tache> successeurs;
 	
@@ -34,7 +33,7 @@ public class UneTache implements Tache {
 	}
 
 	public int getCoutAcceleration() {
-		return this.cout_acélération;
+		return this.cout_aceleration;
 	}
 
 	public Alea getAlea(Couleur couleur) {
@@ -57,6 +56,13 @@ public class UneTache implements Tache {
 		return this.id;
 	}
 	
+	/**
+	 * Ajoute pour la Tache courante une Tache qui la precede
+	 * @param t 
+	 * 			la tache precedente
+	 * @return
+	 * 			vrai si la tache existe, faux sinon
+	 */
 	public boolean addPredecesseurs(Tache t) {
 		for(Tache tache: predecesseurs) {
 			if(tache.getId().equals(t.getId())) {
@@ -66,6 +72,14 @@ public class UneTache implements Tache {
 		predecesseurs.add(t);
 		return true;
 	}
+	
+	/**
+	 * Ajoute pour la Tache courante une Tache qui la succede
+	 * @param t 
+	 * 			la tache succedente
+	 * @return
+	 * 			vrai si la tache existe, faux sinon
+	 */
 	
 	public boolean addSuccesseurs(Tache t) {
 		for(Tache tache: successeurs) {
@@ -84,7 +98,10 @@ public class UneTache implements Tache {
 	public ArrayList<Tache> getSuccesseurs() {
 		return successeurs;
 	}
-
+	
+	/**
+	 * Affiche la Tache avec sa description, sa duree initiale et sa duree finale
+	 */
 	@Override
 	public String toString() {
 		return "[description=" + description + ", duree_initiale=" + duree_initiale + ", duree_max="

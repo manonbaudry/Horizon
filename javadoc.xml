@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" additionalparam=" -charset &quot;UTF-8&quot;" author="true" classpath="lib" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="description" source="1.8" sourcepath="test;src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

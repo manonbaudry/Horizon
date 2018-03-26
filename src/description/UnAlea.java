@@ -1,6 +1,6 @@
 package description;
 
-/*
+/**
  * Cette classe implémente l'interface Alea et reprend donc toutes les fonctions décrites dans celle-ci
  */
 
@@ -24,6 +24,10 @@ public class UnAlea implements Alea {
 		// TODO Auto-generated method stub
 		return this.type;
 	}
+	
+	/**
+	 * Affiche l'Alea avec sa gravite et le type d'alea
+	 */
 
 	@Override
 	public String toString() {
