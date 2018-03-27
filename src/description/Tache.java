@@ -1,6 +1,7 @@
 package description;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 /**Représente une tâche telle que définie par la structure du jeu.
  *  On n'inclut pas dans cette classe les données qui dépendent des équipes
@@ -62,5 +63,8 @@ public interface Tache {
 	 *  @return La liste des tâches suivante. La tâche terminale retourne une liste vide.
 	 */
 	public Collection<Tache> getSuccesseurs();
+	
+	
+	public HashMap<Alea, Couleur> getMap();
 	
 }

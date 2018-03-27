@@ -15,11 +15,12 @@ public class EssaiDescription {
 		taches.add(new UneTache("OUI", 12 , "1"));
 		taches.add(new UneTache("NON", 1,"2"));
 		taches.add(new UneTache("SALUT", 5,"3"));
-		Description description = new Description(taches) ;
+		Description description = new Description() ;
+		System.out.println(description.toString());
 		
 	
-		System.out.println(description.getDebut());
-		System.out.println(description.getTacheById("2"));
-		System.out.println(description.getFin());
+		//System.out.println(description.getDebut());
+		//System.out.println(description.getTacheById("2"));
+		//System.out.println(description.getFin());
 		}
 }

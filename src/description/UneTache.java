@@ -2,6 +2,7 @@ package description;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -13,13 +14,13 @@ public class UneTache implements Tache {
 	private String description;
 	private int duree_initiale;
 	private String id;
-	private HashMap<Couleur, Alea> map;
 	private int cout_aceleration;
 	private ArrayList<Tache> predecesseurs;
 	private ArrayList<Tache> successeurs;
 	
-	
-	
+	private HashMap<Alea, Couleur> map;
+		
+		
 	public UneTache(String description, int duree_initiale, String id) {
 		this.description = description;
 		this.duree_initiale = duree_initiale;
@@ -27,9 +28,7 @@ public class UneTache implements Tache {
 		this.map = new HashMap<>();
 		predecesseurs=new ArrayList<>();
 		successeurs=new ArrayList<>();
-		map.put(Couleur.ROUGE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.DELAI));
-		map.put(Couleur.JAUNE, new UnAlea(new Random().nextInt(3)+1, TypeAlea.EURO));
-		map.put(Couleur.VERT, new UnAlea(new Random().nextInt(3)+1, TypeAlea.QUALITE));
+		
 	}
 
 	public int getCoutAcceleration() {
@@ -37,7 +36,11 @@ public class UneTache implements Tache {
 	}
 
 	public Alea getAlea(Couleur couleur) {
-		return map.get(couleur);
+		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
+			if(entry.getValue().equals(couleur)) return entry.getKey();
+		}
+		return null;
+		//return map.get(couleur);
 	}
 
 	public String getDescription() {
@@ -49,9 +52,14 @@ public class UneTache implements Tache {
 	}
 	
 	public int getDureeMax() {
-		return this.duree_initiale + map.get(Couleur.ROUGE).getGravite();
+		int res=0;
+		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
+			if(entry.getKey().getType().equals(TypeAlea.DELAI)) res+=entry.getKey().getGravite();
+		}
+		return res;
 	}
-
+	
+	
 	public String getId() {
 		return this.id;
 	}
@@ -104,9 +112,24 @@ public class UneTache implements Tache {
 	 */
 	@Override
 	public String toString() {
-		return "[description=" + description + ", duree_initiale=" + duree_initiale + ", duree_max="
-				+ this.getDureeMax() + "]";
+		String res=" ";
+		for (Map.Entry<Alea, Couleur> entry : map.entrySet()) {
+			res+=entry.getKey().getNom() + "|";
+		}
+		
+		return "Tache n°" + this.id + " [ " + description + " : " +  duree_initiale +"|" + this.getDureeMax() + res + " ]";
 	}
+
+	public HashMap<Alea, Couleur> getMap() {
+		return map;
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	
 

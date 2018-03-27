@@ -19,5 +19,7 @@ public interface Alea {
 	 * */
 	public TypeAlea getType();
 
+	
+	public String getNom();
 
 }

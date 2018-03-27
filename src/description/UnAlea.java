@@ -6,11 +6,13 @@ package description;
 
 public class UnAlea implements Alea {
 	
+	private String nom;
 	private int gravite;
 	private TypeAlea type;
 
 		
-	public UnAlea(int gravite, TypeAlea type) {
+	public UnAlea(String nom, int gravite, TypeAlea type) {
+		this.nom = nom;
 		this.gravite = gravite;
 		this.type = type;
 	}
@@ -25,6 +27,10 @@ public class UnAlea implements Alea {
 		return this.type;
 	}
 	
+	public String getNom() {
+		return nom;
+	}
+
 	/**
 	 * Affiche l'Alea avec sa gravite et le type d'alea
 	 */
