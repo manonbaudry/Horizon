@@ -52,7 +52,7 @@ public class UneTache implements Tache {
 	}
 	
 	public int getDureeMax() {
-		int res=0;
+		int res=duree_initiale;
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
 			if(entry.getKey().getType().equals(TypeAlea.DELAI)) res+=entry.getKey().getGravite();
 		}
