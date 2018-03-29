@@ -66,5 +66,11 @@ public interface Tache {
 	
 	
 	public HashMap<Alea, Couleur> getMap();
+
+	public void addSuccesseurs(Tache[] tab);
+	
+	public void addPredecesseurs(Tache[] tab);
+	
+	
 	
 }

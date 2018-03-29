@@ -71,15 +71,12 @@ public class UneTache implements Tache {
 	 * @return
 	 * 			vrai si la tache existe, faux sinon
 	 */
-	public boolean addPredecesseurs(Tache t) {
-		for(Tache tache: predecesseurs) {
-			if(tache.getId().equals(t.getId())) {
-				return false;
-			}
+	public void addPredecesseurs(Tache[] tab) {
+		for(int i=0; i<tab.length;i++) {
+			predecesseurs.add(tab[i]);
 		}
-		predecesseurs.add(t);
-		return true;
 	}
+		
 	
 	/**
 	 * Ajoute pour la Tache courante une Tache qui la succede
@@ -89,14 +86,10 @@ public class UneTache implements Tache {
 	 * 			vrai si la tache existe, faux sinon
 	 */
 	
-	public boolean addSuccesseurs(Tache t) {
-		for(Tache tache: successeurs) {
-			if(tache.getId().equals(t.getId())) {
-				return false;
-			}
+	public void addSuccesseurs(Tache[] tab) {
+		for(int i=0; i<tab.length;i++) {
+			successeurs.add(tab[i]);	
 		}
-		successeurs.add(t);
-		return true;
 	}
 
 	public ArrayList<Tache> getPredecesseurs() {
