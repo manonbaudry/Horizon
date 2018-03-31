@@ -105,12 +105,12 @@ public class UneTache implements Tache {
 	 */
 	@Override
 	public String toString() {
-		String res=" ";
+		String res="";
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet()) {
-			res+=entry.getKey().getNom() + "|";
+			res+=entry.getKey().getNom() + " | ";
 		}
 		
-		return "Tache n°" + this.id + " { " + description + " : " +  duree_initiale +"|" + this.getDureeMax() + res + " }";
+		return "Tache n°" + this.id + " { " + description + " : " +  duree_initiale +"\\" + this.getDureeMax() + " ;  " +  res + " }" ;
 	}
 	/**
 	 * 
@@ -119,6 +119,60 @@ public class UneTache implements Tache {
 	public HashMap<Alea, Couleur> getMap() {
 		return map;
 	}
+	
+
+	
+	/**
+	 * Cette fonction permet d'ajouter la tache courante en successeur de la tache donnée en paramètre.
+	 * La tache donnée en paramètre et tout ces prédécesseurs sont ajoutés comme prédécesseurs à la tache courante 
+	 */
+	public void estLeSucceseurDe(Tache tache) {
+		tache.getSuccesseurs().add(this);
+		this.getPredecesseurs().add(tache);
+		
+		if(tache.getPredecesseurs() != null) {
+			for (Tache t : tache.getPredecesseurs()) {
+				if(! this.getPredecesseurs().contains(t)) 
+					this.getPredecesseurs().add(t);
+			}
+		}
+		
+	}
+	
+	
+	
+	/**
+	 * Je veux faire une fonction qui va ajouter a la tache donnée en paramètre tout les successeurs de la tâche courante.
+	 * VOIRE de pouvoir ajouter tout les successeurs à toutes les taches en une seule fois.
+	 * Cependant, je pars manger du coup je ne peux pas le faire alors si jamais quelqu'un passe par là, esaie de le faire lol merci
+	 * @param tache 
+	 **/
+
+	public void estLePredecesseurDe(Tache tache) {
+		/*tache.getPredecesseurs().add(this);
+		if(this.getPredecesseurs() != null) {
+			
+		}*/
+		
+	}
+	
+	public void affichePredecesseurs() {
+		if(predecesseurs != null)
+		for (Tache tache : predecesseurs) {
+			System.out.println(tache + " est le predecesseur de " + this + '\n');
+			
+		}
+	}
+	
+	public void afficheSuccesseurs() {
+		if(successeurs != null) {
+			for (Tache tache : successeurs) {
+				System.out.println(tache + " est le successeur de " + this + '\n');
+			}
+		}
+	}
+	
+	
 
 	
 	

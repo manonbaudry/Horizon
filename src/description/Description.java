@@ -60,7 +60,7 @@ public class Description{
 		t8.getMap().put(new UnAlea("zz ", 2, TypeAlea.QUALITE), Couleur.VERT);
 		
 			
-		t1.addSuccesseurs(new Tache[] {t2,t3,t4,t5,t6,t7,t8});
+		/*t1.addSuccesseurs(new Tache[] {t2,t3,t4,t5,t6,t7,t8});
 		t2.addPredecesseurs(new Tache[] {t1});
 		t2.addSuccesseurs(new Tache[] {t5,t6,t7,t8});
 		t3.addPredecesseurs(new Tache[] {t1});
@@ -73,7 +73,7 @@ public class Description{
 		t6.addSuccesseurs(new Tache[] {t8});
 		t7.addPredecesseurs(new Tache[] {t1,t2,t3,t4});
 		t7.addSuccesseurs(new Tache[] {t8});
-		t8.addPredecesseurs(new Tache[] {t1,t2,t3,t4,t5,t6,t7});
+		t8.addPredecesseurs(new Tache[] {t1,t2,t3,t4,t5,t6,t7});*/
 		
 		liste_taches.add(t1);
 		liste_taches.add(t2);

@@ -71,6 +71,15 @@ public interface Tache {
 	
 	public void addPredecesseurs(Tache[] tab);
 	
+	public void estLeSucceseurDe(Tache tache);
+	
+	public void estLePredecesseurDe(Tache tache);
+	
+	public void affichePredecesseurs();
+	
+	public void afficheSuccesseurs();
+
+	
 	
 	
 }
