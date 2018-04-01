@@ -1,5 +1,3 @@
-
-import java.util.ArrayList;
 import description.*;
 
 
@@ -10,39 +8,20 @@ import description.*;
 public class EssaiDescription {
 
 	public static void main(String[] args) {
-		
 
 		Description description = new Description() ;
-		
-		
-		//L'ordre d'ajout se fait du début à) la fin.
-		description.getTacheById("2").estLeSucceseurDe(description.getTacheById("1"));
-		description.getTacheById("3").estLeSucceseurDe(description.getTacheById("1"));
-		description.getTacheById("4").estLeSucceseurDe(description.getTacheById("1"));
-		
-		description.getTacheById("5").estLeSucceseurDe(description.getTacheById("2"));
-		description.getTacheById("5").estLeSucceseurDe(description.getTacheById("3"));
-		description.getTacheById("5").estLeSucceseurDe(description.getTacheById("4"));
-		
-		description.getTacheById("7").estLeSucceseurDe(description.getTacheById("2"));
-		description.getTacheById("7").estLeSucceseurDe(description.getTacheById("3"));
-		description.getTacheById("7").estLeSucceseurDe(description.getTacheById("4"));
-		
-		description.getTacheById("6").estLeSucceseurDe(description.getTacheById("5"));
-		
-		description.getTacheById("8").estLeSucceseurDe(description.getTacheById("6"));
-		description.getTacheById("8").estLeSucceseurDe(description.getTacheById("7"));
-		
 			
 		System.out.println(description.toString());
 
-
+		//la tache 8 a pour predecesseurs 7, 6, 5, 4, 3, 2 et 1 
 		description.getTacheById("8").affichePredecesseurs();
-		description.getTacheById("1").afficheSuccesseurs();
+
+		//la tache 1 n'a pas de predecesseur
+		description.getTacheById("1").affichePredecesseurs();
+
+		//la tache 2 a pour succcesseurs  5, 6, 7 et 8
+		description.getTacheById("2").afficheSuccesseurs();
 		
-	
-		//System.out.println(description.getDebut());
-		//System.out.println(description.getTacheById("2"));
-		//System.out.println(description.getFin());
-		}
+
+	}
 }

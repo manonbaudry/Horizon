@@ -1,5 +1,6 @@
 package description;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -65,19 +66,53 @@ public interface Tache {
 	public Collection<Tache> getSuccesseurs();
 	
 	
+	/**Fournit les associations entre Aleas et Couleurs
+	 * @return Fournit les associations entre Aleas et Couleurs
+	 */	
 	public HashMap<Alea, Couleur> getMap();
 
+	
+	/**
+	 * Ajoute comme successeurs à la tache courante un tableau de tache
+	 * @param tab tableau de tache contenant les successeurs de la tache courante
+	 */
 	public void addSuccesseurs(Tache[] tab);
 	
-	public void addPredecesseurs(Tache[] tab);
+	//public void addPredecesseurs(Tache[] tab);
 	
-	public void estLeSucceseurDe(Tache tache);
 	
-	public void estLePredecesseurDe(Tache tache);
+	/**
+	 * La méthode se lie "tache x est le successeur de tache y",
+	 * -la tache donnée en paramètre devient le predecesseur de la tache courante.
+	 * -la tache courante devient le successeur de la tache donnée en paramètre
+	 * -la tache courante intègre directement tout les predecesseurs de la tache donnée en paramètre
+	 * @param tache, la tache suivant la tache courante
+	 */	
+	public void estLeSuccesseurDe(Tache tache);
 	
+	/**
+	 * Affiche des predecesseurs de la tache courante.
+	 * N'affiche rien si la tache courante n'a pas de predecesseurs
+	 */	
 	public void affichePredecesseurs();
-	
+		
+	/**
+	 * Affiche les successeurs de la tache courante.
+	 * N'affiche rien si la tache courante n'a pas de successeurs
+	 */
 	public void afficheSuccesseurs();
+	
+	/**
+	 * Permet de definir les successeurs de la tache courante via une liste de tache donnée en paramètre
+	 * @param successeurs, la future liste de successeurs de la tache courante
+	 */
+	public void setSuccesseurs(ArrayList<Tache> successeurs);
+	
+	/**
+	 * Fournit l'id de la tache
+	 * @return Tache n° + l'id de la tache
+	 */
+	public String afficheIdTache();
 
 	
 	

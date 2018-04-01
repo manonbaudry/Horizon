@@ -3,7 +3,6 @@ package description;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 
 /**
@@ -21,10 +20,11 @@ public class UneTache implements Tache {
 	private HashMap<Alea, Couleur> map;
 		
 		
-	public UneTache(String description, int duree_initiale, String id) {
+	public UneTache(String description, int duree_initiale, String id, int cout) {
 		this.description = description;
 		this.duree_initiale = duree_initiale;
 		this.id = id;
+		this.cout_aceleration = cout;
 		this.map = new HashMap<>();
 		predecesseurs=new ArrayList<>();
 		successeurs=new ArrayList<>();
@@ -40,7 +40,6 @@ public class UneTache implements Tache {
 			if(entry.getValue().equals(couleur)) return entry.getKey();
 		}
 		return null;
-		//return map.get(couleur);
 	}
 
 	public String getDescription() {
@@ -64,27 +63,13 @@ public class UneTache implements Tache {
 		return this.id;
 	}
 	
-	/**
-	 * Ajoute pour la Tache courante une Tache qui la precede
-	 * @param t 
-	 * 			la tache precedente
-	 * @return
-	 * 			vrai si la tache existe, faux sinon
-	 */
-	public void addPredecesseurs(Tache[] tab) {
+	
+	/*public void addPredecesseurs(Tache[] tab) {
 		for(int i=0; i<tab.length;i++) {
 			predecesseurs.add(tab[i]);
 		}
-	}
+	}*/
 		
-	
-	/**
-	 * Ajoute pour la Tache courante une Tache qui la succede
-	 * @param t 
-	 * 			la tache succedente
-	 * @return
-	 * 			vrai si la tache existe, faux sinon
-	 */
 	
 	public void addSuccesseurs(Tache[] tab) {
 		for(int i=0; i<tab.length;i++) {
@@ -100,33 +85,23 @@ public class UneTache implements Tache {
 		return successeurs;
 	}
 	
-	/**
-	 * Affiche la Tache avec sa description, sa duree initiale et sa duree finale
-	 */
-	@Override
 	public String toString() {
 		String res="";
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet()) {
 			res+=entry.getKey().getNom() + " | ";
 		}
 		
-		return "Tache n°" + this.id + " { " + description + " : " +  duree_initiale +"\\" + this.getDureeMax() + " ;  " +  res + " }" ;
+		return this.id + " : " + description + "["+this.cout_aceleration+"€]" + '\n' +
+				 +  duree_initiale  + " - " + this.getDureeMax() + '\n' +  res + '\n'  ;
 	}
 	/**
-	 * 
 	 * Retourne la HashMap avec en id les Aléas et comme valeur les Couleurs.
 	 */
 	public HashMap<Alea, Couleur> getMap() {
 		return map;
 	}
-	
-
-	
-	/**
-	 * Cette fonction permet d'ajouter la tache courante en successeur de la tache donnée en paramètre.
-	 * La tache donnée en paramètre et tout ces prédécesseurs sont ajoutés comme prédécesseurs à la tache courante 
-	 */
-	public void estLeSucceseurDe(Tache tache) {
+		
+	public void estLeSuccesseurDe(Tache tache) {
 		tache.getSuccesseurs().add(this);
 		this.getPredecesseurs().add(tache);
 		
@@ -139,27 +114,19 @@ public class UneTache implements Tache {
 		
 	}
 	
-	
-	
-	/**
-	 * Je veux faire une fonction qui va ajouter a la tache donnée en paramètre tout les successeurs de la tâche courante.
-	 * VOIRE de pouvoir ajouter tout les successeurs à toutes les taches en une seule fois.
-	 * Cependant, je pars manger du coup je ne peux pas le faire alors si jamais quelqu'un passe par là, esaie de le faire lol merci
-	 * @param tache 
-	 **/
-
-	public void estLePredecesseurDe(Tache tache) {
-		/*tache.getPredecesseurs().add(this);
-		if(this.getPredecesseurs() != null) {
-			
-		}*/
-		
+	public String afficheIdTache(){
+		return "Tache n°" + this.id;
 	}
+			
 	
+	public void setSuccesseurs(ArrayList<Tache> successeurs) {
+		this.successeurs = successeurs;
+	}
+
 	public void affichePredecesseurs() {
 		if(predecesseurs != null)
 		for (Tache tache : predecesseurs) {
-			System.out.println(tache + " est le predecesseur de " + this + '\n');
+			System.out.println(tache.afficheIdTache() + " est le predecesseur de " + this.afficheIdTache() + '\n');
 			
 		}
 	}
@@ -167,10 +134,11 @@ public class UneTache implements Tache {
 	public void afficheSuccesseurs() {
 		if(successeurs != null) {
 			for (Tache tache : successeurs) {
-				System.out.println(tache + " est le successeur de " + this + '\n');
+				System.out.println(tache.afficheIdTache() + " est le successeur de " + this.afficheIdTache() + '\n');
 			}
 		}
 	}
+	
 	
 	
 
