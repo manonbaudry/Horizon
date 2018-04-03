@@ -61,22 +61,6 @@ public class Description{
 		t8.getMap().put(new UnAlea("pp ", 2, TypeAlea.COUT), Couleur.JAUNE);
 		t8.getMap().put(new UnAlea("zz ", 2, TypeAlea.QUALITE), Couleur.VERT);
 
-
-		/*t1.addSuccesseurs(new Tache[] {t2,t3,t4,t5,t6,t7,t8});
-		t2.addPredecesseurs(new Tache[] {t1});
-		t2.addSuccesseurs(new Tache[] {t5,t6,t7,t8});
-		t3.addPredecesseurs(new Tache[] {t1});
-		t3.addSuccesseurs(new Tache[] {t5,t6,t7,t8});
-		t4.addPredecesseurs(new Tache[] {t1});
-		t4.addSuccesseurs(new Tache[] {t5,t6,t7,t8});
-		t5.addPredecesseurs(new Tache[] {t1,t2,t3,t4});
-		t5.addSuccesseurs(new Tache[] {t6,t8});
-		t6.addPredecesseurs(new Tache[] {t1,t2,t3,t4,t5});
-		t6.addSuccesseurs(new Tache[] {t8});
-		t7.addPredecesseurs(new Tache[] {t1,t2,t3,t4});
-		t7.addSuccesseurs(new Tache[] {t8});
-		t8.addPredecesseurs(new Tache[] {t1,t2,t3,t4,t5,t6,t7});*/
-
 		t2.estLeSuccesseurDe(t1);
 		t3.estLeSuccesseurDe(t1);
 		t4.estLeSuccesseurDe(t1);
@@ -104,15 +88,6 @@ public class Description{
 		liste_taches.add(t8);
 		
 		this.ajoutDesSuccesseursAuto();
-
-		/*liste_taches.add(t1);
-		liste_taches.add(t2);
-		liste_taches.add(t3);
-		liste_taches.add(t4);
-		liste_taches.add(t5);
-		liste_taches.add(t6);
-		liste_taches.add(t7);
-		liste_taches.add(t8);*/
 
 	}
 

@@ -77,7 +77,7 @@ public class UneTache implements Tache {
 			successeurs.add(tab[i]);	
 		}
 	}
-
+	
 	public ArrayList<Tache> getPredecesseurs() {
 		return predecesseurs;
 	}
