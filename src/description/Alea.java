@@ -19,7 +19,10 @@ public interface Alea {
 	 * */
 	public TypeAlea getType();
 
-	
+	/**
+	 * Indique le nom de l'aléa
+	 * @return Le nom de l'aléa sous forme d'une chaîne de caractères
+	 */
 	public String getNom();
 
 }
