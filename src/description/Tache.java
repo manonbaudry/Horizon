@@ -34,8 +34,8 @@ public interface Tache {
 	public String getDescription();
 	
 	/**Fournit la durée initiale de la tâche. 
-	 * C'est la durée qu'a la tâche quand aucun alea n est actif et que la tâche n'est pas accélérée.
-	 * @return La durée initiale de la tâche.	 * 
+	 * C'est la durée qu'a la tâche quand aucun alea n'est actif et que la tâche n'est pas accélérée.
+	 * @return La durée initiale de la tâche.
 	 */	
 	public int getDureeInitiale();
 	
@@ -73,8 +73,8 @@ public interface Tache {
 
 	
 	/**
-	 * Ajoute comme successeurs à la tache courante un tableau de tache
-	 * @param tab tableau de tache contenant les successeurs de la tache courante
+	 * Ajoute comme successeurs à la tâche courante un tableau de tâches
+	 * @param tab : tableau de tache contenant les successeurs de la tâche courante
 	 */
 	public void addSuccesseurs(Tache[] tab);
 	
@@ -109,8 +109,8 @@ public interface Tache {
 	public void setSuccesseurs(ArrayList<Tache> successeurs);
 	
 	/**
-	 * Fournit l'id de la tache
-	 * @return Tache n° + l'id de la tache
+	 * Fournit l'id de la tâche
+	 * @return Tache n° + l'id de la tâche
 	 */
 	public String afficheIdTache();
 

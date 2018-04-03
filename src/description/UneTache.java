@@ -6,7 +6,8 @@ import java.util.Map;
 
 
 /**
- * Cette classe implémente l'interface Tache et reprend donc toutes les fonctions décrites dans celle-ci
+ * Cette classe implémente l'interface Tâche et reprend donc toutes les fonctions décrites dans celle-ci
+ * cf javaid Tache
  */
 public class UneTache implements Tache {
 
@@ -138,17 +139,4 @@ public class UneTache implements Tache {
 			}
 		}
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

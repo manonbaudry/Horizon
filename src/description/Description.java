@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Objet qui permet d'obtenir la structure du jeu. Au moyen des éléments suivants:
 La liste des tâches,
-la liste des aleas envisagés,
+la liste des aleas envisagés par tâche,
 les relations entre tâches (i.e. le dessin du graphe).
  **/
 public class Description{
@@ -15,7 +15,8 @@ public class Description{
 	private ArrayList<Tache> liste_taches;
 
 	/**
-	 * Construit l'environnement standard pour le jeu.**/
+	 * Construit l'environnement standard pour le jeu : une tâche constituée d'aléas
+	**/
 	public Description() {
 		liste_taches = new ArrayList<>();
 
@@ -93,7 +94,6 @@ public class Description{
 		t8.estLeSuccesseurDe(t6);
 		t8.estLeSuccesseurDe(t7);
 		
-
 		liste_taches.add(t1);
 		liste_taches.add(t2);
 		liste_taches.add(t3);
@@ -117,7 +117,7 @@ public class Description{
 	}
 
 	/**
-	 * Construit l'environnement avec la possibilité d'ajouter directement la liste des taches
+	 * Construit l'environnement du jeu à partir d'une liste des tâches
 	 * @param liste_taches
 	 * 						La liste des taches
 	 */
@@ -127,38 +127,45 @@ public class Description{
 	}
 
 
-	/**Fournit la tâche initiale (elle est unique).
+	/**
+	 * Fournit la tâche initiale (elle est unique).
 	 * @return La tâche initiale.
 	 */
 	public Tache getDebut() {		
 		return liste_taches.get(0);
 	}
 
-	/**Fournit la tâche terminale (elle est unique).
+	/**
+	 * Fournit la dernière tâche (elle est unique).
 	 * @return La tâche terminale.
 	 */
 	public  Tache getFin() {
 		return liste_taches.get(liste_taches.size()-1);
 	}
 
-	/**Fournit une couleur d'alea au hasard (cf Couleur.tirage()).
-	 * @return La couleur choisie.
+	/**
+	 * Fournit une couleur d'alea au hasard (cf Couleur.tirage()).
+	 * @return La couleur tirée
 	 */
 	public Couleur getRandom() {
 		return Couleur.tirage();
 	}
 
-	/**Fournit la tâche désignée par un identifiant donné. Si aucune tâche n'est trouvée, retourne null.
+	/**
+	 * Fournit la tâche désignée par un identifiant donné. Si aucune tâche n'est trouvée, retourne null.
 	 * @param id 
 	 * 			 La chaîne de caractère désignant la tâche.
-	 * @return  L'objet Tache.**/
+	 * @return  L'objet Tache ou null si idenifian incorrect
+	 **/
 	public Tache getTacheById(String id) {
 		for(Tache t : liste_taches) {
 			if(t.getId().equals(id)) return t ;
 		}
 		return null;		
 	}
-
+	/**
+	 * @return la liste de tâches sous forme d'une châine de carancères
+	 */
 	public String toString() {
 		String res="";
 		for (Tache tache : liste_taches) {
@@ -168,7 +175,8 @@ public class Description{
 	}
 
 	/**
-	 * Pour tout les predecesseurs de toutes les taches, j'ajoute tout les successeurs de tout les taches
+	 * Pour tous les prédecesseurs de toutes les tâches, 
+	 * ajout de tous les successeurs de toutes les tâches.
 	 */
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

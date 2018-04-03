@@ -2,6 +2,7 @@ package description;
 
 /**
  * Cette classe implémente l'interface Alea et reprend donc toutes les fonctions décrites dans celle-ci
+ * (cf javadoc Alea)
  */
 
 public class UnAlea implements Alea {
@@ -30,11 +31,10 @@ public class UnAlea implements Alea {
 	public String getNom() {
 		return nom;
 	}
-
 	/**
 	 * Affiche l'Alea avec sa gravite et le type d'alea
+	 * @return le type d'aléa et sa gravité
 	 */
-
 	@Override
 	public String toString() {
 		return "[gravite=" + gravite + ", type=" + type + "]";
