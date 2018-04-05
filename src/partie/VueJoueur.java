@@ -15,7 +15,7 @@ public interface VueJoueur {
 	 * @return la montant de la caisse (€)
 	 */
 	int getCaisse();
-	kjhdskjhds
+	
 	
 	/**
 	 * Fournit l'état d'avancement de la réalisation d'une tâche pour l'équipe (en semaines).
