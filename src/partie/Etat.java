@@ -16,7 +16,7 @@ public enum Etat {
 	 */
 	IMMINENT('I'),
 	/**
-	 * La réalisation n'est pas encore entamée.
+	 * La realisation n'est pas encore entamée.
 	 */
 	NON_ENTAMEE('N'),
 	/**
