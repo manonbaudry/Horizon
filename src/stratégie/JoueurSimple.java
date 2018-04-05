@@ -6,7 +6,7 @@ public class JoueurSimple implements Strategie{
 
 	@Override
 	public void jouerEtape(DonneesJoueur joueur, VueJoueur vue) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
