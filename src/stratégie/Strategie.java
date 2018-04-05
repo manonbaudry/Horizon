@@ -1,5 +1,6 @@
 package stratégie;
 
+
 public interface Strategie {
 
 	/** 
@@ -9,7 +10,7 @@ public interface Strategie {
 	 * 
 	 * Validation d'un tour simple.
 	 */
-	void 	jouerEtape(partie.Equipe equipe, VueJoueur vue);
+	void 	jouerEtape(DonneesJoueur equipe, VueJoueur vue);
 
 	/**
 	 * 
@@ -18,7 +19,7 @@ public interface Strategie {
 	 * 
 	 * Saisie des décisions d'accélération et de protection.
 	 */
-	void 	jouerJalon(partie.Equipe equipe, VueJoueur vue);
+	void 	jouerJalon(DonneesJoueur equipe, VueJoueur vue);
 	
 	/**
 	 * 
@@ -27,5 +28,5 @@ public interface Strategie {
 	 * 
 	 * Réponse à un quizz.
 	 */
-	void 	jouerTest(partie.Equipe equipe, VueJoueur vue);
+	void 	jouerTest(DonneesJoueur equipe, VueJoueur vue);
 }
