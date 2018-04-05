@@ -4,6 +4,7 @@ import partie.*;
 
 public interface Strategie {
 
+	
 	/** 
 	 * 
 	 * @param equipe - L'équipe concernée.

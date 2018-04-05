@@ -7,7 +7,7 @@ public class JoueurSimple implements Strategie{
 	@Override
 	public void jouerEtape(DonneesJoueur joueur, VueJoueur vue) {
 		
-		
+		 
 	}
 
 	@Override
