@@ -1,5 +1,6 @@
 package stratégie;
 
+import partie.*;
 
 public interface Strategie {
 
