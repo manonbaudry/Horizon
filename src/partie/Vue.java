@@ -3,20 +3,21 @@
  */
 package partie;
 
-import description.Couleur;
-import description.Description;
+import description.*;
 
 /**
  * @author baudrym
  *
  */
-public class Vue implements VueJoueur {
-	private int caisse;
-	private String nom; 
-	private int qualite; 
+public class Vue implements VueJoueur { 
 	private Description description;
+	private Donnees donnees;
 	
 	
+	public Vue( Donnees donnees, Description description) {
+		this.donnees = donnees;
+		this.description = description;
+	}
 	
 	/**
 	 * Termine le tour pour le joueur courant. 
@@ -34,7 +35,7 @@ public class Vue implements VueJoueur {
 	 */
 
 	public int getCaisse() {
-		return 0;
+		return donnees.getCaisse();
 	}
 	
 	/**
@@ -51,22 +52,22 @@ public class Vue implements VueJoueur {
 	/**
 	 * Fournit l'identifiant de la première tâche du PERT. 
 	 * Equivalent à getDescription().getDebut().getId() . 
-	 * Le résultat sera le ùmême pour toutes les équipes.
+	 * Le résultat sera le même pour toutes les équipes.
 	 * @return id de la tâche initiale
 	 */
 
 	public String getDebutId() {
 
-		return null;
+		return description.getDebut().getId();
 	}
+	
 	/**
 	 * Retourne l'objet permettant d'acquérir la description de la configuration de jeu. 
 	 * @return L'objet contenant la description statique du jeu.
 	 */
-	@Override
 	public Description getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return description;
 	}
 	/**
 	 * Fournit l'état courant de la réalisation. 
@@ -77,9 +78,9 @@ public class Vue implements VueJoueur {
 	 * @param id de la tâche
 	 * @return l'état courant de la réalisation.
 	 */
-	@Override
+	
 	public int getDuree(String id) {
-		// TODO Auto-generated method stub
+	
 		return 0;
 	}
 	/**
@@ -91,9 +92,9 @@ public class Vue implements VueJoueur {
 	 * @param id de la tâche
 	 * @return l'état courant de la réalisation.
 	 */
-	@Override
+	
 	public Etat getEtat(String id) {
-		// TODO Auto-generated method stub
+	
 		return null;
 	}
 	
@@ -104,19 +105,19 @@ public class Vue implements VueJoueur {
 
 	public String getFinId() {
 
-		return null;
+		return description.getFin().getId();
 	}
 
 
 	public String getNom() {
 
-		return null;
+		return donnees.getNom();
 	}
 
 
 	public int getQualite() {
 
-		return 0;
+		return donnees.getQualite();
 	}
 
 
