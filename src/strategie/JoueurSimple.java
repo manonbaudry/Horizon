@@ -16,10 +16,10 @@ public class JoueurSimple implements Strategie{
 
 	@Override
 	public void jouerJalon( VueJoueur vue) {
-		System.out.println(vue.getNom()+vue.getCaisse()+vue.getDescription());
-		String saisieTache= JOptionPane.showInputDialog("Saisissez un numéro de tâche ");
-		String saisieCouleur= JOptionPane.showInputDialog("Saisissez une couleur");
-		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour ou appuyer sur entrée");
+		System.out.println("Nom : \n\t"+vue.getNom()+"\nCaisse : \n\t"+vue.getCaisse()+"\n Description : \n\t"+vue.getDescription());
+		//String saisieTache= JOptionPane.showInputDialog("Saisissez un numéro de tâche ");
+		//String saisieCouleur= JOptionPane.showInputDialog("Saisissez une couleur");
+		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
 		if(saisie.equals("fin")) vue.FinDuTour();
 	}
 
