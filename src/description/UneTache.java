@@ -89,7 +89,7 @@ public class UneTache implements Tache {
 	public String toString() {
 		String res="";
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet()) {
-			res+=entry.getKey().getNom() + " | ";
+			res+=entry.getKey().getType() +" "+entry.getKey().getNom() + " | ";
 		}
 		
 		return this.id + " : " + description + "["+this.cout_aceleration+"€]" + '\n' +
