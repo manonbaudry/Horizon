@@ -1,7 +1,7 @@
 package partie;
 
 import graphe.Graphe;
-import stratégie.Strategie;
+import strategie.Strategie;
 
 /**
  * @author forestav
