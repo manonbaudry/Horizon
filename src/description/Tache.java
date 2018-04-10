@@ -39,7 +39,7 @@ public interface Tache {
 	 */	
 	public int getDureeInitiale();
 	
-	/**Fournit la durée maximale de la tâche. 
+	/**Fournit la duree maximale de la tâche. 
 	 * C'est la durée que prend la tâche quand elle n'est pas accélérée et que l'alea de type DELAI le plus grave se produit.
 	 * @return La durée maximale de la tâche
 	 */
