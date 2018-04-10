@@ -120,10 +120,29 @@ public class Vue implements VueJoueur {
 		return donnees.getQualite();
 	}
 
+	/**
+	 * Active ou désactive l'accélération de la tâche (réducton de 1 de la durée réelle).
+	 * @param id de la tâche 
+	 * @param active  true pour l'activation, false pour la désactivation.
+	 */
+	public void setAcceleration(String id, boolean active) {
+		Tache t = description.getTacheById(id);
+		if(active && ! t.isAcceleration()){
+			int newDuree = t.getDureeReelle()-1;
+			t.setDureeReelle(newDuree);
+			t.setAcceleration(true);
+			donnees.depense(t.getCoutAcceleration());
+			
+		}else {
+			int newDuree = t.getDureeReelle()+1;
+			t.setDureeReelle(newDuree);
+			t.setAcceleration(false);
+			donnees.depense(-(t.getCoutAcceleration()));
 
-	public void setAcceleration(String id, boolean active) {	
-		
+		}
+		//VOIR PLACE : il faut annuler l'accélération???
 	}
+	
 	/**
 	 * Active ou désactive la protection contre un alea. 
 	 * L'aléa est diretement déduit la la tâche associée et de la couleur choisie.
@@ -132,7 +151,15 @@ public class Vue implements VueJoueur {
 	 * @param active   true pour l'activation, false pour la désactivation.
 	 */
 	public void setProtection(String id, Couleur couleur, boolean active) {
-	
+		Tache t = description.getTacheById(id);
+		if(active) {
+		//	t.getAlea(couleur)
+		}
+	}
+
+
+	public int getNumeroTour() {
+		return 0;
 	}
 	
 
