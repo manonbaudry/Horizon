@@ -99,4 +99,11 @@ public interface VueJoueur {
 	 * @param active   true pour l'activation, false pour la désactivation.
 	 */
 	void 	setProtection(String id, Couleur couleur, boolean active);
+
+	/**
+	 * Fournit le numéro du tour courant. Le tour 0 existe. c'est normalement un tour Jalon.
+	 * @return Le numéro du tour courant
+	 */
+	public int getNumeroTour();
+
 }
