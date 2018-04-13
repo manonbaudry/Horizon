@@ -23,7 +23,7 @@ public class Donnees implements DonneesJoueur{
 
 	@Override
 	public void actualisation(int temps) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated  method stub
 		
 	}
 
