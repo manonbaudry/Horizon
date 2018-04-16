@@ -105,5 +105,11 @@ public interface VueJoueur {
 	 * @return Le numéro du tour courant
 	 */
 	public int getNumeroTour();
+	
+	/**
+	 * Fournit les realisations pour toutes les taches
+	 * @return le tableau des realisations
+	 */
+	public Realisation[] getRealisations();
 
 }

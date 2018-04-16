@@ -1,17 +1,18 @@
 package strategie;
 
+import java.util.Map;
+
 import javax.swing.JOptionPane;
 
+import description.Alea;
+import description.Couleur;
 import partie.*;
 
 public class JoueurSimple implements Strategie{
 
 	@Override
 	public void jouerEtape( VueJoueur vue) {
-		System.out.println("Tour : "+ vue.getNumeroTour()
-							+"Nom : \n\t"+vue.getNom()
-							+"\nCaisse : \n\t"+vue.getCaisse()
-							+"\n Description : \n\t"+vue.getDescription());
+		affichage(vue);
 		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
 		if(saisie.equals("fin")) vue.FinDuTour();
 		 
@@ -19,10 +20,7 @@ public class JoueurSimple implements Strategie{
 
 	@Override
 	public void jouerJalon( VueJoueur vue) {
-		System.out.println("Tour : "+ vue.getNumeroTour()
-							+"Nom : \n\t"+vue.getNom()
-							+"\nCaisse : \n\t"+vue.getCaisse()
-							+"\n Description : \n\t"+vue.getDescription());
+		affichage(vue);
 		//String saisieTache= JOptionPane.showInputDialog("Saisissez un numéro de tâche ");
 		//String saisieCouleur= JOptionPane.showInputDialog("Saisissez une couleur");
 		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
@@ -33,6 +31,16 @@ public class JoueurSimple implements Strategie{
 	public void jouerTest( VueJoueur vue) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void affichage(VueJoueur vue) {
+		String res="Tour : "+ vue.getNumeroTour()
+					+"Nom : \n\t"+vue.getNom()
+					+"\nCaisse : \tQualité \n: "+vue.getCaisse()+"\t  "+vue.getQualite();
+		for(int i=0;i<vue.getRealisations().length;i++ ) {
+			res+=vue.getRealisations()[i].toString();
+		}
+		System.out.println(res);
 	}
 
 	

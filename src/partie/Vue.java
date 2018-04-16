@@ -3,6 +3,8 @@
  */
 package partie;
 
+import java.util.HashMap;
+
 import description.*;
 
 /**
@@ -12,13 +14,25 @@ import description.*;
 public class Vue implements VueJoueur { 
 	private Description description;
 	private Donnees donnees;
+	private Realisation[] realisations;
 	
 	
 	public Vue( Donnees donnees, Description description) {
 		this.donnees = donnees;
 		this.description = description;
+		realisations=new Realisation[description.getListe_taches().size()];
+		for(int i=0;i<realisations.length;i++) {
+			realisations[i]=new Realisation(description.getListe_taches().get(i));
+		}
 	}
 	
+	/**
+	 * @return the realisations
+	 */
+	public Realisation[] getRealisations() {
+		return realisations;
+	}
+
 	/**
 	 * Termine le tour pour le joueur courant. 
 	 */

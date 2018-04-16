@@ -138,6 +138,14 @@ public class Description{
 		}
 		return null;		
 	}
+	
+	/**
+	 * @return the liste_taches
+	 */
+	public ArrayList<Tache> getListe_taches() {
+		return liste_taches;
+	}
+
 	/**
 	 * @return la liste de tâches sous forme d'une châine de carancères
 	 */
