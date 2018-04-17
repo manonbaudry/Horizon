@@ -14,25 +14,15 @@ import description.*;
 public class Vue implements VueJoueur { 
 	private Description description;
 	private Donnees donnees;
-	private Realisation[] realisations;
+	
 	
 	
 	public Vue( Donnees donnees, Description description) {
 		this.donnees = donnees;
 		this.description = description;
-		realisations=new Realisation[description.getListe_taches().size()];
-		for(int i=0;i<realisations.length;i++) {
-			realisations[i]=new Realisation(description.getListe_taches().get(i));
-		}
+		
 	}
 	
-	/**
-	 * @return the realisations
-	 */
-	public Realisation[] getRealisations() {
-		return realisations;
-	}
-
 	/**
 	 * Termine le tour pour le joueur courant. 
 	 */
@@ -83,19 +73,19 @@ public class Vue implements VueJoueur {
 		
 		return description;
 	}
+	
 	/**
-	 * Fournit l'état courant de la réalisation. 
-	 * Directement calculée par à partie de l'état d'avancement:
-        - 0 : Etat.NON_ENTAMEE ,
-        - > 0 et < durée réelle : Etat.EN_COURS
-        - durée rélle : Etat.TERMINEE.
-	 * @param id de la tâche
-	 * @return l'état courant de la réalisation.
+	 * Fournit la durée réelle d'une tâche pour l'équipe.
+	 * Si l'aléa lié à la tâche a été déterminée la valeur retournée inclus l'aléa éventuel,
+	 * sinon il s'agit de la durée minimale.
+	 * Pour obtenir la durée maximale, il faut interroger l'objet Description.
+	 * @param id de la tâche dont on veut connaitre sa durée 
+	 * @return La durée réelle d'une tâche pour l'équipe (en semaines).
 	 */
 	
 	public int getDuree(String id) {
 	
-		return 0;
+		return donnees.getRealisation(id).getDuree_reelle();
 	}
 	/**
 	 * Fournit l'état courant de la réalisation. 

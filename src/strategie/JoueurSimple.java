@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import description.Alea;
 import description.Couleur;
+import description.Description;
 import partie.*;
 
 public class JoueurSimple implements Strategie{
@@ -37,11 +38,14 @@ public class JoueurSimple implements Strategie{
 		String res="Tour : "+ vue.getNumeroTour()
 					+"Nom : \n\t"+vue.getNom()
 					+"\nCaisse : \tQualité \n: "+vue.getCaisse()+"\t  "+vue.getQualite();
-		for(int i=0;i<vue.getRealisations().length;i++ ) {
+		for(int i=0;i<vue..getRealisations().length;i++ ) {
 			res+=vue.getRealisations()[i].toString();
 		}
 		System.out.println(res);
 	}
 
+	public static void main(String[] args) {
+		VueJoueur vue= new Vue(new Description(), new Donnees());
+	}
 	
 }

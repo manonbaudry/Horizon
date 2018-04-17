@@ -110,6 +110,5 @@ public interface VueJoueur {
 	 * Fournit les realisations pour toutes les taches
 	 * @return le tableau des realisations
 	 */
-	public Realisation[] getRealisations();
 
 }

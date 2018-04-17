@@ -82,6 +82,18 @@ public class Realisation {
 	public HashMap<Couleur, Boolean> getProtections() {
 		return protections;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Tache :" + tache + ", duree_reelle " + duree_reelle + ", acceleration : " + acceleration
+				+ ", protections=" + protections + ", etat=" + etat + "]";
+	}
+	
+	
 	
 	
 }

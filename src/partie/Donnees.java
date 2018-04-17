@@ -1,5 +1,6 @@
 package partie;
 
+import description.Description;
 import graphe.Graphe;
 import strategie.Strategie;
 
@@ -7,17 +8,22 @@ public class Donnees implements DonneesJoueur{
 	private int caisse;
 	private String nom;
 	private int qualite;
-	private Realisation realisation;
+	private Realisation[] realisations;
 	private Strategie strategie;
+	private Description description;
 	
 	
 	
-	public Donnees(String nom, int qualite, Realisation realisation, Strategie strategie) {
+	public Donnees(String nom, int qualite, Strategie strategie) {
 		super();
 		this.caisse = 300;
 		this.nom = nom;
 		this.qualite = 0;
-		this.realisation = realisation;
+		description= new Description();
+		realisations=new Realisation[description.getListe_taches().size()];
+		for(int i=0;i<realisations.length;i++) {
+			realisations[i]=new Realisation(description.getListe_taches().get(i));
+		}
 		this.strategie = strategie;
 	}
 
@@ -60,7 +66,7 @@ public class Donnees implements DonneesJoueur{
 	@Override
 	public Realisation getRealisation(String id) {
 		// TODO Auto-generated method stub
-		return this.realisation;
+		return this.realisations[Integer.parseInt(id)-1];
 	}
 
 	@Override
