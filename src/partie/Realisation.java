@@ -89,8 +89,9 @@ public class Realisation {
 	 */
 	@Override
 	public String toString() {
-		return "Tache :" + tache + ", duree_reelle " + duree_reelle + ", acceleration : " + acceleration
-				+ ", protections=" + protections + ", etat=" + etat + "]";
+		String protec="\t "+protections.get(Couleur.ROUGE)+"\t     "+protections.get(Couleur.JAUNE)+"\t   "+protections.get(Couleur.VERT);
+		return "Tache : " + tache 
+				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
 	
 	

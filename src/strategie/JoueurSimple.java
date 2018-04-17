@@ -36,10 +36,11 @@ public class JoueurSimple implements Strategie{
 	
 	private void affichage(VueJoueur vue) {
 		String res="Tour : "+ vue.getNumeroTour()
-					+"Nom : \n\t"+vue.getNom()
-					+"\nCaisse : \tQualité \n: "+vue.getCaisse()+"\t  "+vue.getQualite();
+					+"\nNom : "+vue.getNom()
+					+"\nCaisse : "+vue.getCaisse()+"\tQualité : "+vue.getQualite()+"\n\n";
 		for(int i=0;i<vue.getDescription().getListe_taches().size();i++ ) {
-			res+=vue.getDonnees().getRealisation(Integer.toString(i)).toString();
+			res+=vue.getDonnees().getRealisation(Integer.toString(i+1)).toString()
+					+"\tAvancement : "+vue.getCurrent(Integer.toString(i+1))+"\n\n";
 		}
 		System.out.println(res);
 	}

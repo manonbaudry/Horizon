@@ -92,8 +92,8 @@ public class UneTache implements Tache {
 			res+=entry.getKey().getType() +" "+entry.getKey().getNom() + " | ";
 		}
 		
-		return this.id + " : " + description + "["+this.cout_aceleration+"€]" + "\n Durée initiale : " +
-				 +  duree_initiale  + " -  Durée max : " + this.getDureeMax() + "Durée : " +"\n" +  res + '\n'  ;
+		return this.id + " : " + description + "["+this.cout_aceleration+"€]" + "\n\tDurée initiale : " +
+				 +  duree_initiale  + " -  Durée max : " + this.getDureeMax() +"\n\t" +  res + '\n'  ;
 	}
 	/**
 	 * Retourne la HashMap avec en id les Aléas et comme valeur les Couleurs.
