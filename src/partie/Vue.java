@@ -13,7 +13,7 @@ import description.*;
  */
 public class Vue implements VueJoueur { 
 	private Description description;
-	private Donnees donnees;
+	private DonneesJoueur donnees;
 	
 	
 	
@@ -165,6 +165,14 @@ public class Vue implements VueJoueur {
 	public int getNumeroTour() {
 		return 0;
 	}
+
+	/**
+	 * @return the donnees
+	 */
+	public DonneesJoueur getDonnees() {
+		return donnees;
+	}
+	
 	
 
 }

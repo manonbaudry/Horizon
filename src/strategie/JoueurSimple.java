@@ -38,14 +38,16 @@ public class JoueurSimple implements Strategie{
 		String res="Tour : "+ vue.getNumeroTour()
 					+"Nom : \n\t"+vue.getNom()
 					+"\nCaisse : \tQualité \n: "+vue.getCaisse()+"\t  "+vue.getQualite();
-		for(int i=0;i<vue..getRealisations().length;i++ ) {
-			res+=vue.getRealisations()[i].toString();
+		for(int i=0;i<vue.getDescription().getListe_taches().size();i++ ) {
+			res+=vue.getDonnees().getRealisation(Integer.toString(i)).toString();
 		}
 		System.out.println(res);
 	}
 
+	//test
 	public static void main(String[] args) {
-		VueJoueur vue= new Vue(new Description(), new Donnees());
-	}
+		VueJoueur vue= new Vue(new Donnees("1",new JoueurSimple()), new Description() );
+		vue.getDonnees().getStrategie().jouerEtape(vue);
+	} 
 	
 }

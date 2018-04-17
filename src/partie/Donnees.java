@@ -14,7 +14,7 @@ public class Donnees implements DonneesJoueur{
 	
 	
 	
-	public Donnees(String nom, int qualite, Strategie strategie) {
+	public Donnees(String nom, Strategie strategie) {
 		super();
 		this.caisse = 300;
 		this.nom = nom;

@@ -111,4 +111,5 @@ public interface VueJoueur {
 	 * @return le tableau des realisations
 	 */
 
+	public DonneesJoueur getDonnees();
 }
