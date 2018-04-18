@@ -1,30 +1,53 @@
 package partie;
+import description.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import description.Couleur;
 import description.Tache;
 
-public class Realisation {
-	
-	private Tache tache;
+public class Realisation extends UneTache{
 	private int duree_reelle;
 	private boolean acceleration;
 	private HashMap<Couleur,Boolean> protections;
 	private Etat etat;
+	private int avancement;
 
-	public Realisation(Tache t) {
-		tache=t;
-		duree_reelle=tache.getDureeInitiale();
+	/**
+	 * @param description
+	 * @param duree_initiale
+	 * @param id
+	 * @param cout
+	 */
+	public Realisation(String description, int duree_initiale, String id, int cout) {
+		super(description, duree_initiale, id, cout);
+		duree_reelle=super.getDureeInitiale();
 		acceleration=false;
 		protections=new HashMap<>();
 		protections.put(Couleur.ROUGE, false);
 		protections.put(Couleur.JAUNE,false);
 		protections.put(Couleur.VERT,false);
 		etat= Etat.NON_ENTAMEE;
+		avancement = 0;
+	}
+	
+	/**
+	 * @return the avancement
+	 */
+	public int getAvancement() {
+		return avancement;
 	}
 
-	
+
+	/**
+	 * @param avancement the avancement to set
+	 */
+	public void setAvancement(int avancement) {
+		this.avancement = avancement;
+	}
+
+
 	/**
 	 * @return the acceleration
 	 */
@@ -38,6 +61,8 @@ public class Realisation {
 	 */
 	public void setAcceleration(boolean acceleration) {
 		this.acceleration = acceleration;
+		duree_reelle --;
+		
 	}
 
 
@@ -69,12 +94,6 @@ public class Realisation {
 		this.etat = etat;
 	}
 
-	/**
-	 * @return the tache
-	 */
-	public Tache getTache() {
-		return tache;
-	}
 
 	/**
 	 * @return the protections
@@ -90,11 +109,13 @@ public class Realisation {
 	@Override
 	public String toString() {
 		String protec="\t "+protections.get(Couleur.ROUGE)+"\t     "+protections.get(Couleur.JAUNE)+"\t   "+protections.get(Couleur.VERT);
-		return "Tache : " + tache 
+		return super.toString() 
 				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
-	
-	
-	
-	
+	public ArrayList<Tache> getPredecesseurs(){
+		return super.getPredecesseurs();
+	}
+	public ArrayList<Tache> getSuccesseurs(){
+		return super.getSuccesseurs();
+	}
 }
