@@ -1,13 +1,35 @@
+/**
+ * 
+ */
 package partie;
+
+import java.util.HashMap;
+
 import description.*;
 
-
-public interface VueJoueur {
+/**
+ * @author baudrym
+ *
+ */
+public class Vue implements VueJoueur { 
+	private Description description;
+	private DonneesJoueur donnees;
+	
+	
+	
+	public Vue( Donnees donnees, Description description) {
+		this.donnees = donnees;
+		this.description = description;
+		
+	}
+	
 	/**
 	 * Termine le tour pour le joueur courant. 
 	 */
-	void 	FinDuTour();
 	
+	public void FinDuTour() {
+		
+	}
 	/**
 	 * Fournit le montant actuel de la caisse de l'équipe (en euros).
 	 * Valeur initiale : 300€
@@ -15,8 +37,10 @@ public interface VueJoueur {
 	 * Est décrémenté en fonction des décisions des joueurs.
 	 * @return la montant de la caisse (€)
 	 */
-	int getCaisse();
-	
+
+	public int getCaisse() {
+		return donnees.getCaisse();
+	}
 	
 	/**
 	 * Fournit l'état d'avancement de la réalisation d'une tâche pour l'équipe (en semaines).
@@ -25,21 +49,30 @@ public interface VueJoueur {
 	 * @param id : id d'une tâche
 	 * @return le nb de semaines déjà réalisés pour la tâche don l'id est passée en paramètre
 	 */
-	int getCurrent(String id);
-	
+	@Override
+	public int getCurrent(String id) {
+		return 0;
+	}
 	/**
 	 * Fournit l'identifiant de la première tâche du PERT. 
 	 * Equivalent à getDescription().getDebut().getId() . 
-	 * Le résultat sera le ùmême pour toutes les équipes.
+	 * Le résultat sera le même pour toutes les équipes.
 	 * @return id de la tâche initiale
 	 */
-	String getDebutId();
+
+	public String getDebutId() {
+
+		return description.getDebut().getId();
+	}
 	
 	/**
 	 * Retourne l'objet permettant d'acquérir la description de la configuration de jeu. 
 	 * @return L'objet contenant la description statique du jeu.
 	 */
-	Description getDescription();
+	public Description getDescription() {
+		
+		return description;
+	}
 	
 	/**
 	 * Fournit la durée réelle d'une tâche pour l'équipe.
@@ -49,8 +82,11 @@ public interface VueJoueur {
 	 * @param id de la tâche dont on veut connaitre sa durée 
 	 * @return La durée réelle d'une tâche pour l'équipe (en semaines).
 	 */
-	int 	getDuree(String id);
 	
+	public int getDuree(String id) {
+	
+		return donnees.getRealisation(id).getDuree_reelle();
+	}
 	/**
 	 * Fournit l'état courant de la réalisation. 
 	 * Directement calculée par à partie de l'état d'avancement:
@@ -60,36 +96,56 @@ public interface VueJoueur {
 	 * @param id de la tâche
 	 * @return l'état courant de la réalisation.
 	 */
-	Etat getEtat(String id);
+	
+	public Etat getEtat(String id) {
+	
+		return null;
+	}
 	
 	/**
 	 * Fournit l'identifiant de la dernière tâche du PERT. 
 	 * @return l'id de la dernière tâche du jeu 
 	 */
-	String 	getFinId();
 
-	/**
-	 * Fournit l'identifiant de la dernière tâche du PERT. Equivalent à getDescription().getDebut().getId() 
-	 * Le résultat sera le même pour toutes les équipes.
-	 * @return le nom de l'équipe sous forme d'une chaine de carcatères
-	 */
-	String 	getNom();
-	
-	/**
-	 *Fournit la qualité actuelle du produit.
-	 *La valeur initiale est de 0. Elle est décrémentée de 2 (donc 2%) selon les aleas éventuels.
-	 *La qualité finale du produit est calculée à partir de la durée de réalisation du projet et du montant restant de la caisse.
-	 *La qualité propre à chaque équipe sera ensuite déduite du résultat.
-	 * @return Le modificateur de qualité du produit pour l'équipe considérée.
-	 */
-	int 	getQualite();
+	public String getFinId() {
+
+		return description.getFin().getId();
+	}
+
+
+	public String getNom() {
+
+		return donnees.getNom();
+	}
+
+
+	public int getQualite() {
+
+		return donnees.getQualite();
+	}
 
 	/**
 	 * Active ou désactive l'accélération de la tâche (réducton de 1 de la durée réelle).
 	 * @param id de la tâche 
 	 * @param active  true pour l'activation, false pour la désactivation.
 	 */
-	void 	setAcceleration(String id, boolean active);
+	public void setAcceleration(String id, boolean active) {
+		Tache t = description.getTacheById(id);
+		if(active && ! t.isAcceleration()){
+			int newDuree = t.getDureeReelle()-1;
+			t.setDureeReelle(newDuree);
+			t.setAcceleration(true);
+			donnees.depense(t.getCoutAcceleration());
+			
+		}else {
+			int newDuree = t.getDureeReelle()+1;
+			t.setDureeReelle(newDuree);
+			t.setAcceleration(false);
+			donnees.depense(-(t.getCoutAcceleration()));
+
+		}
+		//VOIR PLACE : il faut annuler l'accélération???
+	}
 	
 	/**
 	 * Active ou désactive la protection contre un alea. 
@@ -98,18 +154,25 @@ public interface VueJoueur {
 	 * @param couleur La couleur de l'alea prévenu (ou non)
 	 * @param active   true pour l'activation, false pour la désactivation.
 	 */
-	void 	setProtection(String id, Couleur couleur, boolean active);
+	public void setProtection(String id, Couleur couleur, boolean active) {
+		Tache t = description.getTacheById(id);
+		if(active) {
+		//	t.getAlea(couleur)
+		}
+	}
+
+
+	public int getNumeroTour() {
+		return 0;
+	}
 
 	/**
-	 * Fournit le numéro du tour courant. Le tour 0 existe. c'est normalement un tour Jalon.
-	 * @return Le numéro du tour courant
+	 * @return the donnees
 	 */
-	public int getNumeroTour();
+	public DonneesJoueur getDonnees() {
+		return donnees;
+	}
 	
-	/**
-	 * Fournit les realisations pour toutes les taches
-	 * @return le tableau des realisations
-	 */
+	
 
-	public DonneesJoueur getDonnees();
 }

@@ -1,7 +1,7 @@
 package partie;
 
 import graphe.Graphe;
-import stratégie.Strategie;
+import strategie.Strategie;
 
 /**
  * @author forestav
@@ -38,11 +38,6 @@ public interface DonneesJoueur {
 	public int getCaisse();
 	
 	/**
-	 * Retourne le graphe à l'instant t.
-	 */
-	public Graphe getGraphe();
-	
-	/**
 	 * Fournit le nom de l'équipe.
 	 */
 	public String getNom();
@@ -61,10 +56,5 @@ public interface DonneesJoueur {
 	 * Fournit l'objet qui prend les décisions pour l'équipe.
 	 */
 	public Strategie getStrategie();
-	
-	/**
-	 * commentaire.
-	 */
-	public void uneSemaine();
 	
 }
