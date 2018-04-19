@@ -64,7 +64,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public Strategie getStrategie() {
-		// TODO Auto-generated method stub
 		return this.strategie;
 	}
 
@@ -73,7 +72,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		
 		for(int i = 0; i< realisations.length; i++) {
 			if(realisations[i].getEtat().equals(Etat.EN_COURS)) {
-				realisations[i].setAvancement(realisations[i].getAvancement()+1);
+				realisations[i].incrementAvancement();
 			}
 		}
 	}
@@ -81,37 +80,31 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public int getCurrent(String id) {
 		return realisations[Integer.parseInt(id)-1].getAvancement();
-		
 	}
 
 	@Override
 	public String getDebutId() {
-		// TODO Auto-generated method stub
-		return null;
+		return realisations[0].getId();
 	}
 
 	@Override
 	public Description getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return description;
 	}
 
 	@Override
 	public int getDuree(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return  realisations[Integer.parseInt(id)-1].getDuree_reelle();
 	}
 
 	@Override
 	public Etat getEtat(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return realisations[Integer.parseInt(id)-1].getEtat();
 	}
 
 	@Override
 	public String getFinId() {
-		// TODO Auto-generated method stub
-		return null;
+		return realisations[realisations.length-1].getId();
 	}
 
 	@Override
@@ -127,9 +120,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		
 	}
 
-	@Override
 	public int getNumeroTour() {
-		
 		return 0;
 	}
 	
@@ -145,11 +136,5 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 				
 		}
-	}
-
-	@Override
-	public DonneesJoueur getDonnees() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

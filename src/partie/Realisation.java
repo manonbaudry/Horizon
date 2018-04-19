@@ -43,8 +43,8 @@ public class Realisation extends UneTache{
 	/**
 	 * @param avancement the avancement to set
 	 */
-	public void setAvancement(int avancement) {
-		this.avancement = avancement;
+	public void incrementAvancement() {
+		this.avancement ++;
 	}
 
 
