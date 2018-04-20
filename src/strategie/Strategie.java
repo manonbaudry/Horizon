@@ -12,7 +12,7 @@ public interface Strategie {
 	 * 
 	 * Validation d'un tour simple.
 	 */
-	void 	jouerEtape(VueJoueur vue);
+	void 	jouerEtape(Donnees d);
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public interface Strategie {
 	 * 
 	 * Saisie des décisions d'accélération et de protection.
 	 */
-	void 	jouerJalon(VueJoueur vue);
+	void 	jouerJalon(Donnees d);
 	
 	/**
 	 * 
@@ -30,5 +30,5 @@ public interface Strategie {
 	 * 
 	 * Réponse à un quizz.
 	 */
-	void 	jouerTest(VueJoueur vue);
+	void 	jouerTest(Donnees d);
 }
