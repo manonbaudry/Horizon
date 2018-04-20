@@ -30,7 +30,7 @@ public interface VueJoueur {
 	/**
 	 * Fournit l'identifiant de la première tâche du PERT. 
 	 * Equivalent à getDescription().getDebut().getId() . 
-	 * Le résultat sera le ùmême pour toutes les équipes.
+	 * Le résultat sera le même pour toutes les équipes.
 	 * @return id de la tâche initiale
 	 */
 	String getDebutId();
@@ -105,11 +105,4 @@ public interface VueJoueur {
 	 * @return Le numéro du tour courant
 	 */
 	public int getNumeroTour();
-	
-	/**
-	 * Fournit les realisations pour toutes les taches
-	 * @return le tableau des realisations
-	 */
-
-	public DonneesJoueur getDonnees();
 }
