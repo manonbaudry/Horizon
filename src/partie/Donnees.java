@@ -1,18 +1,20 @@
 package partie;
 
+import java.util.ArrayList;
+
 import description.Couleur;
 import description.Description;
 import description.Tache;
-import graphe.Graphe;
 import strategie.Strategie;
 
 public class Donnees implements DonneesJoueur, VueJoueur{
 	private int caisse;
 	private String nom;
 	private int qualite;
-	private Realisation[] realisations;
+	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
+	private int numeroTour;
 	
 	public Donnees(String nom, Strategie strategie) {
 		super();
@@ -20,15 +22,17 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		this.nom = nom;
 		this.qualite = 0;
 		description= new Description();
-		realisations=new Realisation[description.getListe_taches().size()];
-		for(int i=0;i<realisations.length;i++) {
-			realisations[i]=new Realisation(description.getListe_taches().get(i));
+		numeroTour = 0;
+		for(Tache t : description.getListe_taches()) {
+			realisations.add(new Realisation(t.getDescription(), t.getDureeInitiale(), t.getId(), t.getCoutAcceleration()));
 		}
 		this.strategie = strategie;
 	}
 
 	@Override
-	public void actualisation(int temps) {
+	public void actualisation() {
+		setTermine();
+		setEnCours();
 		
 	}
 
@@ -59,7 +63,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public Realisation getRealisation(String id) {
-		return this.realisations[Integer.parseInt(id)-1];
+		return this.realisations.get(Integer.parseInt(id)-1);
 	}
 
 	@Override
@@ -69,22 +73,24 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public void FinDuTour() {
-		
-		for(int i = 0; i< realisations.length; i++) {
-			if(realisations[i].getEtat().equals(Etat.EN_COURS)) {
-				realisations[i].incrementAvancement();
+		for(int i = 0; i< realisations.size(); i++) {
+			if(realisations.get(i).getEtat().equals(Etat.EN_COURS)) {
+				realisations.get(i).incrementAvancement();
 			}
 		}
+		actualisation();
+		numeroTour++;
+		
 	}
 
 	@Override
 	public int getCurrent(String id) {
-		return realisations[Integer.parseInt(id)-1].getAvancement();
+		return realisations.get(Integer.parseInt(id)-1).getAvancement();
 	}
 
 	@Override
 	public String getDebutId() {
-		return realisations[0].getId();
+		return realisations.get(0).getId();
 	}
 
 	@Override
@@ -94,47 +100,56 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public int getDuree(String id) {
-		return  realisations[Integer.parseInt(id)-1].getDuree_reelle();
+		return  realisations.get(Integer.parseInt(id)-1).getDuree_reelle();
 	}
 
 	@Override
 	public Etat getEtat(String id) {
-		return realisations[Integer.parseInt(id)-1].getEtat();
+		return realisations.get(Integer.parseInt(id)-1).getEtat();
 	}
 
 	@Override
 	public String getFinId() {
-		return realisations[realisations.length-1].getId();
+		return realisations.get(realisations.size()-1).getId();
 	}
 
 	@Override
 	public void setAcceleration(String id, boolean active) {
-		realisations[Integer.parseInt(id)-1].setAcceleration(active);
-		caisse -= realisations[Integer.parseInt(id)-1].getCoutAcceleration();
+		realisations.get(Integer.parseInt(id)-1).setAcceleration(active);
+		caisse -= realisations.get(Integer.parseInt(id)-1).getCoutAcceleration();
 		
 	}
 
 	@Override
 	public void setProtection(String id, Couleur couleur, boolean active) {
-		realisations[Integer.parseInt(id)-1].
+		realisations.get(Integer.parseInt(id)-1).getProtections().put(couleur, active);
 		
 	}
 
 	public int getNumeroTour() {
-		return 0;
+		return this.numeroTour;
 	}
 	
-	public void setEnCours() {
+	private void setEnCours() {
 
-		for(int i = 0; i < realisations.length ; i++) {
+		for(int i = 0; i < realisations.size(); i++) {
 			int j = 0;
-			while( j< realisations[i].getPredecesseurs().size() && realisations[j].getEtat().equals(Etat.TERMINE) ) {
+			while( j< realisations.get(i).getPredecesseurs().size() && realisations.get(j).getEtat().equals(Etat.TERMINE) ) {
 				j++;
 			}
-			if(j==realisations[i].getPredecesseurs().size()) {
-				realisations[j].setEtat(Etat.EN_COURS);
+			if(j==realisations.get(i).getPredecesseurs().size()) {
+				realisations.get(j).setEtat(Etat.EN_COURS);
 			}
 				
 		}
 	}
+	
+	private void setTermine() {
+		for(Realisation r : realisations) {
+			if(r.getDuree_reelle() == r.getAvancement()) {
+				r.setEtat(Etat.TERMINE);
+			}
+		}
+	}
+	
 }

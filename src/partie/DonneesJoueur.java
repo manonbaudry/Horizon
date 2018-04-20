@@ -18,9 +18,8 @@ import strategie.Strategie;
 public interface DonneesJoueur {
 	/**
 	 * Méthode de calcul du niveau d'avancement d'un projet.
-	 * @param temps
 	 */
-	public void actualisation(int temps);
+	public void actualisation();
 	
 	/**
 	 * Méthode de décrémentation de la qualité du produit.

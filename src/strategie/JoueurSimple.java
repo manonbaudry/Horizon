@@ -12,43 +12,43 @@ import partie.*;
 public class JoueurSimple implements Strategie{
 
 	@Override
-	public void jouerEtape( VueJoueur vue) {
-		affichage(vue);
+	public void jouerEtape( Donnees d) {
+		affichage(d);
 		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
-		if(saisie.equals("fin")) vue.FinDuTour();
+		if(saisie.equals("fin")) d.FinDuTour();
 		 
 	}
 
 	@Override
-	public void jouerJalon( VueJoueur vue) {
-		affichage(vue);
+	public void jouerJalon( Donnees d) {
+		affichage(d);
 		//String saisieTache= JOptionPane.showInputDialog("Saisissez un numéro de tâche ");
 		//String saisieCouleur= JOptionPane.showInputDialog("Saisissez une couleur");
 		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
-		if(saisie.equals("fin")) vue.FinDuTour();
+		if(saisie.equals("fin")) d.FinDuTour();
 	}
 
 	@Override
-	public void jouerTest( VueJoueur vue) {
+	public void jouerTest( Donnees d) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	private void affichage(VueJoueur vue) {
-		String res="Tour : "+ vue.getNumeroTour()
-					+"\nNom : "+vue.getNom()
-					+"\nCaisse : "+vue.getCaisse()+"\tQualité : "+vue.getQualite()+"\n\n";
-		for(int i=0;i<vue.getDescription().getListe_taches().size();i++ ) {
-			res+=vue.getDonnees().getRealisation(Integer.toString(i+1)).toString()
-					+"\tAvancement : "+vue.getCurrent(Integer.toString(i+1))+"\n\n";
+	private void affichage(Donnees d) {
+		String res="Tour : "+ d.getNumeroTour()
+					+"\nNom : "+d.getNom()
+					+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"\n\n";
+		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
+			res+=d.getRealisation(Integer.toString(i+1)).toString()
+					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n";
 		}
 		System.out.println(res);
 	}
 
 	//test
 	public static void main(String[] args) {
-		VueJoueur vue= new Vue(new Donnees("1",new JoueurSimple()), new Description() );
-		vue.getDonnees().getStrategie().jouerEtape(vue);
+		Donnees d= new Donnees("1",new JoueurSimple());
+		d.getStrategie().jouerEtape(d);
 	} 
 	
 }
