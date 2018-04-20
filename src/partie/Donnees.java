@@ -22,6 +22,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		this.nom = nom;
 		this.qualite = 0;
 		description= new Description();
+		realisations = new ArrayList<>();
 		numeroTour = 0;
 		for(Tache t : description.getListe_taches()) {
 			realisations.add(new Realisation(t.getDescription(), t.getDureeInitiale(), t.getId(), t.getCoutAcceleration()));
