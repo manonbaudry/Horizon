@@ -7,7 +7,7 @@ public interface Alea {
 
 
 	/**
-	 * Indique la gravité d'un alea.
+	 * Indique la gravite d'un alea.
 	 * @return  Le niveau de gravité de l'alea.
 	 * */
 	public int getGravite();
