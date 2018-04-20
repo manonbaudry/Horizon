@@ -25,7 +25,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		realisations = new ArrayList<>();
 		numeroTour = 0;
 		for(Tache t : description.getListe_taches()) {
-			realisations.add(new Realisation(t.getDescription(), t.getDureeInitiale(), t.getId(), t.getCoutAcceleration()));
+			realisations.add(new Realisation(t));
 		}
 		this.strategie = strategie;
 	}
@@ -65,7 +65,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public Realisation getRealisation(String id) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) return realisation;
+			if(realisation.getTache().getId().equals(id)) return realisation;
 		}
 		return null;
 	}
@@ -90,14 +90,14 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public int getCurrent(String id) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) return realisation.getAvancement();
+			if(realisation.getTache().getId().equals(id)) return realisation.getAvancement();
 		}
 		return -1;
 	}
 
 	@Override
 	public String getDebutId() {
-		return realisations.get(0).getId();
+		return realisations.get(0).getTache().getId();
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public int getDuree(String id) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) return  realisation.getDuree_reelle();
+			if(realisation.getTache().getId().equals(id)) return  realisation.getDuree_reelle();
 		}
 		return -1;
 	}
@@ -116,22 +116,22 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public Etat getEtat(String id) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) return realisation.getEtat();
+			if(realisation.getTache().getId().equals(id)) return realisation.getEtat();
 		}
 		return null;
 	}
 
 	@Override
 	public String getFinId() {
-		return realisations.get(realisations.size()-1).getId();
+		return realisations.get(realisations.size()-1).getTache().getId();
 	}
 
 	@Override
 	public void setAcceleration(String id, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) {
+			if(realisation.getTache().getId().equals(id)) {
 				realisation.setAcceleration(active);
-				caisse -= realisation.getCoutAcceleration();
+				caisse -= realisation.getTache().getCoutAcceleration();
 			}
 		}
 	}
@@ -139,7 +139,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getId().equals(id)) realisation.getProtections().put(couleur, active);
+			if(realisation.getTache().getId().equals(id)) realisation.getProtections().put(couleur, active);
 		}
 		
 		

@@ -7,12 +7,13 @@ import java.util.HashMap;
 import description.Couleur;
 import description.Tache;
 
-public class Realisation extends UneTache{
+public class Realisation {
 	private int duree_reelle;
 	private boolean acceleration;
 	private HashMap<Couleur,Boolean> protections;
 	private Etat etat;
 	private int avancement;
+	private UneTache tamerelatache;
 
 	/**
 	 * @param description
@@ -20,9 +21,9 @@ public class Realisation extends UneTache{
 	 * @param id
 	 * @param cout
 	 */
-	public Realisation(String description, int duree_initiale, String id, int cout) {
-		super(description, duree_initiale, id, cout);
-		duree_reelle=super.getDureeInitiale();
+	public Realisation(Tache t) {
+		tamerelatache = (UneTache)t;
+		duree_reelle=t.getDureeInitiale();
 		acceleration=false;
 		protections=new HashMap<>();
 		protections.put(Couleur.ROUGE, false);
@@ -31,6 +32,7 @@ public class Realisation extends UneTache{
 		etat= Etat.NON_ENTAMEE;
 		avancement = 0;
 	}
+	
 	
 	/**
 	 * @return the avancement
@@ -109,13 +111,22 @@ public class Realisation extends UneTache{
 	@Override
 	public String toString() {
 		String protec="\t "+protections.get(Couleur.ROUGE)+"\t     "+protections.get(Couleur.JAUNE)+"\t   "+protections.get(Couleur.VERT);
-		return super.toString() 
+		return tamerelatache.toString()
 				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
+	
+	
 	public ArrayList<Tache> getPredecesseurs(){
-		return super.getPredecesseurs();
+		return tamerelatache.getPredecesseurs();
 	}
 	public ArrayList<Tache> getSuccesseurs(){
-		return super.getSuccesseurs();
+		return tamerelatache.getSuccesseurs();
 	}
+
+
+	public UneTache getTache() {
+		return tamerelatache;
+	}
+	
+	
 }

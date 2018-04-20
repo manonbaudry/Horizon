@@ -35,10 +35,12 @@ public class JoueurSimple implements Strategie{
 	}
 	
 	private void affichage(Donnees d) {
+		
 		String res="Tour : "+ d.getNumeroTour()
 					+"\nNom : "+d.getNom()
 					+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"\n\n";
 		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
+			
 			res+=d.getRealisation(Integer.toString(i+1)).toString()
 					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n";
 		}
