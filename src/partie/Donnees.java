@@ -64,7 +64,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public Realisation getRealisation(String id) {
-		return this.realisations.get(Integer.parseInt(id)-1);
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) return realisation;
+		}
+		return null;
 	}
 
 	@Override
@@ -86,7 +89,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public int getCurrent(String id) {
-		return realisations.get(Integer.parseInt(id)-1).getAvancement();
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) return realisation.getAvancement();
+		}
+		return -1;
 	}
 
 	@Override
@@ -101,12 +107,18 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public int getDuree(String id) {
-		return  realisations.get(Integer.parseInt(id)-1).getDuree_reelle();
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) return  realisation.getDuree_reelle();
+		}
+		return -1;
 	}
 
 	@Override
 	public Etat getEtat(String id) {
-		return realisations.get(Integer.parseInt(id)-1).getEtat();
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) return realisation.getEtat();
+		}
+		return null;
 	}
 
 	@Override
@@ -116,14 +128,20 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public void setAcceleration(String id, boolean active) {
-		realisations.get(Integer.parseInt(id)-1).setAcceleration(active);
-		caisse -= realisations.get(Integer.parseInt(id)-1).getCoutAcceleration();
-		
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) {
+				realisation.setAcceleration(active);
+				caisse -= realisation.getCoutAcceleration();
+			}
+		}
 	}
 
 	@Override
 	public void setProtection(String id, Couleur couleur, boolean active) {
-		realisations.get(Integer.parseInt(id)-1).getProtections().put(couleur, active);
+		for (Realisation realisation : realisations) {
+			if(realisation.getId().equals(id)) realisation.getProtections().put(couleur, active);
+		}
+		
 		
 	}
 
