@@ -83,8 +83,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 		}
 		actualisation();
-		numeroTour++;
-		
+		numeroTour++;	
 	}
 
 	@Override
