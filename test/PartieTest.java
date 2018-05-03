@@ -1,10 +1,11 @@
-package partie;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import partie.*;
+import description.*;
 import description.Couleur;
 import description.Description;
 
@@ -21,7 +22,7 @@ public class PartieTest {
 	static final String NOM_JOUEUR = "NOM_JOUEUR";
 	Description description;
 	Partie partie;
-	DonneesJoueur donneesJoueur;
+	Donnees donneesJoueur;
 	
 	/**
 	 * Initialisation avant chaque test.
@@ -33,7 +34,7 @@ public class PartieTest {
 	 */
 	@Before
 	public void init() {
-		description = new DescriptionProjet();
+		description = new Description();
 		Partie partie = new Partie(description, new String[] {NOM_JOUEUR});
 		donneesJoueur = partie.getVueJoueur(NOM_JOUEUR);
 	}
@@ -66,7 +67,7 @@ public class PartieTest {
 	public void test_effet_alea_BB() {
 		partie.passerTour();  //passer le tour 1
 		partie.tourSemaine(Couleur.JAUNE);
-		assertEquals(4, donneesJoueur.getRealisation("1").getDuree());
+		assertEquals(4, donneesJoueur.getRealisation("1").getDuree_reelle());
 	}
 
 }
