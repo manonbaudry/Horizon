@@ -21,18 +21,31 @@ public class JoueurSimple implements Strategie{
 
 	@Override
 	public void jouerJalon( Donnees d) {
+		Integer acceleration;
 		affichage(d);
 		//String saisieCouleur= JOptionPane.showConfirmDialog(null, "Voulez-vous protéger?",  JOptionPane.YES_NO_OPTION);
-		Integer oui = JOptionPane.showConfirmDialog(null , "Desirez-vous protéger?");
+		Integer protection = JOptionPane.showConfirmDialog(null , "Desirez-vous protéger?");
 		//System.out.println(oui);
-		if(oui == 0){
+		if(protection == 0){
 			String saisietache= JOptionPane.showInputDialog("Quelle tache à proteger?");
 			String saisieCouleur = JOptionPane.showInputDialog("Quelle couleur?");
 				if(saisieCouleur.equals("Rouge") || saisieCouleur.equals("rouge")) d.setProtection(saisietache, Couleur.ROUGE, true);
 				if(saisieCouleur.equals("Vert") || saisieCouleur.equals("vert")) d.setProtection(saisietache, Couleur.VERT, true);
 				if(saisieCouleur.equals("Jaune") || saisieCouleur.equals("jaune")) d.setProtection(saisietache, Couleur.JAUNE, true);
-				d.depense(1);
+				d.depense(10);
 		}
+		
+		do {
+		 acceleration = JOptionPane.showConfirmDialog(null , "Desirez-vous accélerer?");
+		 if(acceleration != 1 ) {
+		 String saisieTache= JOptionPane.showInputDialog("Quelle tache à accélerer?");
+		 d.setAcceleration(saisieTache, true);
+		// d.depense(d.getRealisation(saisieTache).getTache().getCoutAcceleration()/2);
+		 }
+		 affichage(d);
+		}while(acceleration != 1);
+		
+		
 		//d.actualisation();
 		
 		affichage(d);

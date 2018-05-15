@@ -35,11 +35,10 @@ public class Realisation {
 		return avancement;
 	}
 	
-	public boolean isProtectedSaraConnor(Couleur couleur) {
+	public boolean isProtected(Couleur couleur) {
 		return protections.get(couleur);
 	}
-
-
+	
 	/**
 	 * @param avancement the avancement to set
 	 */

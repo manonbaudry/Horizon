@@ -59,9 +59,9 @@ public class Partie {
 	public void tourSemaine(Couleur couleur) {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			Realisation salur = donnees_joueurs[i].getRealisation(donnees_joueurs[i].getNumeroTour());
-			if(!salur.isProtectedSaraConnor(couleur)) {
+			if(!salur.isProtected(couleur)) {
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
-					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite());
+					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite()*10);
 				}	
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
 					donnees_joueurs[i].baisseQualite(salur.getTache().getAlea(couleur).getGravite());

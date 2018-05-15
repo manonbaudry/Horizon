@@ -44,7 +44,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public void depense(int somme) {
-		this.caisse-=(somme*10);
+		this.caisse-=somme;
 	}
 
 	@Override
