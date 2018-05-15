@@ -24,7 +24,6 @@ public interface DonneesJoueur {
 	/**
 	 * Méthode de décrémentation de la qualité du produit.
 	 */
-	public void baisseQualite(int detlta);
 	
 	/**
 	 * Méthode qui met à jour la cagnotte du Joueur en lui retirant la "somme".
@@ -44,7 +43,7 @@ public interface DonneesJoueur {
 	/**
 	 * Fournit la qualité actuelle du produit.
 	 */
-	public int getQualite();
+	public double getQualite();
 	
 	/**
 	 * 
@@ -55,5 +54,7 @@ public interface DonneesJoueur {
 	 * Fournit l'objet qui prend les décisions pour l'équipe.
 	 */
 	public Strategie getStrategie();
+
+	void baisseQualite(int chauve);
 	
 }

@@ -15,12 +15,6 @@ public class Realisation {
 	private int avancement;
 	private UneTache tamerelatache;
 
-	/**
-	 * @param description
-	 * @param duree_initiale
-	 * @param id
-	 * @param cout
-	 */
 	public Realisation(Tache t) {
 		tamerelatache = (UneTache)t;
 		duree_reelle=t.getDureeInitiale();
@@ -39,6 +33,10 @@ public class Realisation {
 	 */
 	public int getAvancement() {
 		return avancement;
+	}
+	
+	public boolean isProtectedSaraConnor(Couleur couleur) {
+		return protections.get(couleur);
 	}
 
 
@@ -65,6 +63,12 @@ public class Realisation {
 		this.acceleration = acceleration;
 		duree_reelle --;
 		
+	}
+	
+	public void ajoutDelai(int gravitay) {
+		System.out.println("la gravité est : " + gravitay);
+		this.duree_reelle += gravitay;
+		System.out.println(" ce qui donne : " + this.duree_reelle);
 	}
 
 
@@ -127,6 +131,7 @@ public class Realisation {
 	public UneTache getTache() {
 		return tamerelatache;
 	}
+	
 	
 	
 }

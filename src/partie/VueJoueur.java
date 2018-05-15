@@ -82,7 +82,7 @@ public interface VueJoueur {
 	 *La qualité propre à chaque équipe sera ensuite déduite du résultat.
 	 * @return Le modificateur de qualité du produit pour l'équipe considérée.
 	 */
-	int 	getQualite();
+	double 	getQualite();
 
 	/**
 	 * Active ou désactive l'accélération de la tâche (réducton de 1 de la durée réelle).

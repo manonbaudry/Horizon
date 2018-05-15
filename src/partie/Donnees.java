@@ -10,7 +10,7 @@ import strategie.Strategie;
 public class Donnees implements DonneesJoueur, VueJoueur{
 	private int caisse;
 	private String nom;
-	private int qualite;
+	private double qualite;
 	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
@@ -38,13 +38,15 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	}
 
 	@Override
-	public void baisseQualite(int delta) {
-		this.qualite=this.qualite-delta;
+	public void baisseQualite(int gravite) {
+		this.qualite*=(0.98*gravite);
 	}
 
 	@Override
 	public void depense(int somme) {
-		this.caisse=this.caisse-somme;
+		System.out.println(somme*10 + "c'est la somme");
+		this.caisse-=(somme*10);
+		System.out.println(caisse + " caisse xlvgkopfj");
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	}
 
 	@Override
-	public int getQualite() {
+	public double getQualite() {
 		return this.qualite;
 	}
 
@@ -68,6 +70,9 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(realisation.getTache().getId().equals(id)) return realisation;
 		}
 		return null;
+	}
+	public Realisation getRealisation(int numeroTour) {
+		return realisations.get(numeroTour);
 	}
 
 	@Override
@@ -169,5 +174,14 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Donnees [caisse=" + caisse + ", nom=" + nom + ", qualite=" + qualite + ", realisations=" + realisations
+				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
+	}
+	
+	
+
 	
 }
