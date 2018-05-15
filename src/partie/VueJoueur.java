@@ -6,7 +6,7 @@ public interface VueJoueur {
 	/**
 	 * Termine le tour pour le joueur courant. 
 	 */
-	void 	FinDuTour();
+	public void 	FinDuTour();
 	
 	/**
 	 * Fournit le montant actuel de la caisse de l'équipe (en euros).
@@ -15,7 +15,7 @@ public interface VueJoueur {
 	 * Est décrémenté en fonction des décisions des joueurs.
 	 * @return la montant de la caisse (€)
 	 */
-	int getCaisse();
+	public int getCaisse();
 	
 	
 	/**
@@ -25,7 +25,7 @@ public interface VueJoueur {
 	 * @param id : id d'une tâche
 	 * @return le nb de semaines déjà réalisés pour la tâche don l'id est passée en paramètre
 	 */
-	int getCurrent(String id);
+	public int getCurrent(String id);
 	
 	/**
 	 * Fournit l'identifiant de la première tâche du PERT. 
@@ -33,13 +33,13 @@ public interface VueJoueur {
 	 * Le résultat sera le même pour toutes les équipes.
 	 * @return id de la tâche initiale
 	 */
-	String getDebutId();
+	public String getDebutId();
 	
 	/**
 	 * Retourne l'objet permettant d'acquérir la description de la configuration de jeu. 
 	 * @return L'objet contenant la description statique du jeu.
 	 */
-	Description getDescription();
+	public Description getDescription();
 	
 	/**
 	 * Fournit la durée réelle d'une tâche pour l'équipe.
@@ -49,7 +49,7 @@ public interface VueJoueur {
 	 * @param id de la tâche dont on veut connaitre sa durée 
 	 * @return La durée réelle d'une tâche pour l'équipe (en semaines).
 	 */
-	int 	getDuree(String id);
+	public int 	getDuree(String id);
 	
 	/**
 	 * Fournit l'état courant de la réalisation. 
@@ -60,20 +60,20 @@ public interface VueJoueur {
 	 * @param id de la tâche
 	 * @return l'état courant de la réalisation.
 	 */
-	Etat getEtat(String id);
+	public Etat getEtat(String id);
 	
 	/**
 	 * Fournit l'identifiant de la dernière tâche du PERT. 
 	 * @return l'id de la dernière tâche du jeu 
 	 */
-	String 	getFinId();
+	public String 	getFinId();
 
 	/**
 	 * Fournit l'identifiant de la dernière tâche du PERT. Equivalent à getDescription().getDebut().getId() 
 	 * Le résultat sera le même pour toutes les équipes.
 	 * @return le nom de l'équipe sous forme d'une chaine de carcatères
 	 */
-	String 	getNom();
+	public String 	getNom();
 	
 	/**
 	 *Fournit la qualité actuelle du produit.
@@ -82,14 +82,14 @@ public interface VueJoueur {
 	 *La qualité propre à chaque équipe sera ensuite déduite du résultat.
 	 * @return Le modificateur de qualité du produit pour l'équipe considérée.
 	 */
-	double 	getQualite();
+	public int 	getQualite();
 
 	/**
 	 * Active ou désactive l'accélération de la tâche (réducton de 1 de la durée réelle).
 	 * @param id de la tâche 
 	 * @param active  true pour l'activation, false pour la désactivation.
 	 */
-	void 	setAcceleration(String id, boolean active);
+	public void 	setAcceleration(String id, boolean active);
 	
 	/**
 	 * Active ou désactive la protection contre un alea. 
@@ -98,7 +98,7 @@ public interface VueJoueur {
 	 * @param couleur La couleur de l'alea prévenu (ou non)
 	 * @param active   true pour l'activation, false pour la désactivation.
 	 */
-	void 	setProtection(String id, Couleur couleur, boolean active);
+	public void 	setProtection(String id, Couleur couleur, boolean active);
 
 	/**
 	 * Fournit le numéro du tour courant. Le tour 0 existe. c'est normalement un tour Jalon.

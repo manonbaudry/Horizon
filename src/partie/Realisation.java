@@ -66,9 +66,7 @@ public class Realisation {
 	}
 	
 	public void ajoutDelai(int gravitay) {
-		System.out.println("la gravité est : " + gravitay);
 		this.duree_reelle += gravitay;
-		System.out.println(" ce qui donne : " + this.duree_reelle);
 	}
 
 

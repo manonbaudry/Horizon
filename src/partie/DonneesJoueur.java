@@ -43,7 +43,7 @@ public interface DonneesJoueur {
 	/**
 	 * Fournit la qualité actuelle du produit.
 	 */
-	public double getQualite();
+	public int getQualite();
 	
 	/**
 	 * 
@@ -55,6 +55,6 @@ public interface DonneesJoueur {
 	 */
 	public Strategie getStrategie();
 
-	void baisseQualite(int chauve);
+	void baisseQualite(int gravite);
 	
 }

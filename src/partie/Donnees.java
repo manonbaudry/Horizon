@@ -10,7 +10,7 @@ import strategie.Strategie;
 public class Donnees implements DonneesJoueur, VueJoueur{
 	private int caisse;
 	private String nom;
-	private double qualite;
+	private int qualite;
 	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
@@ -20,7 +20,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		super();
 		this.caisse = 300;
 		this.nom = nom;
-		this.qualite = 0;
+		this.qualite = 100;
 		description= new Description();
 		realisations = new ArrayList<>();
 		numeroTour = 0;
@@ -39,14 +39,12 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	@Override
 	public void baisseQualite(int gravite) {
-		this.qualite*=(0.98*gravite);
+		this.qualite=(int)(qualite*(0.98*gravite));
 	}
 
 	@Override
 	public void depense(int somme) {
-		System.out.println(somme*10 + "c'est la somme");
 		this.caisse-=(somme*10);
-		System.out.println(caisse + " caisse xlvgkopfj");
 	}
 
 	@Override
@@ -60,7 +58,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	}
 
 	@Override
-	public double getQualite() {
+	public int getQualite() {
 		return this.qualite;
 	}
 
