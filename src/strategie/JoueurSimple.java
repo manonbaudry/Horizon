@@ -29,9 +29,10 @@ public class JoueurSimple implements Strategie{
 		if(protection == 0){
 			String saisietache= JOptionPane.showInputDialog("Quelle tache à proteger?");
 			String saisieCouleur = JOptionPane.showInputDialog("Quelle couleur?");
-				if(saisieCouleur.equals("Rouge") || saisieCouleur.equals("rouge")) d.setProtection(saisietache, Couleur.ROUGE, true);
-				if(saisieCouleur.equals("Vert") || saisieCouleur.equals("vert")) d.setProtection(saisietache, Couleur.VERT, true);
-				if(saisieCouleur.equals("Jaune") || saisieCouleur.equals("jaune")) d.setProtection(saisietache, Couleur.JAUNE, true);
+			saisieCouleur.toLowerCase();
+				if(saisieCouleur.equals("rouge")) d.setProtection(saisietache, Couleur.ROUGE, true);
+				if(saisieCouleur.equals("vert")) d.setProtection(saisietache, Couleur.VERT, true);
+				if(saisieCouleur.equals("jaune")) d.setProtection(saisietache, Couleur.JAUNE, true);
 				d.depense(10);
 		}
 		
