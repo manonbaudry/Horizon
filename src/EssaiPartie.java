@@ -5,7 +5,7 @@ public class EssaiPartie {
 
 	public static void main(String [] args) {
 		Donnees joueur = new Donnees("j1", new JoueurSimple());
-		joueur.getStrategie().jouerEtape(joueur);
+		joueur.getStrategie().jouerSemaine(joueur);
 		
 		
 		}

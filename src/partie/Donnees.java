@@ -142,6 +142,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
 			if(realisation.getTache().getId().equals(id)) realisation.getProtections().put(couleur, active);
+
 		}
 		
 		

@@ -22,7 +22,8 @@ public class Partie {
 		this.description = description;
 		this.nom_joueurs = nom_joueurs;
 		donnees_joueurs = new Donnees[nom_joueurs.length];
-		this.tours = new Tour[] {Tour.JALON,
+		this.tours = new Tour[] {
+				Tour.JALON,
 				Tour.ALEA,
 				Tour.ALEA,
 				Tour.ALEA,
@@ -42,6 +43,7 @@ public class Partie {
 	}
 
 	public void passerTour() {
+		
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].FinDuTour();
 		}
@@ -58,7 +60,7 @@ public class Partie {
 
 	public void tourSemaine(Couleur couleur) {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			Realisation salur = donnees_joueurs[i].getRealisation(donnees_joueurs[i].getNumeroTour());
+			Realisation salur = donnees_joueurs[i].getRealisation(donnees_joueurs[i].getNumeroTour()-1);
 			if(!salur.isProtected(couleur)) {
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite()*10);
@@ -70,6 +72,7 @@ public class Partie {
 					salur.ajoutDelai(salur.getTache().getAlea(couleur).getGravite());
 				}
 			}
+			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);			
 		}
 	}
 	
@@ -78,8 +81,9 @@ public class Partie {
 	
 	public void tourJalon() {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);
+			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);			
 		}
+		this.passerTour();
 	}
 	
 	public void tourFinal() {
@@ -89,6 +93,9 @@ public class Partie {
 	public static void main(String[] args) {
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
 		partie.tourJalon();
+		partie.tourSemaine(Couleur.VERT);
+		partie.tourSemaine(Couleur.VERT);
+		partie.tourSemaine(Couleur.VERT);
 	}
 
 }

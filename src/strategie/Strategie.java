@@ -12,7 +12,7 @@ public interface Strategie {
 	 * 
 	 * Validation d'un tour simple.
 	 */
-	void 	jouerEtape(Donnees d);
+	void 	jouerSemaine(Donnees d);
 
 	/**
 	 * 
@@ -30,5 +30,5 @@ public interface Strategie {
 	 * 
 	 * Réponse à un quizz.
 	 */
-	void 	jouerTest(Donnees d);
+	void 	jouerQuizz(Donnees d);
 }
