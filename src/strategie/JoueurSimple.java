@@ -22,10 +22,22 @@ public class JoueurSimple implements Strategie{
 	@Override
 	public void jouerJalon( Donnees d) {
 		affichage(d);
-		//String saisieTache= JOptionPane.showInputDialog("Saisissez un numéro de tâche ");
-		//String saisieCouleur= JOptionPane.showInputDialog("Saisissez une couleur");
-		String saisie= JOptionPane.showInputDialog("Saisissez \"fin\" pour finir le tour");
-		if(saisie.equals("fin")) d.FinDuTour();
+		//String saisieCouleur= JOptionPane.showConfirmDialog(null, "Voulez-vous protéger?",  JOptionPane.YES_NO_OPTION);
+		Integer oui = JOptionPane.showConfirmDialog(null , "Desirez-vous protéger?");
+		//System.out.println(oui);
+		if(oui == 0){
+			String saisietache= JOptionPane.showInputDialog("Quelle tache à proteger?");
+			String saisieCouleur = JOptionPane.showInputDialog("Quelle couleur?");
+				if(saisieCouleur.equals("Rouge") || saisieCouleur.equals("rouge")) d.setProtection(saisietache, Couleur.ROUGE, true);
+				if(saisieCouleur.equals("Vert") || saisieCouleur.equals("vert")) d.setProtection(saisietache, Couleur.VERT, true);
+				if(saisieCouleur.equals("Jaune") || saisieCouleur.equals("jaune")) d.setProtection(saisietache, Couleur.JAUNE, true);
+				d.depense(1);
+		}
+		//d.actualisation();
+		
+		affichage(d);
+		
+		
 	}
 
 	@Override
@@ -38,7 +50,7 @@ public class JoueurSimple implements Strategie{
 		
 		String res="Tour : "+ d.getNumeroTour()
 					+"\nNom : "+d.getNom()
-					+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"\n\n";
+					+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"%\n\n";
 		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
 			
 			res+=d.getRealisation(Integer.toString(i+1)).toString()
@@ -50,7 +62,7 @@ public class JoueurSimple implements Strategie{
 	//test
 	public static void main(String[] args) {
 		Donnees d= new Donnees("1",new JoueurSimple());
-		d.getStrategie().jouerEtape(d);
+		d.getStrategie().jouerJalon(d);
 	} 
 	
 }

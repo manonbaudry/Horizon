@@ -12,6 +12,11 @@ public enum Tour {
 	/**
 	 * tirage d'un aléa
 	 */
-	ALEA;
+	ALEA,
+	
+	/**
+	 * Tour final 
+	 */
+	FINAL;
 	
 }

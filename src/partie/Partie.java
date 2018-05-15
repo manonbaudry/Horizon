@@ -1,5 +1,9 @@
 package partie;
 
+import javax.swing.JOptionPane;
+
+import com.sun.java_cup.internal.runtime.Scanner;
+
 import description.Alea;
 import description.Couleur;
 import description.Description;
@@ -10,12 +14,28 @@ public class Partie {
 	private Description description;
 	private String[] nom_joueurs;
 	private Donnees[] donnees_joueurs;
+	private Tour[] tours;
+	private Tour letour;
 
 
 	public Partie(Description description, String[] nom_joueurs) {
 		this.description = description;
 		this.nom_joueurs = nom_joueurs;
 		donnees_joueurs = new Donnees[nom_joueurs.length];
+		this.tours = new Tour[] {Tour.JALON,
+				Tour.ALEA,
+				Tour.ALEA,
+				Tour.ALEA,
+				Tour.ALEA,
+				Tour.QUIZZ,
+				Tour.JALON,
+				Tour.ALEA,
+				Tour.ALEA,
+				Tour.ALEA,
+				Tour.QUIZZ,
+				Tour.ALEA,
+				Tour.FINAL};
+		this.letour = tours[0];
 		for(int i=0; i<nom_joueurs.length; i++) {
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
@@ -25,6 +45,8 @@ public class Partie {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].FinDuTour();
 		}
+		letour = tours[donnees_joueurs[0].getNumeroTour()];
+		
 	}
 
 	public Donnees getVueJoueur(String nom) {
@@ -39,28 +61,34 @@ public class Partie {
 			Realisation salur = donnees_joueurs[i].getRealisation(donnees_joueurs[i].getNumeroTour());
 			if(!salur.isProtectedSaraConnor(couleur)) {
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
-					System.out.println("tg virgil cout");
 					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite());
 				}	
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
-					System.out.println("tg virgil qualite");
 					donnees_joueurs[i].baisseQualite(salur.getTache().getAlea(couleur).getGravite());
 				}
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.DELAI)) {
-					System.out.println("tg virgil delai ");
 					salur.ajoutDelai(salur.getTache().getAlea(couleur).getGravite());
 				}
 			}
 		}
 	}
 	
-	public String toString(){
-		return "oui";
+	public void tourQuizz() {
+	}
+	
+	public void tourJalon() {
+		for (int i = 0; i < donnees_joueurs.length; i++) {
+			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);
+		}
+	}
+	
+	public void tourFinal() {
+		
 	}
 	
 	public static void main(String[] args) {
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
-		System.out.println(partie);
+		partie.tourJalon();
 	}
 
 }
