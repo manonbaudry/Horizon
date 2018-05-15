@@ -23,9 +23,7 @@ public class JoueurSimple implements Strategie{
 	public void jouerJalon( Donnees d) {
 		Integer acceleration;
 		affichage(d);
-		//String saisieCouleur= JOptionPane.showConfirmDialog(null, "Voulez-vous protéger?",  JOptionPane.YES_NO_OPTION);
 		Integer protection = JOptionPane.showConfirmDialog(null , "Desirez-vous protéger?");
-		//System.out.println(oui);
 		if(protection == 0){
 			String saisietache= JOptionPane.showInputDialog("Quelle tache à proteger?");
 			String saisieCouleur = JOptionPane.showInputDialog("Quelle couleur?");
@@ -41,14 +39,9 @@ public class JoueurSimple implements Strategie{
 		 if(acceleration != 1 ) {
 		 String saisieTache= JOptionPane.showInputDialog("Quelle tache à accélerer?");
 		 d.setAcceleration(saisieTache, true);
-		// d.depense(d.getRealisation(saisieTache).getTache().getCoutAcceleration()/2);
 		 }
 		 affichage(d);
-		}while(acceleration != 1);
-		
-		
-		//d.actualisation();
-		
+		}while(acceleration != 1);		
 		affichage(d);
 		
 		

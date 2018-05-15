@@ -131,7 +131,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	@Override
 	public void setAcceleration(String id, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getTache().getId().equals(id)) {
+			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id)) {
 				realisation.setAcceleration(active);
 				caisse -= realisation.getTache().getCoutAcceleration();
 			}
