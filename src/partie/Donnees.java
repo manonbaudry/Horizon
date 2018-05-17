@@ -15,7 +15,8 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private Strategie strategie;
 	private Description description;
 	private int numeroTour;
-	
+	private boolean realisationUnePassee = false;
+
 	public Donnees(String nom, Strategie strategie) {
 		super();
 		this.caisse = 300;
@@ -34,8 +35,24 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public void actualisation() {
 		setTermine();
 		setEnCours();
-		
+
 	}
+
+	private ArrayList<Realisation> getPredecesseurs(Realisation r){
+		ArrayList<Realisation> pred = new ArrayList<>();
+		for (int i = 0; i < realisations.indexOf(r); i++) {
+			if(realisations.get(i).getTache().isPrecedesseur(r.getTache())) {
+				pred.add(realisations.get(i));		
+				//System.out.println( (i) +  " est le predecesseur de " + (realisations.indexOf(r)) + '\n' );
+			}
+
+			//System.out.println(pred);
+
+		}
+		return pred;
+	}
+
+
 
 	@Override
 	public void baisseQualite(int gravite) {
@@ -144,34 +161,62 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(realisation.getTache().getId().equals(id)) realisation.getProtections().put(couleur, active);
 
 		}
-		
-		
+
+
 	}
 
 	public int getNumeroTour() {
 		return this.numeroTour;
 	}
-	
-	private void setEnCours() {
 
+	private void setEnCours() {
+		/*ArrayList<Realisation> salut = getPredecesseurs(realisations.get(3));
 		for(int i = 0; i < realisations.size(); i++) {
+			//ArrayList<Realisation> salut = getPredecesseurs(realisations.get(i));
+			//System.out.println(" realisation " + i + " " + salut + " ____________________________");
 			int j = 0;
-			while( j< realisations.get(i).getPredecesseurs().size() && realisations.get(j).getEtat().equals(Etat.TERMINE) ) {
+			while( j<= realisations.get(i).getPredecesseurs().size() && realisations.get(i).getEtat().equals(Etat.TERMINE) ) {
 				j++;
+				System.out.println(" j = " + j );
 			}
 			if(j==realisations.get(i).getPredecesseurs().size()) {
-				realisations.get(j).setEtat(Etat.EN_COURS);
+				realisations.get(i).setEtat(Etat.EN_COURS);
+				System.out.println( realisations.get(i).getTache().getId() + " en cours ");
 			}
-				
+		}	*/
+		if(! realisationUnePassee) {
+			realisations.get(0).setEtat(Etat.EN_COURS);
+			realisationUnePassee = true;
 		}
-	}
+		boolean terminés = true;
+		for (Realisation realisation : realisations) {
+
+			ArrayList<Realisation> predecents = getPredecesseurs(realisation);
+			for (Realisation pred : predecents) {
+				if( !pred.getEtat().equals(Etat.TERMINE)) {
+					terminés = false;
+				}
+			}
+			if(terminés && realisationUnePassee && ! realisation.equals(realisations.get(0))) {
+				realisation.setEtat(Etat.EN_COURS);
+				
+				System.out.println( realisation.getTache().getId() + " en cours ");
+				terminés = false;
+				
+			}
+			
+		}
 	
+	}
+
 	private void setTermine() {
 		for(Realisation r : realisations) {
 			if(r.getDuree_reelle() == r.getAvancement()) {
 				r.setEtat(Etat.TERMINE);
+				System.out.println( r.getTache().getId() + " terminé");
 			}
 		}
+
 	}
 
 	@Override
@@ -179,8 +224,8 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return "Donnees [caisse=" + caisse + ", nom=" + nom + ", qualite=" + qualite + ", realisations=" + realisations
 				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
 	}
-	
-	
 
-	
+
+
+
 }

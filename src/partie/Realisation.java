@@ -43,7 +43,7 @@ public class Realisation {
 	 * @param avancement the avancement to set
 	 */
 	public void incrementAvancement() {
-		this.avancement ++;
+			this.avancement ++;
 	}
 
 
@@ -127,6 +127,12 @@ public class Realisation {
 
 	public UneTache getTache() {
 		return tamerelatache;
+	}
+	
+	public void setEnCours() {
+		for(Tache t : tamerelatache.getPredecesseurs()) {
+			
+		}
 	}
 	
 	

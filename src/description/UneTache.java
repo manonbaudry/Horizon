@@ -31,6 +31,15 @@ public class UneTache implements Tache {
 		successeurs=new ArrayList<>();
 		
 	}
+	
+	public boolean isPrecedesseur(Tache t) {
+	
+		if(t.getPredecesseurs().contains(this)) {
+			//System.out.println(this.getId() + " est prédecesseur de " + t.getId());
+			return true;
+		}
+		return false;
+	}
 
 	public int getCoutAcceleration() {
 		return this.cout_aceleration;
