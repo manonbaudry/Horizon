@@ -27,6 +27,10 @@ public class Realisation {
 		avancement = 0;
 	}
 	
+	public boolean estTerminee() {
+		if(this.getEtat().equals(Etat.TERMINE)) return true;
+		return false;
+	}
 	
 	/**
 	 * @return the avancement
@@ -111,7 +115,7 @@ public class Realisation {
 	 */
 	@Override
 	public String toString() {
-		String protec="\t "+protections.get(Couleur.ROUGE)+"\t     "+protections.get(Couleur.JAUNE)+"\t   "+protections.get(Couleur.VERT);
+		String protec="\t "+protections.get(Couleur.ROUGE)+" (R) " + "   "+protections.get(Couleur.JAUNE)+" (J) " + "   "+protections.get(Couleur.VERT) + " (V) ";
 		return tamerelatache.toString()
 				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
@@ -130,9 +134,11 @@ public class Realisation {
 	}
 	
 	public void setEnCours() {
-		for(Tache t : tamerelatache.getPredecesseurs()) {
-			
-		}
+		this.etat = Etat.EN_COURS;
+	}
+	
+	public void setTerminee() {
+		this.etat = Etat.TERMINE;
 	}
 	
 	

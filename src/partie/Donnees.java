@@ -37,13 +37,24 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		setEnCours();
 
 	}
+	
+	public boolean PrecedentesTerminees(Realisation r) {
+		for(Realisation pred : getPredecesseurs(r)) {
+			if(!pred.estTerminee()) return false;
+		}
+		return true;
+	}
+	
+	public void DemarrerRealisation(Realisation r) {
+		
+	}
 
 	private ArrayList<Realisation> getPredecesseurs(Realisation r){
 		ArrayList<Realisation> pred = new ArrayList<>();
 		for (int i = 0; i < realisations.indexOf(r); i++) {
 			if(realisations.get(i).getTache().isPrecedesseur(r.getTache())) {
 				pred.add(realisations.get(i));		
-				//System.out.println( (i) +  " est le predecesseur de " + (realisations.indexOf(r)) + '\n' );
+			//	System.out.println( (i) +  " est le predecesseur de " + (realisations.indexOf(r)) + '\n' );
 			}
 
 			//System.out.println(pred);
@@ -185,34 +196,40 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 		}	*/
 		if(! realisationUnePassee) {
-			realisations.get(0).setEtat(Etat.EN_COURS);
+			realisations.get(0).setEnCours();
+			realisations.get(0).incrementAvancement();
 			realisationUnePassee = true;
 		}
-		boolean terminés = true;
-		for (Realisation realisation : realisations) {
 
-			ArrayList<Realisation> predecents = getPredecesseurs(realisation);
-			for (Realisation pred : predecents) {
-				if( !pred.getEtat().equals(Etat.TERMINE)) {
-					terminés = false;
+			//boolean terminés = true;
+			for (Realisation realisation : realisations) {
+			//	System.out.println(realisation.getTache().getId());
+			//	ArrayList<Realisation> predecents = getPredecesseurs(realisation);
+			/*	for (Realisation pred : predecents) {
+					if( pred.estTerminee() == false) {						
+						System.out.println(" realisation "+ pred.getTache().getId() + " terminée ");
+						terminés = false;
+					}
+				
+				}*/
+
+				if(!realisation.estTerminee() && realisationUnePassee && PrecedentesTerminees(realisation) &&  ! realisation.equals(realisations.get(0))) {
+					realisation.setEnCours();
+
+				//	System.out.println( realisation.getTache().getId() + " en cours ");
+				//	terminés = false;
+
 				}
-			}
-			if(terminés && realisationUnePassee && ! realisation.equals(realisations.get(0))) {
-				realisation.setEtat(Etat.EN_COURS);
-				
-				System.out.println( realisation.getTache().getId() + " en cours ");
-				terminés = false;
-				
-			}
+
 			
 		}
-	
+
 	}
 
 	private void setTermine() {
 		for(Realisation r : realisations) {
 			if(r.getDuree_reelle() == r.getAvancement()) {
-				r.setEtat(Etat.TERMINE);
+				r.setTerminee();
 				System.out.println( r.getTache().getId() + " terminé");
 			}
 		}

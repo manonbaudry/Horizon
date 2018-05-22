@@ -39,7 +39,7 @@ public class JoueurSimple implements Strategie{
 		}while(acceleration != 1);
 	
 		affichage(d);
-		//d.FinDuTour();
+		d.FinDuTour();
 
 		//affichage(d);
 	}
@@ -57,9 +57,9 @@ public class JoueurSimple implements Strategie{
 		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
 
 			res+=d.getRealisation(Integer.toString(i+1)).toString()
-					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n";
+					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n" +  '\n' + "______________" + "\n\n";
 		}
-		System.out.println(res);
+		System.out.println(res );
 	}
 
 	//test

@@ -72,7 +72,8 @@ public class Partie {
 					salur.ajoutDelai(salur.getTache().getAlea(couleur).getGravite());
 				}
 			}
-			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);			
+			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);	
+			System.out.println("La couleur " + couleur.toString() + " a été tirée cette semaine" + '\n' + "_________________________________");
 		}
 	}
 	
@@ -83,7 +84,7 @@ public class Partie {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);			
 		}
-		this.passerTour();
+		//this.passerTour();
 	}
 	
 	public void tourFinal() {
@@ -98,6 +99,8 @@ public class Partie {
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
+		partie.tourSemaine(Couleur.VERT);
+
 
 		
 		
