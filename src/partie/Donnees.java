@@ -30,6 +30,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		this.strategie = strategie;
 	}
+	
+	public ArrayList<Realisation> getRealisation(){
+		return realisations;
+	}
 
 	@Override
 	public void actualisation() {

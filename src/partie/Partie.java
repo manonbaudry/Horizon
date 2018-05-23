@@ -41,6 +41,19 @@ public class Partie {
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
 	}
+	
+	public int unTourUneTache() {
+		if(this.donnees_joueurs[0].getNumeroTour() >= this.donnees_joueurs[0].getRealisation().size()) {
+			//System.out.println("dépassement");
+			return this.donnees_joueurs[0].getRealisation().size()-1;
+		}
+		return this.donnees_joueurs[0].getNumeroTour();
+	}
+	
+	public void jouerTour(Tour tour) {
+		if(tour.equals(Tour.JALON)) this.tourJalon();
+		if(tour.equals(Tour.ALEA)) this.tourSemaine(Couleur.ROUGE);
+	}
 
 	public void passerTour() {
 		
@@ -60,7 +73,7 @@ public class Partie {
 
 	public void tourSemaine(Couleur couleur) {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			Realisation salur = donnees_joueurs[i].getRealisation(donnees_joueurs[i].getNumeroTour()-1);
+			Realisation salur = donnees_joueurs[i].getRealisation(unTourUneTache());
 			if(!salur.isProtected(couleur)) {
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite()*10);
@@ -73,6 +86,7 @@ public class Partie {
 				}
 			}
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);	
+			
 			System.out.println("La couleur " + couleur.toString() + " a été tirée cette semaine" + '\n' + "_________________________________");
 		}
 	}
@@ -84,7 +98,6 @@ public class Partie {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);			
 		}
-		//this.passerTour();
 	}
 	
 	public void tourFinal() {
@@ -93,13 +106,16 @@ public class Partie {
 	
 	public static void main(String[] args) {
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
-		partie.tourJalon();
+		for (int i = 0; i < 6; i++) {
+			partie.jouerTour(partie.tours[i]);
+		}
+		/*partie.tourJalon();
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
-		partie.tourSemaine(Couleur.VERT);
+		partie.tourSemaine(Couleur.VERT);*/
 		
 
 
