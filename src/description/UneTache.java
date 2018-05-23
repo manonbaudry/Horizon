@@ -17,8 +17,8 @@ public class UneTache implements Tache {
 	private ArrayList<Tache> predecesseurs;
 	private ArrayList<Tache> successeurs;	
 	private HashMap<Alea, Couleur> map;
-		
-		
+
+
 	public UneTache(String description, int duree_initiale, String id, int cout) {
 		this.description = description;
 		this.duree_initiale = duree_initiale;
@@ -28,9 +28,17 @@ public class UneTache implements Tache {
 		predecesseurs=new ArrayList<>();
 		successeurs=new ArrayList<>();	
 	}
-		
+
+	public boolean sontEnParallele(Tache t) {
+		if((!this.equals(t) && this.getPredecesseurs().size() > 0) && t.getPredecesseurs().containsAll(this.getPredecesseurs())) {
+			return true;
+		}
+		return false ;
+
+	}
+
 	public boolean isPrecedesseur(Tache t) {
-	
+
 		if(t.getPredecesseurs().contains(this)) {
 			return true;
 		}
@@ -55,27 +63,28 @@ public class UneTache implements Tache {
 	public int getDureeInitiale() {
 		return this.duree_initiale;
 	}
-	
+
 	public int getDureeMax() {
 		ArrayList<Integer> temp = new ArrayList<>();
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
 			if(entry.getKey().getType().equals(TypeAlea.DELAI)) temp.add(entry.getKey().getGravite());
 		}
 		java.util.Collections.sort(temp);
-		return this.getDureeInitiale()+temp.get(temp.size()-1);
+		if(temp.size() > 0) return this.getDureeInitiale()+temp.get(temp.size()-1);
+		return 0;
 	}
-	
-	
+
+
 	public String getId() {
 		return this.id;
 	}
-	
+
 	public void addSuccesseurs(Tache[] tab) {
 		for(int i=0; i<tab.length;i++) {
 			successeurs.add(tab[i]);	
 		}
 	}
-	
+
 	public ArrayList<Tache> getPredecesseurs() {
 		return predecesseurs;
 	}
@@ -83,15 +92,15 @@ public class UneTache implements Tache {
 	public ArrayList<Tache> getSuccesseurs() {
 		return successeurs;
 	}
-	
+
 	public String toString() {
 		String res="";
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet()) {
 			res+=entry.getKey().getType() +" "+entry.getKey().getNom() + " | ";
 		}
-		
+
 		return this.id + " : " + description + "["+this.cout_aceleration+"€]" + "\n\tDurée initiale : " +
-				 +  duree_initiale  + " -  Durée max : " + this.getDureeMax() +"\n\t" +  res + '\n'  ;
+		+  duree_initiale  + " -  Durée max : " + this.getDureeMax() +"\n\t" +  res + '\n'  ;
 	}
 	/**
 	 * Retourne la HashMap avec en id les Aléas et comme valeur les Couleurs.
@@ -99,37 +108,30 @@ public class UneTache implements Tache {
 	public HashMap<Alea, Couleur> getMap() {
 		return map;
 	}
-		
+
 	public void estLeSuccesseurDe(Tache tache) {
 		tache.getSuccesseurs().add(this);
-		this.getPredecesseurs().add(tache);
-		
-		if(tache.getPredecesseurs() != null) {
-			for (Tache t : tache.getPredecesseurs()) {
-				if(! this.getPredecesseurs().contains(t)) 
-					this.getPredecesseurs().add(t);
-			}
-		}
-		
+		this.getPredecesseurs().add(tache);		
 	}
-	
+
+
 	public String afficheIdTache(){
 		return "Tache n°" + this.id;
 	}
-			
-	
+
+
 	public void setSuccesseurs(ArrayList<Tache> successeurs) {
 		this.successeurs = successeurs;
 	}
 
 	public void affichePredecesseurs() {
 		if(predecesseurs != null)
-		for (Tache tache : predecesseurs) {
-			System.out.println(tache.afficheIdTache() + " est le predecesseur de " + this.afficheIdTache() + '\n');
-			
-		}
+			for (Tache tache : predecesseurs) {
+				System.out.println(tache.afficheIdTache() + " est le predecesseur de " + this.afficheIdTache() + '\n');
+
+			}
 	}
-	
+
 	public void afficheSuccesseurs() {
 		if(successeurs != null) {
 			for (Tache tache : successeurs) {

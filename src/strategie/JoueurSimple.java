@@ -1,6 +1,10 @@
 package strategie;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
 import description.Couleur;
 import partie.*;
@@ -58,10 +62,28 @@ public class JoueurSimple implements Strategie {
 	 */
 	public int auPlusTot(Donnees d) {
 		int cpt =0;
-		for(Realisation real : d.getRealisation()) {
-			cpt+= real.getDuree_reelle();
-		}
-		return cpt;
+		ArrayList<Realisation> temp = new ArrayList<>();
+
+			for(Realisation r1 : d.getRealisation()) {
+				if(r1.getPredecesseurs().size() == 0) cpt+=r1.getTache().getDureeInitiale();
+				for(Realisation r2 : d.getRealisation()) {
+					temp.add(r1.laPlusLongueInitiale(r2));
+				}			
+			}
+			Set<Realisation> set;
+			set = new HashSet<>();
+			set.addAll(temp);
+			temp = new ArrayList<Realisation>(set);
+			
+			for (Realisation realisation : temp) {
+				System.out.println(realisation.getTache().getId() + " compte au plus tot" );
+				cpt+= realisation.getTache().getDureeInitiale();
+			}
+
+			
+	
+			//cpt+= real.getDuree_reelle();
+			return cpt;		
 	}
 	
 	/**
@@ -70,11 +92,25 @@ public class JoueurSimple implements Strategie {
 	 * @return la valeur de la date au plus tard
 	 */
 	public int auPlusTard(Donnees d) {
-		int cpt=0;
-		for(Realisation real : d.getRealisation()) {
-			cpt+= real.getTache().getDureeMax();
-		}
-		return cpt;
+		int cpt =0;
+		ArrayList<Realisation> temp = new ArrayList<>();
+
+			for(Realisation r1 : d.getRealisation()) {
+			//	if(r1.getPredecesseurs().size() == 0) cpt+=r1.getTache().getDureeMax();
+				for(Realisation r2 : d.getRealisation()) {
+					temp.add(r1.laPlusLongueMax(r2));
+				}			
+			}
+			Set<Realisation> set;
+			set = new HashSet<>();
+			set.addAll(temp);
+			temp = new ArrayList<Realisation>(set);
+			temp.add(d.getRealisation().get(0));
+			for (Realisation realisation : temp) {
+				System.out.println(realisation.getTache().getId() + " au plus tard " +  realisation.getTache().getDureeMax() );
+				cpt+= realisation.getTache().getDureeMax();
+			}
+			return cpt;
 	}
 
 	/**

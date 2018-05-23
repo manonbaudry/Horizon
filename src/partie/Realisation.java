@@ -4,8 +4,6 @@ import description.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import description.Couleur;
-import description.Tache;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,6 +39,32 @@ public class Realisation extends Region {
 	public boolean estTerminee() {
 		if(this.getEtat().equals(Etat.TERMINE)) return true;
 		return false;
+	}
+	
+	public Realisation laPlusLongueInitiale(Realisation r) {
+		if(this.getTache().sontEnParallele(r.getTache())) {
+			if( this.getTache().getDureeInitiale() > r.getTache().getDureeInitiale()) {
+				//System.out.println(this.getTache().getId() + " initiale plus longue que " + r.getTache().getId());
+				return this;
+			}else {
+				//System.out.println(this.getTache().getId() + " initiale moins longue que " + r.getTache().getId());
+				return r;
+			}
+		}
+		return new Realisation(new UneTache("", 0, "", 0));
+	}
+	
+	public Realisation laPlusLongueMax(Realisation r) {
+		if(this.getTache().sontEnParallele(r.getTache())) {
+			if( this.getTache().getDureeMax() > r.getTache().getDureeMax()) {
+				System.out.println(this.getTache().getId() + " max plus longue que " + r.getTache().getId());
+				return this;
+			}else {
+				//System.out.println(this.getTache().getId() + " max moins longue que " + r.getTache().getId());
+				return r;
+			}
+		}
+		return new Realisation(new UneTache("", 0, "", 0));
 	}
 
 	/**

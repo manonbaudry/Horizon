@@ -1,8 +1,6 @@
 package partie;
-import java.util.Scanner;
 
-import javax.swing.JOptionPane;
-import description.Alea;
+import java.util.Scanner;
 import description.Couleur;
 import description.Description;
 import description.TypeAlea;
@@ -18,7 +16,6 @@ public class Partie {
 	private String[] nom_joueurs;
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
-	private Tour letour;
 
 
 	/**
@@ -44,7 +41,6 @@ public class Partie {
 				Tour.QUIZZ,
 				Tour.ALEA,
 				Tour.FINAL};
-		this.letour = tours[0];
 		for(int i=0; i<nom_joueurs.length; i++) {
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
@@ -79,7 +75,6 @@ public class Partie {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].FinDuTour();
 		}
-		letour = tours[donnees_joueurs[0].getNumeroTour()];
 
 	}
 
@@ -151,7 +146,7 @@ public class Partie {
 		String oui = "salut";
 		Scanner scanner = new Scanner(System.in);
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < partie.tours.length; i++) {
 			partie.jouerTour(partie.tours[i]);				
 				do {
 					System.out.println("Continuer (ok)");
