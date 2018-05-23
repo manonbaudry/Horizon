@@ -5,11 +5,17 @@ import javax.swing.JOptionPane;
 import description.Couleur;
 import partie.*;
 
-public class JoueurSimple implements Strategie{
+
+
+public class JoueurSimple implements Strategie {
+
+	public JoueurSimple() {
+		super();
+	}
 
 	@Override
 	public void jouerSemaine( Donnees d) {		
-		
+
 		affichage(d);	
 		d.FinDuTour();
 	}
@@ -28,16 +34,14 @@ public class JoueurSimple implements Strategie{
 			if(saisieCouleur.equals("vert")) d.setProtection(saisietache, Couleur.VERT, true);
 			if(saisieCouleur.equals("jaune")) d.setProtection(saisietache, Couleur.JAUNE, true);
 		}
-
 		do {
 			acceleration = JOptionPane.showConfirmDialog(null , "Desirez-vous accélerer?");
 			if(acceleration != 1 ) {
 				String saisieTache= JOptionPane.showInputDialog("Quelle tache à accélerer?");
 				d.setAcceleration(saisieTache, true);
-				
+
 			}
 		}while(acceleration != 1);
-	
 		affichage(d);
 		d.FinDuTour();
 	}
@@ -47,24 +51,25 @@ public class JoueurSimple implements Strategie{
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Affichage du plateau du joueur
+	 * @param d, la vue du joueur
+	 */
 	private void affichage(Donnees d) {
-
 		String res="Tour : "+ d.getNumeroTour()
 		+"\nNom : "+d.getNom()
 		+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"%\n\n";
-		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
 
+		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
 			res+=d.getRealisation(Integer.toString(i+1)).toString()
-					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n" +  '\n' + "______________" + "\n\n";
+					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n" + "  ______________" + "\n\n";
+			
 		}
+
 		System.out.println(res );
 	}
+	
 
-	//test
-	/*public static void main(String[] args) {
-		Donnees d= new Donnees("1",new JoueurSimple());
-		d.getStrategie().jouerJalon(d);
-		d.getStrategie().jouerSemaine(d);
-	} */
+
 
 }

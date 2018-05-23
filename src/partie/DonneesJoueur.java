@@ -46,7 +46,8 @@ public interface DonneesJoueur {
 	public int getQualite();
 	
 	/**
-	 * 
+	 * @param id, id de la réalisation
+	 * @return la réalistion ayant pour id l'id donné en paramètre
 	 */
 	public Realisation getRealisation(String id);
 	
@@ -54,6 +55,11 @@ public interface DonneesJoueur {
 	 * Fournit l'objet qui prend les décisions pour l'équipe.
 	 */
 	public Strategie getStrategie();
+	
+	/**
+	 * Baisse de la qualité en fonction de la gravité (2% par niveau de gravité)s
+	 * @param gravite, le niveau de gravité
+	 */
 
 	void baisseQualite(int gravite);
 	

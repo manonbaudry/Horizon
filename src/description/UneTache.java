@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Cette classe implémente l'interface Tâche et reprend donc toutes les fonctions décrites dans celle-ci
  * cf javaid Tache
@@ -16,8 +15,7 @@ public class UneTache implements Tache {
 	private String id;
 	private int cout_aceleration;
 	private ArrayList<Tache> predecesseurs;
-	private ArrayList<Tache> successeurs;
-	
+	private ArrayList<Tache> successeurs;	
 	private HashMap<Alea, Couleur> map;
 		
 		
@@ -35,7 +33,6 @@ public class UneTache implements Tache {
 	public boolean isPrecedesseur(Tache t) {
 	
 		if(t.getPredecesseurs().contains(this)) {
-			//System.out.println(this.getId() + " est prédecesseur de " + t.getId());
 			return true;
 		}
 		return false;
@@ -61,25 +58,19 @@ public class UneTache implements Tache {
 	}
 	
 	public int getDureeMax() {
-		int res=duree_initiale;
+		ArrayList<Integer> temp = new ArrayList<>();
+		//int res=duree_initiale;
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
-			if(entry.getKey().getType().equals(TypeAlea.DELAI)) res+=entry.getKey().getGravite();
+			if(entry.getKey().getType().equals(TypeAlea.DELAI)) temp.add(entry.getKey().getGravite());
 		}
-		return res;
+		java.util.Collections.sort(temp);
+		return this.getDureeInitiale()+temp.get(temp.size()-1);
 	}
 	
 	
 	public String getId() {
 		return this.id;
 	}
-	
-	
-	/*public void addPredecesseurs(Tache[] tab) {
-		for(int i=0; i<tab.length;i++) {
-			predecesseurs.add(tab[i]);
-		}
-	}*/
-		
 	
 	public void addSuccesseurs(Tache[] tab) {
 		for(int i=0; i<tab.length;i++) {
