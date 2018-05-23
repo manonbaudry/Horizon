@@ -40,8 +40,6 @@ public class JoueurSimple implements Strategie{
 	
 		affichage(d);
 		d.FinDuTour();
-
-		//affichage(d);
 	}
 
 	@Override

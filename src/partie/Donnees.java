@@ -181,47 +181,15 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	}
 
 	private void setEnCours() {
-		/*ArrayList<Realisation> salut = getPredecesseurs(realisations.get(3));
-		for(int i = 0; i < realisations.size(); i++) {
-			//ArrayList<Realisation> salut = getPredecesseurs(realisations.get(i));
-			//System.out.println(" realisation " + i + " " + salut + " ____________________________");
-			int j = 0;
-			while( j<= realisations.get(i).getPredecesseurs().size() && realisations.get(i).getEtat().equals(Etat.TERMINE) ) {
-				j++;
-				System.out.println(" j = " + j );
-			}
-			if(j==realisations.get(i).getPredecesseurs().size()) {
-				realisations.get(i).setEtat(Etat.EN_COURS);
-				System.out.println( realisations.get(i).getTache().getId() + " en cours ");
-			}
-		}	*/
 		if(! realisationUnePassee) {
 			realisations.get(0).setEnCours();
 			realisations.get(0).incrementAvancement();
 			realisationUnePassee = true;
 		}
-
-			//boolean terminés = true;
 			for (Realisation realisation : realisations) {
-			//	System.out.println(realisation.getTache().getId());
-			//	ArrayList<Realisation> predecents = getPredecesseurs(realisation);
-			/*	for (Realisation pred : predecents) {
-					if( pred.estTerminee() == false) {						
-						System.out.println(" realisation "+ pred.getTache().getId() + " terminée ");
-						terminés = false;
-					}
-				
-				}*/
-
 				if(!realisation.estTerminee() && realisationUnePassee && PrecedentesTerminees(realisation) &&  ! realisation.equals(realisations.get(0))) {
 					realisation.setEnCours();
-
-				//	System.out.println( realisation.getTache().getId() + " en cours ");
-				//	terminés = false;
-
-				}
-
-			
+				}			
 		}
 
 	}

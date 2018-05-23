@@ -100,6 +100,7 @@ public class Partie {
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
 		partie.tourSemaine(Couleur.VERT);
+		
 
 
 		
