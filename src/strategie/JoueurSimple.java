@@ -50,6 +50,32 @@ public class JoueurSimple implements Strategie {
 	public void jouerQuizz( Donnees d) {
 		// TODO Auto-generated method stub
 	}
+	
+	/**
+	 * Calcule la date au plus tôt pour le joueur
+	 * @param d, les données du joueur
+	 * @return la valeur de la date au plus tôt
+	 */
+	public int auPlusTot(Donnees d) {
+		int cpt =0;
+		for(Realisation real : d.getRealisation()) {
+			cpt+= real.getDuree_reelle();
+		}
+		return cpt;
+	}
+	
+	/**
+	 * Calcule la date au plus tard pour le joueur
+	 * @param d les données du joueur
+	 * @return la valeur de la date au plus tard
+	 */
+	public int auPlusTard(Donnees d) {
+		int cpt=0;
+		for(Realisation real : d.getRealisation()) {
+			cpt+= real.getTache().getDureeMax();
+		}
+		return cpt;
+	}
 
 	/**
 	 * Affichage du plateau du joueur
@@ -62,11 +88,12 @@ public class JoueurSimple implements Strategie {
 
 		for(int i=0;i<d.getDescription().getListe_taches().size();i++ ) {
 			res+=d.getRealisation(Integer.toString(i+1)).toString()
-					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n" + "  ______________" + "\n\n";
+					+"\tAvancement : "+d.getCurrent(Integer.toString(i+1))+"\n\n" +"  ______________" + "\n\n";
 			
 		}
 
-		System.out.println(res );
+		System.out.println(res + "\nAu plus tôt : "+ auPlusTot(d) +
+				"\t Au plus tard : " + auPlusTard(d));
 	}
 	
 

@@ -91,7 +91,7 @@ public class Realisation extends Region {
 	public void ajoutDelai(int gravitay) {
 		this.duree_reelle += gravitay;
 	}
-
+	
 
 	/**
 	 * @return the duree_reelle

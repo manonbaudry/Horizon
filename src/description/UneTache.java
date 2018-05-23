@@ -26,10 +26,9 @@ public class UneTache implements Tache {
 		this.cout_aceleration = cout;
 		this.map = new HashMap<>();
 		predecesseurs=new ArrayList<>();
-		successeurs=new ArrayList<>();
-		
+		successeurs=new ArrayList<>();	
 	}
-	
+		
 	public boolean isPrecedesseur(Tache t) {
 	
 		if(t.getPredecesseurs().contains(this)) {
@@ -59,7 +58,6 @@ public class UneTache implements Tache {
 	
 	public int getDureeMax() {
 		ArrayList<Integer> temp = new ArrayList<>();
-		//int res=duree_initiale;
 		for (Map.Entry<Alea, Couleur> entry : map.entrySet() ) {
 			if(entry.getKey().getType().equals(TypeAlea.DELAI)) temp.add(entry.getKey().getGravite());
 		}
