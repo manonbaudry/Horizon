@@ -21,9 +21,9 @@ public class EssaiDescription {
 
 		//la tache 2 a pour succcesseurs  5, 6, 7 et 8
 	//	description.getTacheById("2").afficheSuccesseurs();
-		for(int i = 0; i < description.getListe_taches().size()-1; i++) {
-			description.getTacheById(String.valueOf(i+1)).afficheSuccesseurs();
-		}
+		//for(int i = 0; i < description.getListe_taches().size()-1; i++) {
+			//description.getTacheById(String.valueOf(i+1)).afficheSuccesseurs();
+		//}
 
 	}
 }

@@ -256,12 +256,12 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	private void setEnCours() {
 		if(! realisationUnePassee) {
-			realisations.get(0).setEnCours();
-			realisations.get(0).incrementAvancement();
+			realisations.get(0).setEnCours();	
+			//realisations.get(0).incrementAvancement();
 			realisationUnePassee = true;
 		}
 		for (Realisation realisation : realisations) {
-			if(!realisation.estTerminee() && realisationUnePassee && PrecedentesTerminees(realisation) &&  ! realisation.equals(realisations.get(0))) {
+			if(!realisation.getEtat().equals(Etat.EN_COURS) && !realisation.estTerminee() && realisationUnePassee && PrecedentesTerminees(realisation) &&  ! realisation.equals(realisations.get(0))) {
 				realisation.setEnCours();
 			}			
 		}

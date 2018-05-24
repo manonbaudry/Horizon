@@ -16,6 +16,7 @@ public class Partie {
 	private String[] nom_joueurs;
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
+	private int nbToursSemaines;
 
 
 	/**
@@ -25,6 +26,7 @@ public class Partie {
 	 */
 	public Partie(Description description, String[] nom_joueurs) {
 		this.description = description;
+		nbToursSemaines = -1;
 		this.nom_joueurs = nom_joueurs;
 		donnees_joueurs = new Donnees[nom_joueurs.length];
 		this.tours = new Tour[] {
@@ -55,7 +57,7 @@ public class Partie {
 		if(this.donnees_joueurs[0].getNumeroTour() >= this.donnees_joueurs[0].getRealisation().size()) {
 			return this.donnees_joueurs[0].getRealisation().size()-1;
 		}
-		return this.donnees_joueurs[0].getNumeroTour();
+		return this.donnees_joueurs[0].getNumeroTour()-1;
 	}
 
 	/**
@@ -64,7 +66,10 @@ public class Partie {
 	 */
 	public void jouerTour(Tour tour) {
 		if(tour.equals(Tour.JALON)) this.tourJalon();
-		if(tour.equals(Tour.ALEA)) this.tourSemaine(Couleur.tirage());
+			
+		if(tour.equals(Tour.ALEA)) {
+			this.tourSemaine(Couleur.tirage());
+		}
 	}
 
 	/**
@@ -97,8 +102,9 @@ public class Partie {
 	 */
 	public void tourSemaine(Couleur couleur) {
 		System.out.println("Tour Semaine !");
+		nbToursSemaines++;
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			Realisation salur = donnees_joueurs[i].getRealisation(unTourUneTache());
+			Realisation salur = donnees_joueurs[i].getRealisation(nbToursSemaines);
 			if(!salur.isProtected(couleur)) {
 				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite()*10);
@@ -151,8 +157,7 @@ public class Partie {
 				do {
 					System.out.println("Continuer (ok)");
 					oui = scanner.nextLine();
-				}while(!oui.equals("ok"));
-			
+				}while(!oui.equals("ok"));			
 		}
 		scanner.close();
 	}

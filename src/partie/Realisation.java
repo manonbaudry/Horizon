@@ -2,7 +2,10 @@ package partie;
 import description.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -30,8 +33,36 @@ public class Realisation extends Region {
 		protections.put(Couleur.JAUNE,false);
 		protections.put(Couleur.VERT,false);
 		etat= Etat.NON_ENTAMEE;
-		avancement = 0;
+
 	}
+	
+	public int calculPlusTot() {
+		int res = 0;
+		for(int i = 0; i < this.getPredecesseurs().size(); i++) {
+			if(this.getPredecesseurs().get(i).getDureeInitiale() > res)
+			res = this.getPredecesseurs().get(i).getDureeInitiale();
+		}
+		System.out.println("----" + res + " le plus grand");
+		return res;
+	}
+	
+	public int calculPlusTard() {
+		int res = 0;
+		for(int i = 0; i < this.getPredecesseurs().size(); i++) {
+			if(this.getPredecesseurs().get(i).getDureeMax() > res)
+			res = this.getPredecesseurs().get(i).getDureeMax();
+		}
+		return res;
+	}
+	
+	public int lePlusLongSuccesseur(ArrayList<Tache> tache) {
+		int res = 0;
+		for(Tache t: this.getTache().getSuccesseurs()) {
+			if(t.getDureeInitiale() > res) res = t.getDureeInitiale();
+		}
+		return res;
+	}
+
 
 	/**
 	 * @return vrai si la réalisation courante est terminées, faux sinon
@@ -182,6 +213,7 @@ public class Realisation extends Region {
 	 */
 	public void setEnCours() {
 		this.etat = Etat.EN_COURS;
+		this.incrementAvancement();
 	}
 
 	/**
@@ -189,6 +221,7 @@ public class Realisation extends Region {
 	 */
 	public void setTerminee() {
 		this.etat = Etat.TERMINE;
+		
 	}
 	
 	
