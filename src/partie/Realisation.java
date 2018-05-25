@@ -189,7 +189,7 @@ public class Realisation extends Region {
 	public String toString() {
 		String protec="\t "+protections.get(Couleur.ROUGE)+" (R) " + "   "+protections.get(Couleur.JAUNE)+" (J) " + "   "+protections.get(Couleur.VERT) + " (V) ";
 		return tamerelatache.toString()
-				+ protec + "\n\t Durée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
+				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
 
 
