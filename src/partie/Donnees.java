@@ -64,9 +64,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return true;
 	}
 
-	public void DemarrerRealisation(Realisation r) {}
-
-
 	/**
 	 * @param r la réalistion 
 	 * @return la collection des prédécesseurs de r 
@@ -237,8 +234,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(realisation.getTache().getId().equals(id)) realisation.getProtections().put(couleur, active);
 
 		}
-
-
 	}
 
 	/**
@@ -284,8 +279,4 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return "Donnees [caisse=" + caisse + ", nom=" + nom + ", qualite=" + qualite + ", realisations=" + realisations
 				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
 	}
-
-
-
-
 }

@@ -104,16 +104,16 @@ public class Partie {
 		System.out.println("Tour Semaine !");
 		nbToursSemaines++;
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			Realisation salur = donnees_joueurs[i].getRealisation(nbToursSemaines);
-			if(!salur.isProtected(couleur)) {
-				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
-					donnees_joueurs[i].depense(salur.getTache().getAlea(couleur).getGravite()*10);
+			Realisation currentRealisation = donnees_joueurs[i].getRealisation(nbToursSemaines);
+			if(!currentRealisation.isProtected(couleur)) {
+				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
+					donnees_joueurs[i].depense(currentRealisation.getTache().getAlea(couleur).getGravite()*10);
 				}	
-				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
-					donnees_joueurs[i].baisseQualite(salur.getTache().getAlea(couleur).getGravite());
+				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
+					donnees_joueurs[i].baisseQualite(currentRealisation.getTache().getAlea(couleur).getGravite());
 				}
-				if(salur.getTache().getAlea(couleur).getType().equals(TypeAlea.DELAI)) {
-					salur.ajoutDelai(salur.getTache().getAlea(couleur).getGravite());
+				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.DELAI)) {
+					currentRealisation.ajoutDelai(currentRealisation.getTache().getAlea(couleur).getGravite());
 				}
 			}
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);	
@@ -161,7 +161,4 @@ public class Partie {
 		}
 		scanner.close();
 	}
-
-
-
 }

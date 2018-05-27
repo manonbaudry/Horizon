@@ -191,18 +191,25 @@ public class Realisation extends Region {
 		return tamerelatache.toString()
 				+ protec + "\n\tDurée : " + duree_reelle + "\tAcceleration : " + acceleration+ " \n\tEtat : " + etat;
 	}
-
+	/**
+	 * 
+	 * @return les predecesseurs de la tâche courrante
+	 */
 
 	public ArrayList<Tache> getPredecesseurs(){
 		return tamerelatache.getPredecesseurs();
 	}
+	/**
+	 * 
+	 * @return les successeurs de la tâche courrante
+	 */
 	public ArrayList<Tache> getSuccesseurs(){
 		return tamerelatache.getSuccesseurs();
 	}
 
 	/**
 	 * 
-	 * @return la tache liée a la réalisation courante
+	 * @return la tâche liée a la réalisation courante
 	 */
 	public UneTache getTache() {
 		return tamerelatache;
