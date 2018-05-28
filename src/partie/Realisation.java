@@ -1,20 +1,11 @@
 package partie;
+
+
 import description.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
-import javafx.application.Application;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 
 public class Realisation extends Region {
 	private int duree_reelle;
