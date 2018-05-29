@@ -70,6 +70,7 @@ public class Partie {
 		if(tour.equals(Tour.ALEA)) {
 			this.tourSemaine(Couleur.tirage());
 		}
+		if(tour.equals(Tour.FINAL)) this.tourFinal();
 	}
 
 	/**
@@ -145,6 +146,15 @@ public class Partie {
 	 * Fonctionnement d'un tour Final
 	 */
 	public void tourFinal() {
+		for(int i = 0; i < donnees_joueurs.length; i++) {
+			for(Realisation r : donnees_joueurs[i].getRealisation()){
+				if(r.getEtat().equals(Etat.EN_COURS) || r.getEtat().equals(Etat.NON_ENTAMEE)) {
+					r.setAvancement(r.getDuree_reelle());
+				}
+
+			}
+			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
+		}
 	}
 
 

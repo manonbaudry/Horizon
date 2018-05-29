@@ -96,6 +96,10 @@ public class Realisation extends Region {
 		return avancement;
 	}
 
+	public void setAvancement(int n) {
+		this.avancement=n;
+	}
+
 	/**
 	 * 
 	 * @param couleur
@@ -129,7 +133,7 @@ public class Realisation extends Region {
 		duree_reelle --;
 
 	}
-
+	
 	/**
 	 * Ajout du délai en fonction du niveau de gravité (+1 par niveau de gravité)
 	 * @param gravitay, le niveau de gravité
