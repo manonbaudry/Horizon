@@ -90,7 +90,7 @@ public class Realisation extends Region {
 	}
 
 	/**
-	 * @return the avancement
+	 * @return the avancement 
 	 */
 	public int getAvancement() {
 		return avancement;

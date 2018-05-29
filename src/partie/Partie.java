@@ -143,7 +143,7 @@ public class Partie {
 	}
 
 	/**
-	 * Fonctionnement d'un tour Final
+	 * Fonctionnement d'un tour Final 
 	 */
 	public void tourFinal() {
 		for(int i = 0; i < donnees_joueurs.length; i++) {
