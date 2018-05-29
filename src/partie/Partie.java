@@ -153,7 +153,10 @@ public class Partie {
 				}
 
 			}
+			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
+			System.out.println("Votre part de marché est de : "+part+"%");
+			
 		}
 	}
 
