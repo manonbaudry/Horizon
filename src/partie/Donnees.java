@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import description.Couleur;
 import description.Description;
 import description.Tache;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import strategie.Strategie;
 
 /**
@@ -21,6 +28,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private Description description;
 	private int numeroTour;
 	private boolean realisationUnePassee = false;
+	private HBox hbox = new HBox();
 
 	public Donnees(String nom, Strategie strategie) {
 		super();
@@ -279,4 +287,19 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return "Donnees [caisse=" + caisse + ", nom=" + nom + ", qualite=" + qualite + ", realisations=" + realisations
 				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
 	}
+ 
+	public int getCheminCritique() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public HBox getHBox() {
+		VBox vbox = new VBox();
+		Label caisse = new Label("La caisse : "+this.caisse);
+		vbox.getChildren().add(caisse);
+		hbox.getChildren().addAll(this.getStrategie().getPane(this), caisse);
+		return hbox;
+	}
+	
+
 }

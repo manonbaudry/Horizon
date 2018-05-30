@@ -7,12 +7,20 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 import description.Couleur;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import partie.*;
 
 
 
 public class JoueurSimple implements Strategie {
-
+	
+	private GridPane upane = new GridPane();
 
 	@Override
 	public void jouerSemaine( Donnees d) {		
@@ -85,6 +93,7 @@ public class JoueurSimple implements Strategie {
 	 * @param d, la vue du joueur
 	 */
 	private void affichage(Donnees d) {
+		
 		String res="Tour : "+ d.getNumeroTour()
 		+"\nNom : "+d.getNom()
 		+"\nCaisse : "+d.getCaisse()+"\tQualité : "+d.getQualite()+"%\n\n";
@@ -97,7 +106,27 @@ public class JoueurSimple implements Strategie {
 
 		System.out.println(res + "\nAu plus tôt : "+ auPlusTot(d) +
 				"\t Au plus tard : " + auPlusTard(d));
+		
 	}
+	
+	@Override
+	public GridPane getPane(Donnees d) {
+	/*	for(int i = 0; i < d.getRealisation().size(); i++) {
+			upane.add(d.getRealisation().get(i).getPane(), 0,i );
+			
+		}*/
+		upane.add(d.getRealisation().get(0).getPane(), 0, 1);
+		upane.add(d.getRealisation().get(1).getPane(), 1, 0);
+		upane.add(d.getRealisation().get(2).getPane(), 1, 1);
+		upane.add(d.getRealisation().get(3).getPane(), 1, 2);
+		
+		upane.setVgap(5.0);
+		upane.setHgap(5.0);
+			return upane;
+	}
+
+
+
 	
 
 

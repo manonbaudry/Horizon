@@ -4,6 +4,12 @@ import java.util.Scanner;
 import description.Couleur;
 import description.Description;
 import description.TypeAlea;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import strategie.JoueurSimple;
 
 /**
@@ -11,13 +17,14 @@ import strategie.JoueurSimple;
  * @author Quentin, Manon, Virgil, Guillaume
  *
  */
-public class Partie {
+public class Partie{
 	private Description description;
 	private String[] nom_joueurs;
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
 	private int nbToursSemaines;
 
+	public Partie(){}
 
 	/**
 	 * Initialisation de la partie 
@@ -66,7 +73,7 @@ public class Partie {
 	 */
 	public void jouerTour(Tour tour) {
 		if(tour.equals(Tour.JALON)) this.tourJalon();
-			
+
 		if(tour.equals(Tour.ALEA)) {
 			this.tourSemaine(Couleur.tirage());
 		}
@@ -135,10 +142,11 @@ public class Partie {
 	 * Fonctionnement d'un tour Jalon
 	 */
 	public void tourJalon() {
+		//System.out.println(getClass().getResource("RealisationGraphique.fxml"));
 		System.out.println("Tour jalon ! ");
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
-			
+
 		}
 	}
 
@@ -156,22 +164,30 @@ public class Partie {
 			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
 			System.out.println("Votre part de marché est de : "+part+"%");
-			
+
 		}
 	}
 
 
-	public static void main(String[] args) {
+
+
+	public static void main(String[] args){
+		
+
 		String oui = "salut";
 		Scanner scanner = new Scanner(System.in);
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
 		for (int i = 0; i < partie.tours.length; i++) {
 			partie.jouerTour(partie.tours[i]);				
-				do {
-					System.out.println("Continuer (ok)");
-					oui = scanner.nextLine();
-				}while(!oui.equals("ok"));			
+			do {
+				System.out.println("Continuer (ok)");
+				oui = scanner.nextLine();
+			}while(!oui.equals("ok"));			
 		}
 		scanner.close();
 	}
+
+
+
+
 }
