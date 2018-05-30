@@ -21,6 +21,7 @@ import partie.*;
 public class JoueurSimple implements Strategie {
 	
 	private GridPane upane = new GridPane();
+	
 
 	@Override
 	public void jouerSemaine( Donnees d) {		
@@ -109,19 +110,23 @@ public class JoueurSimple implements Strategie {
 		
 	}
 	
-	@Override
-	public GridPane getPane(Donnees d) {
-	/*	for(int i = 0; i < d.getRealisation().size(); i++) {
-			upane.add(d.getRealisation().get(i).getPane(), 0,i );
-			
-		}*/
+	public void display(Donnees d) {
 		upane.add(d.getRealisation().get(0).getPane(), 0, 1);
 		upane.add(d.getRealisation().get(1).getPane(), 1, 0);
 		upane.add(d.getRealisation().get(2).getPane(), 1, 1);
 		upane.add(d.getRealisation().get(3).getPane(), 1, 2);
+		upane.add(d.getRealisation().get(4).getPane(), 2, 1);
+		upane.add(d.getRealisation().get(5).getPane(), 3, 1);
+		upane.add(d.getRealisation().get(6).getPane(), 3, 2);
+		upane.add(d.getRealisation().get(7).getPane(), 4, 1);
 		
-		upane.setVgap(5.0);
-		upane.setHgap(5.0);
+		upane.setVgap(80.0);
+		upane.setHgap(80.0);
+	}
+	
+	@Override
+	public GridPane getPane(Donnees d) {
+		display(d);
 			return upane;
 	}
 

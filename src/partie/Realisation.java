@@ -2,30 +2,29 @@ package partie;
 
 
 import description.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 
 
-public class Realisation  {
+
+public class Realisation {
 	private int duree_reelle;
 	private boolean acceleration;
 	private HashMap<Couleur,Boolean> protections;
 	private Etat etat;
 	private int avancement;
 	private UneTache tamerelatache;
-	 public GridPane pane;
-	 public Label id, description, cout_acceleration, duree_initiale, duree_max, labelduree_reelle, alea_rouge, alea_jaune, alea_vert, labelacceleration, labeletat, labelavancement;
+	@FXML private  GridPane pane;
+	@FXML private Label id, description, cout_acceleration, duree_initiale, duree_max, labelduree_reelle, alea_rouge, alea_jaune, alea_vert, labelacceleration, labeletat, labelavancement;
 
 	public Realisation() {};
 	public Realisation(Tache t) {
@@ -36,29 +35,50 @@ public class Realisation  {
 		protections.put(Couleur.ROUGE, false);
 		protections.put(Couleur.JAUNE,false);
 		protections.put(Couleur.VERT,false);
-		etat= Etat.NON_ENTAMEE;
-		pane = new GridPane();
-	//	init();
+		etat= Etat.NON_ENTAMEE;	
+			display();
 
 	}
 	
-	public GridPane getPane() {
-
-		
+	public void display() {
+		pane = new GridPane();
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("RealisationGraphique.fxml"));
 		try {
 			pane = (GridPane)loader.load();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}	
 		
-		
-		return pane;
+		start();
 	}
 	
-	void init() {
-		id = new Label(this.getTache().getId());
+	public void  start() {
+		new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        id.setText(getTache().getId());
+                    }
+
+                });
+
+            }
+
+        }, 500);
+	}
+	
+	
+	public GridPane getPane() {
+		return pane;
+	}
+
+	@FXML
+	void initialize() {
+	System.out.println("Initialisation");
+
+	/*	id = new Label(this.getTache().getId());
 		description = new Label(this.getTache().getDescription());
 		cout_acceleration = new Label(this.getTache().getCoutAcceleration()+ " €");
 		duree_initiale = new Label(this.getTache().getDureeInitiale()+ "");
@@ -70,7 +90,10 @@ public class Realisation  {
 		labeletat = new Label(this.getEtat().name());
 		labelavancement = new Label(this.getAvancement()+ "");
 		labelduree_reelle = new Label(this.getDuree_reelle()+"");
-		
+		id.setText(this.getTache().getId());
+		description.setText(this.getTache().getDescription());*/
+		//id.setText(getTache().getId());
+
 		/*pane.add(id, 0, 0);
 		pane.add(description, 1, 0);
 		pane.add(cout_acceleration, 2, 0);
@@ -82,12 +105,11 @@ public class Realisation  {
 		pane.add(labelduree_reelle, 0, 3);
 		pane.add(labelacceleration, 2, 3);
 		pane.add(labeletat, 0, 4);
-		pane.add(labelavancement, 2, 4);
-		
-		for(Node node : pane.getChildren()) {
-			((Label)node).setPadding(new Insets(2));
-		}*/
+		pane.add(labelavancement, 2, 4);*/
+
 	}
+	
+
 
 	public int calculPlusTot() {
 		int res = 0;
@@ -286,6 +308,7 @@ public class Realisation  {
 		this.etat = Etat.TERMINE;
 
 	}
+
 
 
 

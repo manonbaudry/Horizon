@@ -40,8 +40,9 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		numeroTour = 0;
 		for(Tache t : description.getListe_taches()) {
 			realisations.add(new Realisation(t));
-		}
+		} 
 		this.strategie = strategie;
+		display();
 	}
 
 	/**
@@ -84,6 +85,16 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 		}
 		return pred;
+	}
+	
+	public ArrayList<Realisation> getSuccesseurs(Realisation r){
+		ArrayList<Realisation> succ = new ArrayList<>();
+		for (int i = 0; i < realisations.indexOf(r); i++) {
+			if(r.getTache().isPrecedesseur(realisations.get(i).getTache())) {
+				succ.add(realisations.get(i));				
+			}
+		}
+		return succ;
 	}
 
 
@@ -293,11 +304,16 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return 0;
 	}
 	
-	public HBox getHBox() {
-		VBox vbox = new VBox();
+	public void display() {
+		VBox donnees = new VBox();
 		Label caisse = new Label("La caisse : "+this.caisse);
-		vbox.getChildren().add(caisse);
-		hbox.getChildren().addAll(this.getStrategie().getPane(this), caisse);
+		donnees.getChildren().add(caisse);
+		donnees.setPrefSize(1000, 100);
+		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
+	}
+	
+	public HBox getHBox() {
+		
 		return hbox;
 	}
 	
