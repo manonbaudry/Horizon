@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,9 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private int numeroTour;
 	private boolean realisationUnePassee = false;
 	private HBox hbox = new HBox();
+	
+	private Label label_caisse, joueur, tour, qualité;
+	private Button finDeTour; 
 
 	public Donnees(String nom, Strategie strategie) {
 		super();
@@ -308,16 +312,23 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	
 	public void display() {
 		VBox donnees = new VBox();
-		Label caisse = new Label("La caisse : "+this.caisse + " €");
-		Label joueur = new Label("Joueur : " + this.getNom());
-		Label tour = new Label( "Tour : " + this.getNumeroTour());
-		Label qualité = new Label("Qualité : " + this.getQualite() + " %");
-		donnees.getChildren().addAll(joueur, tour, caisse, qualité);
+		label_caisse = new Label("La caisse : "+this.caisse + " €");
+		joueur = new Label("Joueur : " + this.getNom());
+		tour = new Label( "Tour : " + this.getNumeroTour());
+		qualité = new Label("Qualité : " + this.getQualite() + " %");
+		
+		finDeTour = new Button("Fin De tour");
+		
+		finDeTour.setOnAction(e ->{
+			this.FinDuTour();
+		});
+		
+		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
 		donnees.setPrefSize(1000, 100);
-		donnees.setStyle("-fx-background-color: #e1e9f2");
+		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10");
 		
 		for (Node node : donnees.getChildren()) {
-			donnees.setMargin(node, new Insets(10));
+			VBox.setMargin(node, new Insets(10));
 		}
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
 	}
