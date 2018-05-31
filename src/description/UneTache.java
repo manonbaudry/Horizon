@@ -44,6 +44,9 @@ public class UneTache implements Tache {
 		}
 		return false;
 	}
+	public boolean isSuccesseur(Tache t) {
+		return t.getSuccesseurs().contains(this);
+	}
 
 	public int getCoutAcceleration() {
 		return this.cout_aceleration;
@@ -118,6 +121,8 @@ public class UneTache implements Tache {
 	public String afficheIdTache(){
 		return "Tache n°" + this.id;
 	}
+	
+	
 
 
 	public void setSuccesseurs(ArrayList<Tache> successeurs) {

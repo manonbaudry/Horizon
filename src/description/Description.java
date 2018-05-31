@@ -87,7 +87,7 @@ public class Description{
 		liste_taches.add(t7);
 		liste_taches.add(t8);
 		
-		//this.ajoutDesSuccesseursAuto();
+		this.ajoutDesSuccesseursAuto();
 
 	}
 
@@ -162,7 +162,7 @@ public class Description{
 	 * ajout de tous les successeurs de toutes les tâches.
 	 */
 
-	/*@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void ajoutDesSuccesseursAuto(){
 		Set<Tache> set;
 		for (Tache tache : liste_taches) {
@@ -177,7 +177,7 @@ public class Description{
 
 		}
 
-	}*/
+	}
 
 
 }
