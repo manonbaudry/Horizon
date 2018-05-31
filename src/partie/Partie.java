@@ -1,10 +1,14 @@
 package partie;
 
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import description.Couleur;
 import description.Description;
 import description.TypeAlea;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -17,14 +21,12 @@ import strategie.JoueurSimple;
  * @author Quentin, Manon, Virgil, Guillaume
  *
  */
-public class Partie{
+public class Partie extends Application{
 	private Description description;
 	private String[] nom_joueurs;
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
 	private int nbToursSemaines;
-
-	public Partie(){}
 
 	/**
 	 * Initialisation de la partie 
@@ -54,6 +56,8 @@ public class Partie{
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
 	}
+	
+	public Partie() {};
 
 	/**
 	 * Permet de savoir sur quelle réalisation appliquer les aléas en fonction du tour
@@ -168,24 +172,45 @@ public class Partie{
 		}
 	}
 
-
-
-
-	public static void main(String[] args){
-		
-
-		String oui = "salut";
+	public void play(Stage primaryStage ) {
+		/*String oui = "salut";
 		Scanner scanner = new Scanner(System.in);
 		Partie partie = new Partie(new Description(), new String[] {"Fred"});
 		for (int i = 0; i < partie.tours.length; i++) {
-			partie.jouerTour(partie.tours[i]);				
-			do {
-				System.out.println("Continuer (ok)");
-				oui = scanner.nextLine();
-			}while(!oui.equals("ok"));			
+			partie.jouerTour(partie.tours[i]);							
 		}
-		scanner.close();
+		scanner.close();*/	
+
+
 	}
+	
+	public void init() {
+	//	for(int i = 0; i < donnees_joueurs.length; i++) {
+		//	donnees_joueurs[i].getStrategie().init(donnees_joueurs[i]);
+	//	}
+		//this.donnees_joueurs[0].getRealisation().get(0).setText(this.donnees_joueurs[0].getRealisation().get(0).id, this.donnees_joueurs[0].getRealisation().get(0).getTache().getId());
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Partie p = new Partie(new Description(), new String[] {"Fred"});
+		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(), Double.MAX_VALUE, Double.MAX_VALUE);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	
+		
+	}
+	
+	public static void main(String[] args) {
+		//Partie p = new Partie(new Description(), new String[] {"Fred"});
+		//p.init();
+		launch(args);
+		
+		
+		
+		
+	}
+
 
 
 

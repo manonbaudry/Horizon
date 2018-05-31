@@ -6,6 +6,8 @@ import description.Couleur;
 import description.Description;
 import description.Tache;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -306,9 +308,17 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	
 	public void display() {
 		VBox donnees = new VBox();
-		Label caisse = new Label("La caisse : "+this.caisse);
-		donnees.getChildren().add(caisse);
+		Label caisse = new Label("La caisse : "+this.caisse + " €");
+		Label joueur = new Label("Joueur : " + this.getNom());
+		Label tour = new Label( "Tour : " + this.getNumeroTour());
+		Label qualité = new Label("Qualité : " + this.getQualite() + " %");
+		donnees.getChildren().addAll(joueur, tour, caisse, qualité);
 		donnees.setPrefSize(1000, 100);
+		donnees.setStyle("-fx-background-color: #e1e9f2");
+		
+		for (Node node : donnees.getChildren()) {
+			donnees.setMargin(node, new Insets(10));
+		}
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
 	}
 	

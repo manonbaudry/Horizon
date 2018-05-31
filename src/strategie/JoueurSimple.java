@@ -120,14 +120,19 @@ public class JoueurSimple implements Strategie {
 		upane.add(d.getRealisation().get(6).getPane(), 3, 2);
 		upane.add(d.getRealisation().get(7).getPane(), 4, 1);
 		
-		upane.setVgap(80.0);
-		upane.setHgap(80.0);
+		upane.setVgap(30.0);
+		upane.setHgap(30.0);
+		upane.setStyle("-fx-stroke: green; -fx-stroke-width: 5; ");
 	}
 	
 	@Override
 	public GridPane getPane(Donnees d) {
 		display(d);
 			return upane;
+	}
+	
+	public void init(Donnees d) {
+	//	d.getRealisation().get(0).setText(d.getRealisation().get(0).id, d.getRealisation().get(0).getTache().getId());
 	}
 
 

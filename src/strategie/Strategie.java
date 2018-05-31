@@ -34,4 +34,6 @@ public interface Strategie {
 	void 	jouerQuizz(Donnees d);
 	
 	GridPane getPane(Donnees d);
+	
+	void init(Donnees d);
 }
