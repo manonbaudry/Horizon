@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +32,7 @@ public class Realisation{
 	private int avancement;
 	private UneTache tamerelatache;
 	@FXML private  GridPane pane;
-	 public Label id, description, cout_acceleration, duree_initiale, duree_max, labelduree_reelle, alea_rouge, alea_jaune, alea_vert, labelacceleration, labeletat, labelavancement;
+	 public Label id, description, cout_acceleration, duree_initiale, duree_max, alea_rouge, alea_jaune, alea_vert, labeletat, labelavancement;
 
 	public Realisation() {};
 	public Realisation(Tache t) {
@@ -45,6 +46,19 @@ public class Realisation{
 		etat= Etat.NON_ENTAMEE;	
 		display();
 
+	}
+	
+	public Label QuelleCouleur(Couleur color) {
+		if(color.equals(Couleur.JAUNE)) return alea_jaune;
+		if(color.equals(Couleur.ROUGE)) return alea_rouge;
+		return alea_vert;
+	}
+	
+	public boolean estDejaProtege() {
+		for (Map.Entry<Couleur, Boolean> bool: protections.entrySet()) {
+			if(bool.getValue() == true) return true;
+		}
+		return false;
 	}
 	
 	public void display() {
@@ -74,46 +88,46 @@ public class Realisation{
 
 	
 	void initialize() {
-	System.out.println("Initialisation");
-	//id.setText("oui");
+	//System.out.println("Initialisation");
+
 		id = new Label(this.getTache().getId());
 		id.setStyle("-fx-background-color: #c9cacc");
-		id.setPrefWidth(60);
+		id.setPrefWidth(80);
 		
 		description = new Label(this.getTache().getDescription());
-		description.setPrefWidth(100);
+		description.setPrefWidth(90);
 		description.setStyle("-fx-background-color: #c9cacc");
 		
 		cout_acceleration = new Label(this.getTache().getCoutAcceleration()+ " €");
-		cout_acceleration.setPrefWidth(40);
+		cout_acceleration.setPrefWidth(80);
 		cout_acceleration.setStyle("-fx-background-color: #c9cacc;-fx-text-fill: #478752;");
 		
-		alea_rouge = new Label(this.getTache().getAlea(Couleur.ROUGE).getNom());
-		alea_rouge.setPrefWidth(60);
-		alea_rouge.setStyle("-fx-background-color:  #dd4949; -fx-alignment: center; -fx-text-fill: white;");
+		alea_rouge = new Label(this.getTache().getAlea(Couleur.ROUGE).getNom() +" : " + this.getTache().getAlea(Couleur.ROUGE).getType());
+		alea_rouge.setPrefWidth(80);
+		alea_rouge.setStyle("-fx-background-color:  #dd4949; -fx-alignment: center; -fx-text-fill: white; -fx-font-size:10;");
 		
-		alea_jaune = new Label(this.getTache().getAlea(Couleur.JAUNE).getNom());
-		alea_jaune.setPrefWidth(100);
-		alea_jaune.setStyle("-fx-background-color:   #f4e838; -fx-alignment: center ");
+		alea_jaune = new Label(this.getTache().getAlea(Couleur.JAUNE).getNom() +" : "+ this.getTache().getAlea(Couleur.JAUNE).getType());
+		alea_jaune.setPrefWidth(90);
+		alea_jaune.setStyle("-fx-background-color:   #f4e838; -fx-alignment: center ; -fx-font-size:10; ");
 		
-		alea_vert = new Label(this.getTache().getAlea(Couleur.VERT).getNom());
-		alea_vert.setPrefWidth(40);
-		alea_vert.setStyle("-fx-background-color:  #5b9960; -fx-alignment: center; -fx-text-fill: white;");
+		alea_vert = new Label(this.getTache().getAlea(Couleur.VERT).getNom() +" : "+ this.getTache().getAlea(Couleur.VERT).getType());
+		alea_vert.setPrefWidth(90);
+		alea_vert.setStyle("-fx-background-color:  #5b9960; -fx-alignment: center; -fx-text-fill: white; -fx-font-size:10;");
 		
-		duree_initiale = new Label(this.getTache().getDureeInitiale()+ "");
-		duree_max = new Label(this.getTache().getDureeMax()+"");
-		labelacceleration = new Label(this.getAcceleration()+ "");
-		labeletat = new Label("Etat : " + this.getEtat().getChar());
+		labeletat = new Label("" + this.getEtat());
+		labeletat.setStyle(" -fx-text-fill: black; -fx-font-size:11;");
 		labeletat.setPrefSize(100, 30);
+		
+		duree_initiale = new Label( "Min : " +this.getTache().getDureeInitiale());
+		duree_max = new Label("Max : "+this.getTache().getDureeMax());
 		labelavancement = new Label(this.getAvancement()+ " / " + this.getDuree_reelle());
-		//labelduree_reelle = new Label(this.getDuree_reelle()+"");
 		
 		//id.setText(this.getTache().getId());
 	//	description.setText(this.getTache().getDescription());
 		//id.setText(getTache().getId());
-		pane.getColumnConstraints().add(new ColumnConstraints(60));
-		pane.getColumnConstraints().add(new ColumnConstraints(100));
-		pane.getColumnConstraints().add(new ColumnConstraints(40));
+		pane.getColumnConstraints().add(new ColumnConstraints(80));
+		pane.getColumnConstraints().add(new ColumnConstraints(90));
+		pane.getColumnConstraints().add(new ColumnConstraints(80));
 		pane.add(id, 0, 0);
 		pane.add(description, 1, 0);
 		pane.add(cout_acceleration, 2, 0);
@@ -122,8 +136,6 @@ public class Realisation{
 		pane.add(alea_rouge, 0, 2);
 		pane.add(alea_jaune, 1, 2);
 		pane.add(alea_vert, 2, 2);
-		//pane.add(labelduree_reelle, 0, 3);
-		pane.add(labelacceleration, 2, 3);
 		pane.add(labeletat, 0, 4);
 		pane.add(labelavancement, 2, 4);
 		

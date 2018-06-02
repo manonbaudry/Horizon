@@ -33,11 +33,14 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private boolean realisationUnePassee = false;
 	private HBox hbox = new HBox();
 	
-	private Label label_caisse, joueur, tour, qualité;
-	private Button finDeTour; 
+	public int tourd;
+	
+	public Label label_caisse, joueur, tour, qualité, label_tour;
+	public Button finDeTour; 
 
 	public Donnees(String nom, Strategie strategie) {
 		super();
+		tourd = 0;
 		this.caisse = 300;
 		this.nom = nom;
 		this.qualite = 100;
@@ -245,6 +248,8 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id)) {
 				realisation.setAcceleration(active);
 				caisse -= realisation.getTache().getCoutAcceleration();
+				realisation.cout_acceleration.setText("Accélerée");
+				realisation.cout_acceleration.setStyle("-fx-background-color:  #087021; -fx-text-fill: white;-fx-font-size:11;");
 			}
 		}
 	}
@@ -256,7 +261,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getTache().getId().equals(id)) realisation.getProtections().put(couleur, active);
+			if(realisation.getTache().getId().equals(id)) {
+				realisation.getProtections().put(couleur, active);
+				realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
+			}
 
 		}
 	}
@@ -316,14 +324,15 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		joueur = new Label("Joueur : " + this.getNom());
 		tour = new Label( "Tour : " + this.getNumeroTour());
 		qualité = new Label("Qualité : " + this.getQualite() + " %");
+		label_tour = new Label("");
 		
 		finDeTour = new Button("Fin De tour");
 		
 		finDeTour.setOnAction(e ->{
-			this.FinDuTour();
+			tourd++;
 		});
 		
-		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
+		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, label_tour, finDeTour);
 		donnees.setPrefSize(1000, 100);
 		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10");
 		
@@ -331,6 +340,13 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			VBox.setMargin(node, new Insets(10));
 		}
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
+	}
+	
+	public void update() {
+		label_caisse.setText("La caisse : "+this.caisse + " €");
+		tour.setText(( "Tour : " + this.getNumeroTour()));
+		qualité.setText(("Qualité : " + this.getQualite() + " %"));
+		
 	}
 	
 	public HBox getHBox() {

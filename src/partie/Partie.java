@@ -3,6 +3,7 @@ package partie;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import description.Couleur;
 import description.Description;
@@ -10,9 +11,11 @@ import description.TypeAlea;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import strategie.JoueurSimple;
 
@@ -23,8 +26,9 @@ import strategie.JoueurSimple;
  */
 public class Partie extends Application{
 	private Description description;
-	private String[] nom_joueurs;
+	private String[] nom_joueurs = new String[] {"Fred"};
 	private Donnees[] donnees_joueurs;
+	private int nbtours;
 	private Tour[] tours;
 	private int nbToursSemaines;
 
@@ -33,10 +37,11 @@ public class Partie extends Application{
 	 * @param description répresentant l'ensemble des Taches
 	 * @param nom_joueurs, les différents de la partie
 	 */
-	public Partie(Description description, String[] nom_joueurs) {
+	public Partie(Description description) {
+		nbtours =0;
 		this.description = description;
 		nbToursSemaines = -1;
-		this.nom_joueurs = nom_joueurs;
+		//this.nom_joueurs = nom_joueurs;
 		donnees_joueurs = new Donnees[nom_joueurs.length];
 		this.tours = new Tour[] {
 				Tour.JALON,
@@ -56,7 +61,7 @@ public class Partie extends Application{
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
 	}
-	
+
 	public Partie() {};
 
 	/**
@@ -79,9 +84,14 @@ public class Partie extends Application{
 		if(tour.equals(Tour.JALON)) this.tourJalon();
 
 		if(tour.equals(Tour.ALEA)) {
+			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
 			this.tourSemaine(Couleur.tirage());
+			
 		}
-		if(tour.equals(Tour.FINAL)) this.tourFinal();
+		if(tour.equals(Tour.FINAL)) {
+			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
+			this.tourFinal();
+		}
 	}
 
 	/**
@@ -113,24 +123,30 @@ public class Partie extends Application{
 	 * @param couleur, la couleur de l'Alea tiré
 	 */
 	public void tourSemaine(Couleur couleur) {
-		System.out.println("Tour Semaine !");
 		nbToursSemaines++;
 		for (int i = 0; i < donnees_joueurs.length; i++) {
+			donnees_joueurs[i].label_tour.setText("Tour Semaine !");
 			Realisation currentRealisation = donnees_joueurs[i].getRealisation(nbToursSemaines);
 			if(!currentRealisation.isProtected(couleur)) {
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(currentRealisation.getTache().getAlea(couleur).getGravite()*10);
+					donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
+					
+
+					
 				}	
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
 					donnees_joueurs[i].baisseQualite(currentRealisation.getTache().getAlea(couleur).getGravite());
+					 donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
+					
 				}
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.DELAI)) {
 					currentRealisation.ajoutDelai(currentRealisation.getTache().getAlea(couleur).getGravite());
+					 donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
+					
 				}
 			}
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);	
-
-			System.out.println("La couleur " + couleur.toString() + " a été tirée cette semaine" + '\n' + "_________________________________");
 		}
 	}
 
@@ -139,6 +155,7 @@ public class Partie extends Application{
 	 * Fonctionnement d'un tour Quizz
 	 */
 	public void tourQuizz() {
+
 	}
 
 
@@ -147,8 +164,9 @@ public class Partie extends Application{
 	 */
 	public void tourJalon() {
 		//System.out.println(getClass().getResource("RealisationGraphique.fxml"));
-		System.out.println("Tour jalon ! ");
+		
 		for (int i = 0; i < donnees_joueurs.length; i++) {
+			donnees_joueurs[i].label_tour.setText("Tour Jalon !");
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
 
 		}
@@ -159,6 +177,7 @@ public class Partie extends Application{
 	 */
 	public void tourFinal() {
 		for(int i = 0; i < donnees_joueurs.length; i++) {
+			donnees_joueurs[i].label_tour.setText("Tour Final!");
 			for(Realisation r : donnees_joueurs[i].getRealisation()){
 				if(r.getEtat().equals(Etat.EN_COURS) || r.getEtat().equals(Etat.NON_ENTAMEE)) {
 					r.setAvancement(r.getDuree_reelle());
@@ -172,47 +191,29 @@ public class Partie extends Application{
 		}
 	}
 
-	public void play(Stage primaryStage ) {
-		/*String oui = "salut";
-		Scanner scanner = new Scanner(System.in);
-		Partie partie = new Partie(new Description(), new String[] {"Fred"});
-		for (int i = 0; i < partie.tours.length; i++) {
-			partie.jouerTour(partie.tours[i]);							
-		}
-		scanner.close();*/	
+	public static void play(Partie p, int tour)  {
+		//for (int i = 0; i < p.tours.length; i++) {
+				p.jouerTour(p.tours[tour]);
 
+//	}
+	}
 
-	}
-	
-	public void init() {
-	//	for(int i = 0; i < donnees_joueurs.length; i++) {
-		//	donnees_joueurs[i].getStrategie().init(donnees_joueurs[i]);
-	//	}
-		//this.donnees_joueurs[0].getRealisation().get(0).setText(this.donnees_joueurs[0].getRealisation().get(0).id, this.donnees_joueurs[0].getRealisation().get(0).getTache().getId());
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Partie p = new Partie(new Description(), new String[] {"Fred"});
-		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(), Double.MAX_VALUE, Double.MAX_VALUE);
+				
+		Partie p = new Partie(new Description());		
+ 		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(),1500 , 500);
 		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
 		primaryStage.show();
-	
+			play(p, 0);
 		
 	}
-	
+
 	public static void main(String[] args) {
-		//Partie p = new Partie(new Description(), new String[] {"Fred"});
-		//p.init();
+		//Partie p = new Partie(new Description());
 		launch(args);
-		
-		
-		
-		
 	}
-
-
-
-
 
 }

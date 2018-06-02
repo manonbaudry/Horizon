@@ -35,5 +35,5 @@ public interface Strategie {
 	
 	GridPane getPane(Donnees d);
 	
-	void init(Donnees d);
+	void reset(Donnees d);
 }
