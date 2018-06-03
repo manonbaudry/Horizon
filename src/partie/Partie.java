@@ -1,24 +1,11 @@
 package partie;
 
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import description.Couleur;
 import description.Description;
 import description.TypeAlea;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import strategie.JoueurSimple;
 
@@ -31,10 +18,8 @@ public class Partie extends Application{
 	private Description description;
 	private String[] nom_joueurs = new String[] {"Fred"};
 	private Donnees[] donnees_joueurs;
-	private int nbtours;
 	private Tour[] tours;
 	private int nbToursSemaines;
-	private boolean fin;
 
 	/**
 	 * Initialisation de la partie 
@@ -42,8 +27,6 @@ public class Partie extends Application{
 	 * @param nom_joueurs, les différents de la partie
 	 */
 	public Partie(Description description) {
-		nbtours =0;
-		fin = false;
 		this.description = description;
 		nbToursSemaines = -1;
 		//this.nom_joueurs = nom_joueurs;
@@ -136,19 +119,14 @@ public class Partie extends Application{
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(currentRealisation.getTache().getAlea(couleur).getGravite()*10);
 					donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
-
-
-
 				}	
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.QUALITE)) {
 					donnees_joueurs[i].baisseQualite(currentRealisation.getTache().getAlea(couleur).getGravite());
 					donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
-
 				}
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.DELAI)) {
 					currentRealisation.ajoutDelai(currentRealisation.getTache().getAlea(couleur).getGravite());
 					donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
-
 				}
 			}
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);	
@@ -168,8 +146,6 @@ public class Partie extends Application{
 	 * Fonctionnement d'un tour Jalon
 	 */
 	public void tourJalon() {
-		//System.out.println(getClass().getResource("RealisationGraphique.fxml"));
-
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].label_tour.setText("Tour Jalon !");
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
@@ -192,11 +168,13 @@ public class Partie extends Application{
 			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
 			System.out.println("Votre part de marché est de : "+part+"%");
-			fin = true;
-
 		}
 	}
-
+	
+	/**
+	 * Coeur du jeu : permet de jouer. 
+	 * @param p, la partie en cours
+	 */
 	public void play(Partie p)  {
 		for (int i = 0 ; i < p.tours.length; i++) {
 			p.jouerTour(p.tours[i]);
@@ -205,15 +183,7 @@ public class Partie extends Application{
 
 	}
 
-	public void affichage(Stage s) {
-		Scene scene = new Scene(donnees_joueurs[0].getHBox(),1500 , 500);
-		s.setScene(scene);
-		s.setResizable(false);
-		s.show();
-	}
 
-
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Partie p = new Partie(new Description());	
 		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(),1500 , 500);

@@ -2,20 +2,9 @@ package partie;
 
 
 import description.*;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -31,7 +20,7 @@ public class Realisation{
 	private Etat etat;
 	private int avancement;
 	private UneTache tamerelatache;
-	@FXML private  GridPane pane;
+	 private  GridPane pane;
 	 public Label id, description, cout_acceleration, duree_initiale, duree_max, alea_rouge, alea_jaune, alea_vert, labeletat, labelavancement;
 
 	public Realisation() {};
@@ -48,12 +37,21 @@ public class Realisation{
 
 	}
 	
+	/**
+	 * Permet de renvoyer le label correspondant à la couleur passé en paramètre
+	 * @param color, la couleur 
+	 * @return le label correspondant ) la couleur
+	 */
 	public Label QuelleCouleur(Couleur color) {
 		if(color.equals(Couleur.JAUNE)) return alea_jaune;
 		if(color.equals(Couleur.ROUGE)) return alea_rouge;
 		return alea_vert;
 	}
 	
+	/**
+	 * 
+	 * @return true si la realisation est protégée d'un alea, faux sinon
+	 */
 	public boolean estDejaProtege() {
 		for (Map.Entry<Couleur, Boolean> bool: protections.entrySet()) {
 			if(bool.getValue() == true) return true;
@@ -61,35 +59,31 @@ public class Realisation{
 		return false;
 	}
 	
+	/**
+	 * Affichage graphique d'une réalisation
+	 */
 	public void display() {
 		pane = new GridPane();
 		pane.setPrefSize(400, 100);
 		pane.setGridLinesVisible(true);
-		//pane.setPadding(new Insets(3));
-
-		//FXMLLoader loader = new FXMLLoader(this.getClass().getResource("RealisationGraphique.fxml"));
-		//try {
-		//	pane = (GridPane)loader.load();
-			initialize();
-		//	pane.getChildren().addAll(id, description, cout_acceleration, duree_initiale, duree_max, labelduree_reelle, alea_rouge, alea_jaune, alea_vert, labelacceleration, labeletat, labelavancement);
-
-		//} catch (IOException e) {
-		//	e.printStackTrace();
-		//}	
-		
+			initialize();		
 	}
 	
-	
-	
-		
+	/**
+	 * 
+	 * @return la gridpane représentant la réalisation
+	 */
 	public GridPane getPane() {
 		return pane;
 	}
 
-	
+	/**
+	 * Initialise l'affichage graphique de la réalisation :
+	 * - Créer les labels
+	 * - Décore les labels
+	 * - Place les labels dans le gridPane
+	 */
 	void initialize() {
-	//System.out.println("Initialisation");
-
 		id = new Label(this.getTache().getId());
 		id.setStyle("-fx-background-color: #c9cacc");
 		id.setPrefWidth(80);
@@ -122,12 +116,10 @@ public class Realisation{
 		duree_max = new Label("Max : "+this.getTache().getDureeMax());
 		labelavancement = new Label(this.getAvancement()+ " / " + this.getDuree_reelle());
 		
-		//id.setText(this.getTache().getId());
-	//	description.setText(this.getTache().getDescription());
-		//id.setText(getTache().getId());
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
 		pane.getColumnConstraints().add(new ColumnConstraints(90));
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
+		
 		pane.add(id, 0, 0);
 		pane.add(description, 1, 0);
 		pane.add(cout_acceleration, 2, 0);
@@ -142,15 +134,13 @@ public class Realisation{
 		for(Node node : pane.getChildren()) {
 			GridPane.setMargin(node, new Insets(1));
 		}
-	
-	//	GridPane.setFillHeight(id, true);
-		//GridPane.setFillWidth(id, true);
-	//	GridPane.setHalignment(id, HPos.LEFT);
-
-		
 
 	}
 	
+	/**
+	 * @param l le label
+	 * @param t, le texte
+	 */
 	public void setText(Label l, String t) {
 		l.setText(t);
 	}

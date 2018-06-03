@@ -1,23 +1,16 @@
 package partie;
 
 import java.util.ArrayList;
-
 import com.sun.javafx.tk.Toolkit;
-import com.sun.media.jfxmediaimpl.platform.Platform;
-
 import description.Couleur;
 import description.Description;
 import description.Tache;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import strategie.Strategie;
 
 /**
@@ -32,7 +25,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
-	public int nbtour;
 	private int numeroTour;
 	private boolean realisationUnePassee = false;
 	private HBox hbox = new HBox();
@@ -44,7 +36,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	public Donnees(String nom, Strategie strategie) {
 		super();
-		nbtour = 0;
 		tourd = 0;
 		this.caisse = 300;
 		this.nom = nom;
@@ -325,14 +316,25 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return 0;
 	}
 	
+	/**
+	 * Met en pause le jeu
+	 */
 	public void pause() {
 		Toolkit.getToolkit().enterNestedEventLoop(finDeTour);
 	}
 	
+	/**
+	 * Fait reprendre le jeu à l'appui du bouton de fin de tour
+	 */
 	public void resume() {
 		Toolkit.getToolkit().exitNestedEventLoop(finDeTour, null);
 	}
 	
+	/**
+	 * Créer l'affichage de l'interface graphique :
+	 * - les différents attibuts des données 
+	 * - le "plateau" de jeu venant de la stratégie du joueur
+	 */
 	public void display() {
 		VBox donnees = new VBox();
 		label_caisse = new Label("La caisse : "+this.caisse + " €");
@@ -357,15 +359,20 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
 	}
 	
+	/**
+	 * Met à jour la caisse, le tour et la qualité sur l'interface grpahique
+	 */
 	public void update() {
 		label_caisse.setText("La caisse : "+this.caisse + " €");
 		tour.setText(( "Tour : " + this.getNumeroTour()));
 		qualité.setText(("Qualité : " + this.getQualite() + " %"));
 		
 	}
-	
-	public HBox getHBox() {
-		
+	/**
+	 * 
+	 * @return la HBox utilisée pour illustrer les donnéees dans l'interface grpahique
+	 */
+	public HBox getHBox() {		
 		return hbox;
 	}
 	
