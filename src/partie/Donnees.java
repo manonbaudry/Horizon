@@ -2,6 +2,9 @@ package partie;
 
 import java.util.ArrayList;
 
+import com.sun.javafx.tk.Toolkit;
+import com.sun.media.jfxmediaimpl.platform.Platform;
+
 import description.Couleur;
 import description.Description;
 import description.Tache;
@@ -29,6 +32,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
+	public int nbtour;
 	private int numeroTour;
 	private boolean realisationUnePassee = false;
 	private HBox hbox = new HBox();
@@ -40,6 +44,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	public Donnees(String nom, Strategie strategie) {
 		super();
+		nbtour = 0;
 		tourd = 0;
 		this.caisse = 300;
 		this.nom = nom;
@@ -181,6 +186,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		actualisation();
 		numeroTour++;	
+		
 	}
 
 	/**
@@ -262,6 +268,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
 			if(realisation.getTache().getId().equals(id)) {
+				caisse -= 10;
 				realisation.getProtections().put(couleur, active);
 				realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
 			}
@@ -318,6 +325,14 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return 0;
 	}
 	
+	public void pause() {
+		Toolkit.getToolkit().enterNestedEventLoop(finDeTour);
+	}
+	
+	public void resume() {
+		Toolkit.getToolkit().exitNestedEventLoop(finDeTour, null);
+	}
+	
 	public void display() {
 		VBox donnees = new VBox();
 		label_caisse = new Label("La caisse : "+this.caisse + " €");
@@ -329,7 +344,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		finDeTour = new Button("Fin De tour");
 		
 		finDeTour.setOnAction(e ->{
-			tourd++;
+			this.resume();
 		});
 		
 		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, label_tour, finDeTour);
