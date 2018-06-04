@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,16 +14,21 @@ import javax.swing.JOptionPane;
 
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
 
+import com.sun.glass.ui.Timer;
+
 import description.Couleur;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import partie.*;
 
@@ -46,7 +52,7 @@ public class JoueurSimple implements Strategie {
 
 		for(Realisation r : d.getRealisation()) {
 			Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
-				r.alea_jaune.setTooltip(tip);
+			r.alea_jaune.setTooltip(tip);
 			r.alea_jaune.setOnMouseClicked(e ->{
 				d.setProtection(r.getTache().getId(), Couleur.JAUNE, true);
 				r.alea_jaune.setTooltip(null);
@@ -66,10 +72,10 @@ public class JoueurSimple implements Strategie {
 				d.setAcceleration(r.getTache().getId(), true);
 				r.cout_acceleration.setTooltip(null);
 			});
-			
-			
-			
-			
+
+
+
+
 		}
 
 		affichage(d);
@@ -78,64 +84,65 @@ public class JoueurSimple implements Strategie {
 
 	@Override
 	public Stage jouerQuizz( Donnees d) {
-	/*	if(d.getNumeroTour() < 7) {
-			String rep = JOptionPane.showInputDialog("Comment t'apelles-tu");
-			if(rep.equals(d.getNom())){
-				d.depense(-5);
-				JOptionPane.showMessageDialog(null,"Bravo tu as gagné 5€");
-			}else {
-				JOptionPane.showMessageDialog(null, "tu as perdu...");
-			}
-		}else {
-			String rep = JOptionPane.showInputDialog("En quelle année sommes nous ?");
-			if(rep.equals("2018")){
-				d.depense(-10);
-				JOptionPane.showMessageDialog(null, "Bravo tu as gagné 10€");
-			}else {
-				JOptionPane.showMessageDialog(null, "tu as perdu...");
-			}			
-			
-		}*/
+		
 		String line = "";
-		HashMap<String, String> map = new HashMap<>();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("/resources/questions.csv")));
-			while((line = br.readLine()) != null) {
-				String[] oui = line.split(";");
-				map.put(oui[0], oui[1]);
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(IOException y){y.printStackTrace();}
+		ArrayList<String >reponses = new ArrayList<>();
+		ArrayList<String >questions = new ArrayList<>();
 
-		Random r = new Random();
-	//	String q = map.
-		Pane root = new Pane();
-		root.setPrefSize(299, 212);
-		
-		VBox bbox = new VBox();
-		bbox.setStyle("-fx-background-color: #e1e9f2;");
-		bbox.setPrefSize(299, 212);
-		Label title = new Label("C'est l'heure du qu-qu-qu-quizz!");
-		title.setAlignment(Pos.CENTER);
-		title.setPrefSize(297, 27);
-		title.setStyle("-fx-text-alignment: center; -fx-background-color: white;");
-		
-		Label question = new Label("Question : ");
-		question.setPrefSize(597, 87);
-		question.setAlignment(Pos.CENTER);
-			
-		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
-		VBox.setMargin(reponse, new Insets(0,75, 0, 75));
-		
-		bbox.getChildren().addAll(title, question, reponse);		
-		root.getChildren().add(bbox);
-		
-		Scene scne = new Scene(root);
-		
+		try (BufferedReader br = new BufferedReader(new FileReader("resources/questions.csv"))) {
+
+			while ((line = br.readLine()) != null) {
+				String[] oui = line.split(";");
+				if(oui != null) {
+					questions.add(oui[0]);
+					reponses.add(oui[1]);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		int ligne = new Random().nextInt(reponses.size());
+				
 		Stage s = new Stage();
+		Pane root = new Pane();
+		VBox bbox = new VBox();
+		Label title = new Label("C'est l'heure du qu-qu-qu-quizz à 10 balles!");
+		Button valider = new Button("Valider");	
+		Label question = new Label(questions.get(ligne));
+		Scene scne = new Scene(root);
+		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
+		
+		
+		bbox.setPrefSize(299, 212);		
+		root.setPrefSize(299, 212);
+		title.setPrefSize(297, 27);
+		question.setPrefSize(597, 87);
+		
+		title.setAlignment(Pos.CENTER);
+		
+		title.setStyle("-fx-text-alignment: center; -fx-background-color: white;");		
+		bbox.setStyle("-fx-background-color: #e1e9f2;");
+		
+		question.setAlignment(Pos.CENTER);
+		valider.setAlignment(Pos.CENTER);
+			
+		VBox.setMargin(reponse, new Insets(0,75, 15, 75));
+				
+		valider.setOnAction(e ->{
+			if( reponse.getText().toUpperCase().equals(reponses.get(ligne))) {
+				d.depense(-10);
+				d.update();
+			}else {
+			}
+			s.close();			
+		});
+
+		bbox.getChildren().addAll(title, question, reponse, valider);		
+		root.getChildren().add(bbox);				
 		s.setScene(scne);
+		s.setResizable(false);
+		s.initModality(Modality.APPLICATION_MODAL);
 		return s;
 	}
 
@@ -158,17 +165,17 @@ public class JoueurSimple implements Strategie {
 			r.setText(r.labeletat, r.getEtat().name());
 		}
 	}
-	
+
 	/**
 	 * Bloque la possibilité de cliquer sur les labels des réalisations pendant un autre tour que le tour jalon
 	 */
 	public void reset(Donnees d) {
 		for( Realisation r : d.getRealisation()) {
-		r.alea_jaune.setOnMouseClicked(e ->{});
-		r.alea_rouge.setOnMouseClicked(e ->{});				
-		r.alea_vert.setOnMouseClicked(e ->{});			
-		r.cout_acceleration.setOnMouseClicked(e ->{});
-		
+			r.alea_jaune.setOnMouseClicked(e ->{});
+			r.alea_rouge.setOnMouseClicked(e ->{});				
+			r.alea_vert.setOnMouseClicked(e ->{});			
+			r.cout_acceleration.setOnMouseClicked(e ->{});
+
 		}
 	}
 
@@ -188,14 +195,12 @@ public class JoueurSimple implements Strategie {
 
 		upane.setVgap(5.0);
 		upane.setHgap(5.0);
-		upane.setStyle("-fx-stroke: green; -fx-stroke-width: 5; ");
-		
 		for(Node node : upane.getChildren()) {
 			((GridPane)node).setPadding(new Insets(10));
 		}
 	}
 
-	
+
 	public GridPane getPane(Donnees d) {
 		display(d);
 		return upane;

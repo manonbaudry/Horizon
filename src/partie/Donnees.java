@@ -249,6 +249,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			//	realisation.setDuree_reelle(realisation.getDuree_reelle()-1);
 				realisation.cout_acceleration.setText("Accélerée");
 				realisation.cout_acceleration.setStyle("-fx-background-color:  #087021; -fx-text-fill: white;-fx-font-size:11;");
+				this.update();
 			}
 		}
 	}
@@ -262,8 +263,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		for (Realisation realisation : realisations) {
 			if(realisation.getTache().getId().equals(id) && caisse >= 10) {
 				caisse -= 10;
-				
-
+				this.update();
 				realisation.getProtections().put(couleur, active);
 			realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
 			
@@ -375,7 +375,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		
 	}
 	/**
-	 * 
 	 * @return la HBox utilisée pour illustrer les donnéees dans l'interface grpahique
 	 */
 	public HBox getHBox() {		

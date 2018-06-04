@@ -179,9 +179,8 @@ public class Partie extends Application{
 	public void play(Partie p)  {
 		for (int i = 0 ; i < p.tours.length; i++) {
 			p.jouerTour(p.tours[i]);
-			p.donnees_joueurs[0].pause();
+			p.donnees_joueurs[0].pause();		
 		}
-
 	}
 
 
