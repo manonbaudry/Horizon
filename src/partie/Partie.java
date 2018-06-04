@@ -70,7 +70,6 @@ public class Partie extends Application{
 	 */
 	public void jouerTour(Tour tour) {
 		if(tour.equals(Tour.JALON)) this.tourJalon();
-
 		if(tour.equals(Tour.ALEA)) {
 			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
 			this.tourSemaine(Couleur.tirage());
@@ -79,6 +78,9 @@ public class Partie extends Application{
 		if(tour.equals(Tour.FINAL)) {
 			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
 			this.tourFinal();
+		}if(tour.equals(Tour.QUIZZ)) {
+			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
+			this.tourQuizz();
 		}
 	}
 
@@ -115,7 +117,7 @@ public class Partie extends Application{
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].label_tour.setText("Tour Semaine !");
 			Realisation currentRealisation = donnees_joueurs[i].getRealisation(nbToursSemaines);
-			if(!currentRealisation.isProtected(couleur)) {
+			if(!currentRealisation.isProtected(couleur) && !currentRealisation.estTerminee()) {
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
 					donnees_joueurs[i].depense(currentRealisation.getTache().getAlea(couleur).getGravite()*10);
 					donnees_joueurs[i].getRealisation().get(nbToursSemaines).QuelleCouleur(couleur).setStyle("-fx-background-color:  black; -fx-alignment: center; -fx-text-fill: white;-fx-font-size:10;");
@@ -133,14 +135,15 @@ public class Partie extends Application{
 		}
 	}
 
-
 	/**
 	 * Fonctionnement d'un tour Quizz
 	 */
-	public void tourQuizz() {
-
+	public void tourQuizz() {		
+		for (int i = 0; i < donnees_joueurs.length; i++) {
+			donnees_joueurs[i].label_tour.setText("Tour Quizz !");
+			donnees_joueurs[i].getStrategie().jouerQuizz(donnees_joueurs[i]).show();;
+		}
 	}
-
 
 	/**
 	 * Fonctionnement d'un tour Jalon
@@ -149,7 +152,6 @@ public class Partie extends Application{
 		for (int i = 0; i < donnees_joueurs.length; i++) {
 			donnees_joueurs[i].label_tour.setText("Tour Jalon !");
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
-
 		}
 	}
 
@@ -163,7 +165,6 @@ public class Partie extends Application{
 				if(r.getEtat().equals(Etat.EN_COURS) || r.getEtat().equals(Etat.NON_ENTAMEE)) {
 					r.setAvancement(r.getDuree_reelle());
 				}
-
 			}
 			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
@@ -186,7 +187,7 @@ public class Partie extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		Partie p = new Partie(new Description());	
-		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(),1500 , 500);
+		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(),1500 , 600);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();

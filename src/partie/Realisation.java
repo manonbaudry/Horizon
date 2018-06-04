@@ -8,8 +8,11 @@ import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 
 
@@ -46,17 +49,6 @@ public class Realisation{
 		if(color.equals(Couleur.JAUNE)) return alea_jaune;
 		if(color.equals(Couleur.ROUGE)) return alea_rouge;
 		return alea_vert;
-	}
-	
-	/**
-	 * 
-	 * @return true si la realisation est protégée d'un alea, faux sinon
-	 */
-	public boolean estDejaProtege() {
-		for (Map.Entry<Couleur, Boolean> bool: protections.entrySet()) {
-			if(bool.getValue() == true) return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -109,8 +101,9 @@ public class Realisation{
 		alea_vert.setStyle("-fx-background-color:  #5b9960; -fx-alignment: center; -fx-text-fill: white; -fx-font-size:10;");
 		
 		labeletat = new Label("" + this.getEtat());
-		labeletat.setStyle(" -fx-text-fill: black; -fx-font-size:11;");
+		labeletat.setStyle(" -fx-text-fill: black; -fx-font-size:9;");
 		labeletat.setPrefSize(100, 30);
+
 		
 		duree_initiale = new Label( "Min : " +this.getTache().getDureeInitiale());
 		duree_max = new Label("Max : "+this.getTache().getDureeMax());
@@ -119,6 +112,8 @@ public class Realisation{
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
 		pane.getColumnConstraints().add(new ColumnConstraints(90));
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
+		
+		
 		
 		pane.add(id, 0, 0);
 		pane.add(description, 1, 0);
@@ -145,68 +140,12 @@ public class Realisation{
 		l.setText(t);
 	}
 	
-
-
-	public int calculPlusTot() {
-		int res = 0;
-		for(int i = 0; i < this.getPredecesseurs().size(); i++) {
-			if(this.getPredecesseurs().get(i).getDureeInitiale() > res)
-				res = this.getPredecesseurs().get(i).getDureeInitiale();
-		}
-		System.out.println("----" + res + " le plus grand");
-		return res;
-	}
-
-	public int calculPlusTard() {
-		int res = 0;
-		for(int i = 0; i < this.getPredecesseurs().size(); i++) {
-			if(this.getPredecesseurs().get(i).getDureeMax() > res)
-				res = this.getPredecesseurs().get(i).getDureeMax();
-		}
-		return res;
-	}
-
-	public int lePlusLongSuccesseur(ArrayList<Tache> tache) {
-		int res = 0;
-		for(Tache t: this.getTache().getSuccesseurs()) {
-			if(t.getDureeInitiale() > res) res = t.getDureeInitiale();
-		}
-		return res;
-	}
-
-
 	/**
 	 * @return vrai si la réalisation courante est terminées, faux sinon
 	 */
 	public boolean estTerminee() {
 		if(this.getEtat().equals(Etat.TERMINE)) return true;
 		return false;
-	}
-
-	public Realisation laPlusLongueInitiale(Realisation r) {
-		if(this.getTache().sontEnParallele(r.getTache())) {
-			if( this.getTache().getDureeInitiale() > r.getTache().getDureeInitiale()) {
-				//System.out.println(this.getTache().getId() + " initiale plus longue que " + r.getTache().getId());
-				return this;
-			}else {
-				//System.out.println(this.getTache().getId() + " initiale moins longue que " + r.getTache().getId());
-				return r;
-			}
-		}
-		return new Realisation(new UneTache("", 0, "", 0));
-	}
-
-	public Realisation laPlusLongueMax(Realisation r) {
-		if(this.getTache().sontEnParallele(r.getTache())) {
-			if( this.getTache().getDureeMax() > r.getTache().getDureeMax()) {
-				System.out.println(this.getTache().getId() + " max plus longue que " + r.getTache().getId());
-				return this;
-			}else {
-				//System.out.println(this.getTache().getId() + " max moins longue que " + r.getTache().getId());
-				return r;
-			}
-		}
-		return new Realisation(new UneTache("", 0, "", 0));
 	}
 
 	/**

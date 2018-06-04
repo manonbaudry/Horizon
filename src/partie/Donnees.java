@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import strategie.Strategie;
@@ -242,9 +243,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	public void setAcceleration(String id, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id)) {
+			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id) && caisse >= realisation.getTache().getCoutAcceleration()) {
 				realisation.setAcceleration(active);
-				caisse -= realisation.getTache().getCoutAcceleration();
+				depense(realisation.getTache().getCoutAcceleration());
+			//	realisation.setDuree_reelle(realisation.getDuree_reelle()-1);
 				realisation.cout_acceleration.setText("Accélerée");
 				realisation.cout_acceleration.setStyle("-fx-background-color:  #087021; -fx-text-fill: white;-fx-font-size:11;");
 			}
@@ -258,10 +260,13 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getTache().getId().equals(id)) {
+			if(realisation.getTache().getId().equals(id) && caisse >= 10) {
 				caisse -= 10;
+				
+
 				realisation.getProtections().put(couleur, active);
-				realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
+			realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
+			
 			}
 
 		}
@@ -299,7 +304,8 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	private void setTermine() {
 		for(Realisation r : realisations) {
-			if(r.getDuree_reelle() == r.getAvancement()) {
+			if(r.getDuree_reelle() <= r.getAvancement()) {
+				if(r.getDuree_reelle() < r.getAvancement()) r.setAvancement(r.getDuree_reelle());
 				r.setTerminee();
 			}
 		}
@@ -350,7 +356,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		});
 		
 		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, label_tour, finDeTour);
-		donnees.setPrefSize(1000, 100);
+		donnees.setPrefSize(2000, 100);
 		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10");
 		
 		for (Node node : donnees.getChildren()) {

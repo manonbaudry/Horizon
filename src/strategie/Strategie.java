@@ -1,6 +1,7 @@
 package strategie;
 
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import partie.*;
 
 public interface Strategie {
@@ -31,7 +32,7 @@ public interface Strategie {
 	 * 
 	 * Réponse à un quizz.
 	 */
-	void 	jouerQuizz(Donnees d);
+	Stage 	jouerQuizz(Donnees d);
 	
 	GridPane getPane(Donnees d);
 	
