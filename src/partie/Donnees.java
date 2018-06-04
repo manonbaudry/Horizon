@@ -6,12 +6,14 @@ import description.Couleur;
 import description.Description;
 import description.Tache;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import strategie.Strategie;
 
 /**
@@ -29,6 +31,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private int numeroTour;
 	private boolean realisationUnePassee = false;
 	private HBox hbox = new HBox();
+	private VBox big = new VBox();
 	
 	public int tourd;
 	
@@ -246,7 +249,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id) && caisse >= realisation.getTache().getCoutAcceleration()) {
 				realisation.setAcceleration(active);
 				depense(realisation.getTache().getCoutAcceleration());
-			//	realisation.setDuree_reelle(realisation.getDuree_reelle()-1);
 				realisation.cout_acceleration.setText("Accélerée");
 				realisation.cout_acceleration.setStyle("-fx-background-color:  #087021; -fx-text-fill: white;-fx-font-size:11;");
 				this.update();
@@ -288,7 +290,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private void setEnCours() {
 		if(! realisationUnePassee) {
 			realisations.get(0).setEnCours();	
-			//realisations.get(0).incrementAvancement();
 			realisationUnePassee = true;
 		}
 		for (Realisation realisation : realisations) {
@@ -348,21 +349,29 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		tour = new Label( "Tour : " + this.getNumeroTour());
 		qualité = new Label("Qualité : " + this.getQualite() + " %");
 		label_tour = new Label("");
-		
+		label_tour.setPrefSize(Double.MAX_VALUE, 15);
+		label_tour.setFont(new Font(54));
+		label_tour.setAlignment(Pos.CENTER);
 		finDeTour = new Button("Fin De tour");
+
+	//	 big = new VBox();
 		
 		finDeTour.setOnAction(e ->{
 			this.resume();
 		});
 		
-		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, label_tour, finDeTour);
+		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
 		donnees.setPrefSize(2000, 100);
-		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10");
-		
+		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10;");
+		donnees.setPadding(new Insets(15));	
 		for (Node node : donnees.getChildren()) {
-			VBox.setMargin(node, new Insets(10));
+			VBox.setMargin(node, new Insets(7));
 		}
-		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);
+		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);		
+		big.getChildren().addAll(hbox, label_tour);
+		VBox.setMargin(label_tour, new Insets(100, 0,0, 0));
+		HBox.setMargin(donnees, new Insets(5));
+		
 	}
 	
 	/**
@@ -377,8 +386,8 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	/**
 	 * @return la HBox utilisée pour illustrer les donnéees dans l'interface grpahique
 	 */
-	public HBox getHBox() {		
-		return hbox;
+	public VBox getVBox() {		
+		return big;
 	}
 	
 

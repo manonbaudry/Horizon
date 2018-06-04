@@ -21,6 +21,7 @@ public class Partie extends Application{
 	private Tour[] tours;
 	private int nbToursSemaines;
 
+
 	/**
 	 * Initialisation de la partie 
 	 * @param description répresentant l'ensemble des Taches
@@ -115,7 +116,7 @@ public class Partie extends Application{
 	public void tourSemaine(Couleur couleur) {
 		nbToursSemaines++;
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Semaine !");
+			donnees_joueurs[i].label_tour.setText("Tour Semaine");
 			Realisation currentRealisation = donnees_joueurs[i].getRealisation(nbToursSemaines);
 			if(!currentRealisation.isProtected(couleur) && !currentRealisation.estTerminee()) {
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
@@ -140,7 +141,7 @@ public class Partie extends Application{
 	 */
 	public void tourQuizz() {		
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Quizz !");
+			donnees_joueurs[i].label_tour.setText("Tour Quizz");
 			donnees_joueurs[i].getStrategie().jouerQuizz(donnees_joueurs[i]).show();;
 		}
 	}
@@ -150,7 +151,7 @@ public class Partie extends Application{
 	 */
 	public void tourJalon() {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Jalon !");
+			donnees_joueurs[i].label_tour.setText("Tour Jalon");
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
 		}
 	}
@@ -160,7 +161,6 @@ public class Partie extends Application{
 	 */
 	public void tourFinal() {
 		for(int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Final!");
 			for(Realisation r : donnees_joueurs[i].getRealisation()){
 				if(r.getEtat().equals(Etat.EN_COURS) || r.getEtat().equals(Etat.NON_ENTAMEE)) {
 					r.setAvancement(r.getDuree_reelle());
@@ -168,7 +168,13 @@ public class Partie extends Application{
 			}
 			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
-			System.out.println("Votre part de marché est de : "+part+"%");
+
+			donnees_joueurs[i].label_tour.setText("Terminé ! Votre part de marché est de : "+part+"%");
+			donnees_joueurs[i].finDeTour.setText("Quitter le jeu");
+			donnees_joueurs[i].finDeTour.setStyle("-fx-background-color: #a01010; -fx-text-fill: white;");
+			donnees_joueurs[i].finDeTour.setOnAction(e ->{
+				System.exit(0);
+			});
 		}
 	}
 	
@@ -186,7 +192,7 @@ public class Partie extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		Partie p = new Partie(new Description());	
-		Scene scene = new Scene(p.donnees_joueurs[0].getHBox(),1500 , 600);
+		Scene scene = new Scene(p.donnees_joueurs[0].getVBox(),1500 , 500);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();

@@ -52,6 +52,9 @@ public class JoueurSimple implements Strategie {
 
 		for(Realisation r : d.getRealisation()) {
 			Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
+			Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
+			tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
+			tip2.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
 			r.alea_jaune.setTooltip(tip);
 			r.alea_jaune.setOnMouseClicked(e ->{
 				d.setProtection(r.getTache().getId(), Couleur.JAUNE, true);
@@ -67,7 +70,7 @@ public class JoueurSimple implements Strategie {
 				d.setProtection(r.getTache().getId(), Couleur.VERT, true);
 				r.alea_vert.setTooltip(null);
 			});
-			r.cout_acceleration.setTooltip(new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId()));
+			r.cout_acceleration.setTooltip(tip2);
 			r.cout_acceleration.setOnMouseClicked(e ->{
 				d.setAcceleration(r.getTache().getId(), true);
 				r.cout_acceleration.setTooltip(null);
@@ -105,18 +108,17 @@ public class JoueurSimple implements Strategie {
 		int ligne = new Random().nextInt(reponses.size());
 				
 		Stage s = new Stage();
-		Pane root = new Pane();
+		//Pane root = new Pane();
 		VBox bbox = new VBox();
 		Label title = new Label("C'est l'heure du qu-qu-qu-quizz à 10 balles!");
 		Button valider = new Button("Valider");	
 		Label question = new Label(questions.get(ligne));
-		Scene scne = new Scene(root);
+		Scene scne = new Scene(bbox);
 		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
 		
-		
 		bbox.setPrefSize(299, 212);		
-		root.setPrefSize(299, 212);
-		title.setPrefSize(297, 27);
+		//root.setPrefSize(299, 212);
+		title.setPrefSize(Double.MAX_VALUE, 27);
 		question.setPrefSize(597, 87);
 		
 		title.setAlignment(Pos.CENTER);
@@ -128,18 +130,18 @@ public class JoueurSimple implements Strategie {
 		valider.setAlignment(Pos.CENTER);
 			
 		VBox.setMargin(reponse, new Insets(0,75, 15, 75));
+		VBox.setMargin(valider, new Insets(0,0,0,128));
 				
 		valider.setOnAction(e ->{
 			if( reponse.getText().toUpperCase().equals(reponses.get(ligne))) {
 				d.depense(-10);
 				d.update();
-			}else {
 			}
-			s.close();			
+			s.close();
 		});
 
 		bbox.getChildren().addAll(title, question, reponse, valider);		
-		root.getChildren().add(bbox);				
+		//root.getChildren().add(bbox);				
 		s.setScene(scne);
 		s.setResizable(false);
 		s.initModality(Modality.APPLICATION_MODAL);
