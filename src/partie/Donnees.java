@@ -83,7 +83,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	}
 
 	/**
-	 * @param r la réalistion 
+	 * @param r la réalisation 
 	 * @return la collection des prédécesseurs de r 
 	 */
 	private ArrayList<Realisation> getPredecesseurs(Realisation r){
@@ -95,12 +95,16 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		return pred;
 	}
-	
+	/**
+	 *
+	 * @param r la réalisation
+	 * @return	une arraylist des successeurs de r
+	 */
 	public ArrayList<Realisation> getSuccesseurs(Realisation r){
 		ArrayList<Realisation> succ = new ArrayList<>();
-		for (int i = 0; i < realisations.indexOf(r); i++) {
-			if(r.getTache().isPrecedesseur(realisations.get(i).getTache())) {
-				succ.add(realisations.get(i));				
+		for (int i = realisations.indexOf(r); i < realisations.size(); i++) {
+			if(realisations.get(i).getTache().isSuccesseur(r.getTache())) {
+				succ.add(realisations.get(i));
 			}
 		}
 		return succ;
@@ -316,6 +320,10 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
 	}
  
+	/**
+	 * 
+	 * @return 
+	 */
 	public int getCheminCritique() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -388,6 +396,34 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public VBox getVBox() {		
 		return big;
 	}
+	/**
+	 * pour calcul du chemin critique
+	 * @return l'ordre topologique du plateau (les réalisations sont triées dans l'ordre d'exécution)
+	 */
+	public ArrayList<Realisation> ordreTopologique() {
+		ArrayList<Realisation> topo = new ArrayList<>();
+		ArrayList<Realisation> parcouru = new ArrayList<>();
+		ArrayList<Realisation> alInit = this.realisations;
+		boolean dejaparcouru=false;
+		parcouru.add(realisations.get(0));
+		Realisation derniereRealParc;
+		while(! parcouru.isEmpty()) {
+			derniereRealParc = parcouru.get(parcouru.size()-1);
+			for (int i = 0; i < getSuccesseurs(derniereRealParc).size(); i++) {
+				if(topo.contains(getSuccesseurs(derniereRealParc).get(i))){
+					dejaparcouru=true;
+				}
+			}
+			if((! getSuccesseurs(derniereRealParc).isEmpty()) &&  ! dejaparcouru){
+					parcouru.add(getSuccesseurs(derniereRealParc).get(0));
+			}else {
+				topo.add(derniereRealParc);
+				parcouru.remove(derniereRealParc);
+				alInit.remove(derniereRealParc);
+			}
+			dejaparcouru=false;
+		}
+		return topo;
+	}
 	
-
 }
