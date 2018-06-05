@@ -116,7 +116,7 @@ public class Partie extends Application{
 	public void tourSemaine(Couleur couleur) {
 		nbToursSemaines++;
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Semaine");
+			donnees_joueurs[i].label_tour.setText("TOUR SEMAINE");
 			Realisation currentRealisation = donnees_joueurs[i].getRealisation(nbToursSemaines);
 			if(!currentRealisation.isProtected(couleur) && !currentRealisation.estTerminee()) {
 				if(currentRealisation.getTache().getAlea(couleur).getType().equals(TypeAlea.COUT)) {
@@ -141,7 +141,7 @@ public class Partie extends Application{
 	 */
 	public void tourQuizz() {		
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Quizz");
+			donnees_joueurs[i].label_tour.setText("TOUR QUIZZ");
 			donnees_joueurs[i].getStrategie().jouerQuizz(donnees_joueurs[i]).show();;
 		}
 	}
@@ -151,7 +151,7 @@ public class Partie extends Application{
 	 */
 	public void tourJalon() {
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("Tour Jalon");
+			donnees_joueurs[i].label_tour.setText("TOUR JALON");
 			donnees_joueurs[i].getStrategie().jouerJalon(donnees_joueurs[i]);	
 		}
 	}
@@ -192,8 +192,9 @@ public class Partie extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		Partie p = new Partie(new Description());	
-		Scene scene = new Scene(p.donnees_joueurs[0].getVBox(),1500 , 500);
+		Scene scene = new Scene(p.donnees_joueurs[0].getVBox(),1550 , 500);
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("HORIZONS G3");
 		primaryStage.setResizable(false);
 		primaryStage.show();
 

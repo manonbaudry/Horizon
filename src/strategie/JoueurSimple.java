@@ -1,21 +1,11 @@
 package strategie;
 
-import java.awt.TextField;
+
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
-
-import javax.swing.JOptionPane;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
-
-import com.sun.glass.ui.Timer;
-
 import description.Couleur;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,9 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,59 +23,68 @@ import partie.*;
 
 
 public class JoueurSimple implements Strategie {
-
+	private int nbjalon = 0;
 	private GridPane upane = new GridPane();
 
-
-	@Override
 	public void jouerSemaine( Donnees d) {		
 
 		affichage(d);	
 		d.FinDuTour();
 	}
 
-
-	@Override
 	public void jouerJalon( Donnees d) {
-
-		for(Realisation r : d.getRealisation()) {
-			Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
-			Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
-			tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
-			tip2.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
-			r.alea_jaune.setTooltip(tip);
-			r.alea_jaune.setOnMouseClicked(e ->{
-				d.setProtection(r.getTache().getId(), Couleur.JAUNE, true);
-				r.alea_jaune.setTooltip(null);
-			});
-			r.alea_rouge.setTooltip(tip);
-			r.alea_rouge.setOnMouseClicked(e ->{
-				d.setProtection(r.getTache().getId(), Couleur.ROUGE, true);
-				r.alea_rouge.setTooltip(null);
-			});
-			r.alea_vert.setTooltip(tip);
-			r.alea_vert.setOnMouseClicked(e ->{
-				d.setProtection(r.getTache().getId(), Couleur.VERT, true);
-				r.alea_vert.setTooltip(null);
-			});
-			r.cout_acceleration.setTooltip(tip2);
-			r.cout_acceleration.setOnMouseClicked(e ->{
-				d.setAcceleration(r.getTache().getId(), true);
-				r.cout_acceleration.setTooltip(null);
-			});
-
-
-
-
-		}
-
+		ArrayList<Realisation> salut = new ArrayList<>();
+		ArrayList<Realisation> jalon1 = new ArrayList<>();
+		ArrayList<Realisation> jalon2 = new ArrayList<>();
+		jalon1.add(d.getRealisation().get(0));
+		jalon1.add(d.getRealisation().get(1));
+		jalon1.add(d.getRealisation().get(2));
+		jalon1.add(d.getRealisation().get(3));
+		
+		jalon2.add(d.getRealisation().get(4));
+		jalon2.add(d.getRealisation().get(5));
+		jalon2.add(d.getRealisation().get(6));
+		jalon2.add(d.getRealisation().get(7));
+		if( nbjalon == 0 ) {
+			salut.addAll(jalon1);
+		}else {
+			salut.addAll(jalon2);
+		}	
+			for(Realisation r : salut) {
+				//if(Integer.valueOf(r.getTache().getId()) < 5){
+				Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
+				Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
+				tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
+				tip2.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
+				r.alea_jaune.setTooltip(tip);
+				r.alea_jaune.setOnMouseClicked(e ->{
+					d.setProtection(r.getTache().getId(), Couleur.JAUNE, !r.isProtected(Couleur.JAUNE));
+					r.alea_jaune.setTooltip(null);
+				});
+				r.alea_rouge.setTooltip(tip);
+				r.alea_rouge.setOnMouseClicked(e ->{
+					d.setProtection(r.getTache().getId(), Couleur.ROUGE, !r.isProtected(Couleur.ROUGE));
+					r.alea_rouge.setTooltip(null);
+				});
+				r.alea_vert.setTooltip(tip);
+				r.alea_vert.setOnMouseClicked(e ->{
+					d.setProtection(r.getTache().getId(), Couleur.VERT, !r.isProtected(Couleur.VERT));
+					r.alea_vert.setTooltip(null);
+				});
+				r.cout_acceleration.setTooltip(tip2);
+				r.cout_acceleration.setOnMouseClicked(e ->{
+					d.setAcceleration(r.getTache().getId(), true);
+					r.cout_acceleration.setTooltip(null);
+				});
+			}
+			
 		affichage(d);
 		d.FinDuTour();
+		nbjalon++;
 	}
 
-	@Override
 	public Stage jouerQuizz( Donnees d) {
-		
+
 		String line = "";
 		ArrayList<String >reponses = new ArrayList<>();
 		ArrayList<String >questions = new ArrayList<>();
@@ -106,7 +103,7 @@ public class JoueurSimple implements Strategie {
 		}
 
 		int ligne = new Random().nextInt(reponses.size());
-				
+
 		Stage s = new Stage();
 		//Pane root = new Pane();
 		VBox bbox = new VBox();
@@ -115,23 +112,23 @@ public class JoueurSimple implements Strategie {
 		Label question = new Label(questions.get(ligne));
 		Scene scne = new Scene(bbox);
 		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
-		
+
 		bbox.setPrefSize(299, 212);		
 		//root.setPrefSize(299, 212);
 		title.setPrefSize(Double.MAX_VALUE, 27);
 		question.setPrefSize(597, 87);
-		
+
 		title.setAlignment(Pos.CENTER);
-		
+
 		title.setStyle("-fx-text-alignment: center; -fx-background-color: white;");		
 		bbox.setStyle("-fx-background-color: #e1e9f2;");
-		
+
 		question.setAlignment(Pos.CENTER);
 		valider.setAlignment(Pos.CENTER);
-			
+
 		VBox.setMargin(reponse, new Insets(0,75, 15, 75));
 		VBox.setMargin(valider, new Insets(0,0,0,128));
-				
+
 		valider.setOnAction(e ->{
 			if( reponse.getText().toUpperCase().equals(reponses.get(ligne))) {
 				d.depense(-10);
@@ -140,8 +137,7 @@ public class JoueurSimple implements Strategie {
 			s.close();
 		});
 
-		bbox.getChildren().addAll(title, question, reponse, valider);		
-		//root.getChildren().add(bbox);				
+		bbox.getChildren().addAll(title, question, reponse, valider);			
 		s.setScene(scne);
 		s.setResizable(false);
 		s.initModality(Modality.APPLICATION_MODAL);

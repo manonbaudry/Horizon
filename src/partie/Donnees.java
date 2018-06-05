@@ -251,7 +251,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 				depense(realisation.getTache().getCoutAcceleration());
 				realisation.cout_acceleration.setText("Accélerée");
 				realisation.cout_acceleration.setStyle("-fx-background-color:  #087021; -fx-text-fill: white;-fx-font-size:11;");
-				this.update();
+				label_caisse.setText("La caisse : "+this.caisse + " €");
 			}
 		}
 	}
@@ -263,14 +263,12 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getTache().getId().equals(id) && caisse >= 10) {
-				caisse -= 10;
-				this.update();
-				realisation.getProtections().put(couleur, active);
-			realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
-			
+			if(realisation.getTache().getId().equals(id) && caisse >= 10 && !realisation.isProtected(couleur)) {
+					caisse -= 10;
+					label_caisse.setText("La caisse : "+this.caisse + " €");
+					realisation.getProtections().put(couleur, active);
+					realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
 			}
-
 		}
 	}
 
@@ -353,8 +351,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		label_tour.setFont(new Font(54));
 		label_tour.setAlignment(Pos.CENTER);
 		finDeTour = new Button("Fin De tour");
-
-	//	 big = new VBox();
 		
 		finDeTour.setOnAction(e ->{
 			this.resume();
@@ -362,15 +358,18 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		
 		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
 		donnees.setPrefSize(2000, 100);
-		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10;");
+		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10; ");
 		donnees.setPadding(new Insets(15));	
 		for (Node node : donnees.getChildren()) {
 			VBox.setMargin(node, new Insets(7));
 		}
+
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);		
 		big.getChildren().addAll(hbox, label_tour);
 		VBox.setMargin(label_tour, new Insets(100, 0,0, 0));
-		HBox.setMargin(donnees, new Insets(5));
+		VBox.setMargin(qualité, new Insets(10,5,100,8));
+		VBox.setMargin(finDeTour, new Insets(0, 0, 0, 25));
+		HBox.setMargin(donnees, new Insets(5,5 , 0, 0));
 		
 	}
 	
