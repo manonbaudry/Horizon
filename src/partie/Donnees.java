@@ -378,6 +378,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		VBox.setMargin(qualité, new Insets(10,5,100,8));
 		VBox.setMargin(finDeTour, new Insets(0, 0, 0, 25));
 		HBox.setMargin(donnees, new Insets(5,5 , 0, 0));
+		big.setStyle("-fx-font: 14px Roboto;");
 		
 	}
 	

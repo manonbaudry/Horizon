@@ -197,7 +197,6 @@ public class Partie extends Application{
 		primaryStage.setTitle("HORIZONS G3");
 		primaryStage.setResizable(false);
 		primaryStage.show();
-
 		play(p);
 	}
 
