@@ -125,7 +125,7 @@ public class Partie extends Application{
 	 */
 	public void tourQuizz() {		
 		for (int i = 0; i < donnees_joueurs.length; i++) {
-			donnees_joueurs[i].label_tour.setText("TOUR QUIZZ");
+			donnees_joueurs[i].label_tour.setText("TOUR QUIZ");
 			donnees_joueurs[i].getStrategie().jouerQuizz(donnees_joueurs[i]).show();;
 		}
 	}

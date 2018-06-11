@@ -105,7 +105,7 @@ public class JoueurSimple implements Strategie {
 
 		Stage s = new Stage();
 		VBox bbox = new VBox();
-		Label title = new Label("C'est l'heure du qu-qu-qu-quizz!");
+		Label title = new Label("C'est l'heure du qu-qu-qu-quiz!");
 		Button valider = new Button("Valider");	
 		Label question = new Label(questions.get(ligne));
 		Scene scne = new Scene(bbox);
