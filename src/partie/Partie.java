@@ -14,7 +14,7 @@ import strategie.JoueurSimple;
  *
  */
 public class Partie extends Application{
-	private static final String[] nom_joueurs = new String[] {"Joueur 1"};
+	private static final String[] nom_joueurs = new String[] {""};
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
 	private int nbToursSemaines;
@@ -48,36 +48,26 @@ public class Partie extends Application{
 	}
 
 	/**
-	 * Permet de savoir sur quelle réalisation appliquer les aléas en fonction du tour
-	 * Si il y a plus de tour que le réalisations, permet de bloquer le chiffre à celui correspondant à la dernière réalisation. 
-	 * @return le numéro de la réalisation
-	 */
-	public int unTourUneTache() {
-		if(this.donnees_joueurs[0].getNumeroTour() >= this.donnees_joueurs[0].getRealisation().size()) {
-			return this.donnees_joueurs[0].getRealisation().size()-1;
-		}
-		return this.donnees_joueurs[0].getNumeroTour()-1;
-	}
-
-	/**
 	 * Utilise la méthode indiquée en fonction du tour 
 	 * @param tour, le tour courant
 	 */
 	public void jouerTour(Tour tour) {
-		if(tour.equals(Tour.JALON)) this.tourJalon();
-		if(tour.equals(Tour.ALEA)) {
-			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
-			this.tourSemaine(Couleur.tirage());
-
-		}
-		if(tour.equals(Tour.FINAL)) {
-			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
-			this.tourFinal();
-		}if(tour.equals(Tour.QUIZZ)) {
-			this.donnees_joueurs[0].getStrategie().reset(this.donnees_joueurs[0]);
-			this.tourQuizz();
+		for(int i = 0; i < donnees_joueurs.length; i++) {
+			if(tour.equals(Tour.JALON)) this.tourJalon();
+			if(tour.equals(Tour.ALEA)) {
+				this.donnees_joueurs[i].getStrategie().reset(this.donnees_joueurs[i]);
+				this.tourSemaine(this.donnees_joueurs[i].getChoix());
+			}
+			if(tour.equals(Tour.FINAL)) {
+				this.donnees_joueurs[i].getStrategie().reset(this.donnees_joueurs[i]);
+				this.tourFinal();
+			}if(tour.equals(Tour.QUIZZ)) {
+				this.donnees_joueurs[i].getStrategie().reset(this.donnees_joueurs[i]);
+				this.tourQuizz();
+			}
 		}
 	}
+
 
 	/**
 	 * Fait passer le tour aux joueurs 
@@ -159,10 +149,11 @@ public class Partie extends Application{
 				r.setAvancement(r.getDuree_reelle());
 				r.setTerminee();
 			}
-			int part= ((32 + (24 - donnees_joueurs[i].getDateFinDeProjet()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
+			double part= ((32 + (24 - donnees_joueurs[i].getDateFinDeProjet()) * (donnees_joueurs[i].getCaisse()+20))/8000.0)*100-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
 
-			donnees_joueurs[i].label_tour.setText("Terminé ! Votre part de marché est de : "+part+"%");
+
+			donnees_joueurs[i].label_tour.setText("Terminé ! Votre part de marché est de : "+Math.floor(part * 100) / 100 +"%");
 			donnees_joueurs[i].finDeTour.setText("Quitter le jeu");
 			donnees_joueurs[i].finDeTour.setStyle("-fx-background-color: #a01010; -fx-text-fill: white;");
 			donnees_joueurs[i].finDeTour.setOnAction(e ->{

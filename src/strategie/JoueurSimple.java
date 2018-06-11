@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import partie.*;
 
 public class JoueurSimple implements Strategie {
@@ -116,7 +117,7 @@ public class JoueurSimple implements Strategie {
 		title.setAlignment(Pos.CENTER);
 
 		title.setStyle("-fx-text-alignment: center; -fx-background-color: white;");		
-		bbox.setStyle("-fx-background-color: #e1e9f2;");
+		bbox.setStyle("-fx-background-color: #e1e9f2; -fx-font: 14px Roboto;");
 
 		question.setAlignment(Pos.CENTER);
 		valider.setAlignment(Pos.CENTER);
@@ -182,9 +183,8 @@ public class JoueurSimple implements Strategie {
 		upane.add(d.getRealisation().get(3).getPane(), 1, 2);
 		upane.add(d.getRealisation().get(4).getPane(), 2, 1);
 		upane.add(d.getRealisation().get(5).getPane(), 3, 1);
-		upane.add(d.getRealisation().get(6).getPane(), 3, 2);
+		upane.add(d.getRealisation().get(6).getPane(), 2, 2);
 		upane.add(d.getRealisation().get(7).getPane(), 4, 1);
-
 		upane.setVgap(5.0);
 		upane.setHgap(5.0);
 		for(Node node : upane.getChildren()) {

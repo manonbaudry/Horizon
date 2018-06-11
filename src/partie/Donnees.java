@@ -5,10 +5,13 @@ import com.sun.javafx.tk.Toolkit;
 import description.Couleur;
 import description.Description;
 import description.Tache;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,6 +35,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public int tourd;
 	public Label label_caisse, joueur, tour, qualité, label_tour;
 	public Button finDeTour; 
+	public ComboBox<String> cbb;
 
 	/**
 	 * Constructeur des données du joueur :
@@ -120,7 +124,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 * @param gravite, la gravité de la baisse
 	 */
 	public void baisseQualite(int gravite) {
-		this.qualite=(int)(qualite*(0.98*gravite));
+		this.qualite=qualite-2*gravite;
 	}
 
 	/**
@@ -368,12 +372,17 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		label_tour.setFont(new Font(54));
 		label_tour.setAlignment(Pos.CENTER);
 		finDeTour = new Button("Fin De tour");
+	
+		ObservableList<String> options = 
+			    FXCollections.observableArrayList("Aléatoire", "Rouge","Jaune","Vert");
+		 cbb = new ComboBox<>(options);
+		 cbb.getSelectionModel().selectFirst();
 
 		finDeTour.setOnAction(e ->{
 			this.resume();
 		});
 
-		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
+		donnees.getChildren().addAll( tour, label_caisse, qualité, cbb, finDeTour);
 		donnees.setPrefSize(2000, 100);
 		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10; ");
 		donnees.setPadding(new Insets(15));	
@@ -384,11 +393,28 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		hbox.getChildren().addAll(this.getStrategie().getPane(this), donnees);		
 		big.getChildren().addAll(hbox, label_tour);
 		VBox.setMargin(label_tour, new Insets(100, 0,0, 0));
-		VBox.setMargin(qualité, new Insets(10,5,100,8));
+		VBox.setMargin(qualité, new Insets(10,5,50,8));
 		VBox.setMargin(finDeTour, new Insets(0, 0, 0, 25));
 		HBox.setMargin(donnees, new Insets(5,5 , 0, 0));
+		VBox.setMargin(cbb, new Insets(0,0,30,0));
+		cbb.setPadding(new Insets(0,0,0,25));
 		big.setStyle("-fx-font: 14px Roboto;");
 
+	}
+	
+	public Couleur getChoix() {
+		Couleur tamere;
+		if(cbb.getValue().equals("Aléatoire")) {
+			tamere = Couleur.tirage();
+		}else if(cbb.getValue().equals("Rouge")) {
+			tamere = Couleur.ROUGE;
+		}else if(cbb.getValue().equals("Jaune")) {
+			tamere = Couleur.JAUNE;
+		}else {
+			tamere = Couleur.VERT;
+		}
+		
+		return tamere;
 	}
 
 	/**
@@ -406,44 +432,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	public VBox getVBox() {		
 		return big;
 	}
-	/**
-	 * pour calcul du chemin critique
-	 * @return l'ordre topologique du plateau (les réalisations sont triées dans l'ordre d'exécution)
-	 */
-	public ArrayList<Realisation> ordreTopologique() {
-		ArrayList<Realisation> topo = new ArrayList<>();
-		ArrayList<Realisation> parcouru = new ArrayList<>();
-		ArrayList<Realisation> alInit = this.realisations;
-		boolean dejaparcouru=false;
-		parcouru.add(realisations.get(0));
-		Realisation derniereRealParc;
-		while(! parcouru.isEmpty()) {
-			derniereRealParc = parcouru.get(parcouru.size()-1);
-			for (int i = 0; i < getSuccesseurs(derniereRealParc).size(); i++) {
-				if(topo.contains(getSuccesseurs(derniereRealParc).get(i))){
-					dejaparcouru=true;
-				}
-			}
-			if((! getSuccesseurs(derniereRealParc).isEmpty()) &&  ! dejaparcouru){
-				parcouru.add(getSuccesseurs(derniereRealParc).get(0));
-			}else {
-				topo.add(derniereRealParc);
-				parcouru.remove(derniereRealParc);
-				alInit.remove(derniereRealParc);
-			}
-			dejaparcouru=false;
-		}
-		return reverse(topo);
-	}
 
-	private ArrayList<Realisation> reverse(ArrayList<Realisation> a) {
-		ArrayList<Realisation> res = new ArrayList<>();
-		for(int i = a.size()-1; i >=0 ; i--) {
-			res.add(a.get(i));
-			System.out.println(a.get(i).getTache().getId());
-		}
-		return res;
-	}
 	/**
 	 * 
 	 * @return une Arraylist de Réalisations contenant le chemin critique.
