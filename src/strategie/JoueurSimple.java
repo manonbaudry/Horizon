@@ -3,6 +3,8 @@ package strategie;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 import description.Couleur;
@@ -17,7 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import partie.*;
 
 public class JoueurSimple implements Strategie {
@@ -86,9 +87,9 @@ public class JoueurSimple implements Strategie {
 		String line = "";
 		ArrayList<String >reponses = new ArrayList<>();
 		ArrayList<String >questions = new ArrayList<>();
-
-		try (BufferedReader br = new BufferedReader(new FileReader("resources/questions.csv"))) {
-
+		InputStream ips = getClass().getClassLoader().getResourceAsStream("strategie/questions.csv");
+		InputStreamReader ipsr = new InputStreamReader(ips);
+		try (BufferedReader br = new BufferedReader(ipsr) ) {
 			while ((line = br.readLine()) != null) {
 				String[] oui = line.split(";");
 				if(oui != null) {
@@ -104,7 +105,7 @@ public class JoueurSimple implements Strategie {
 
 		Stage s = new Stage();
 		VBox bbox = new VBox();
-		Label title = new Label("C'est l'heure du qu-qu-qu-quizz à 10 balles!");
+		Label title = new Label("C'est l'heure du qu-qu-qu-quizz!");
 		Button valider = new Button("Valider");	
 		Label question = new Label(questions.get(ligne));
 		Scene scne = new Scene(bbox);

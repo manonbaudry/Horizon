@@ -2,8 +2,6 @@ package partie;
 
 import java.util.ArrayList;
 import com.sun.javafx.tk.Toolkit;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import description.Couleur;
 import description.Description;
 import description.Tache;
