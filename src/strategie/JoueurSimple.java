@@ -23,6 +23,7 @@ import partie.*;
 public class JoueurSimple implements Strategie {
 	private int nbjalon = 0;
 	private GridPane upane = new GridPane();
+	private Label chemin = new Label();
 
 	public void jouerSemaine( Donnees d) {		
 		affichage(d);	
@@ -154,6 +155,7 @@ public class JoueurSimple implements Strategie {
 	 */
 	private void update(Donnees d) {
 		d.update();
+		chemin.setText(" Chemin critique : " +d.RealisationToString().toString() + "\n Durée du projet : " + d.getDateFinDeProjet());
 		for( Realisation r : d.getRealisation()) {
 			r.setText(r.labelavancement, r.getAvancement()+" / " + r.getDuree_reelle());
 			r.setText(r.labeletat, r.getEtat().name());
@@ -177,7 +179,8 @@ public class JoueurSimple implements Strategie {
 	 * @param d les données du joueur
 	 */
 	public void display(Donnees d) {
-		upane.add(d.getRealisation().get(0).getPane(), 0, 1);
+		//chemin.setText("Chemin critique :" +  d.RealisationToString().toString());
+		upane.add(d.getRealisation().get(0).getPane(), 0, 1);	
 		upane.add(d.getRealisation().get(1).getPane(), 1, 0);
 		upane.add(d.getRealisation().get(2).getPane(), 1, 1);
 		upane.add(d.getRealisation().get(3).getPane(), 1, 2);
@@ -185,10 +188,11 @@ public class JoueurSimple implements Strategie {
 		upane.add(d.getRealisation().get(5).getPane(), 3, 1);
 		upane.add(d.getRealisation().get(6).getPane(), 2, 2);
 		upane.add(d.getRealisation().get(7).getPane(), 4, 1);
+		upane.add(chemin, 0, 2);
 		upane.setVgap(5.0);
 		upane.setHgap(5.0);
 		for(Node node : upane.getChildren()) {
-			((GridPane)node).setPadding(new Insets(10));
+			if(node instanceof GridPane)((GridPane)node).setPadding(new Insets(10));
 		}
 	}
 

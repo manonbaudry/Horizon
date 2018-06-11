@@ -2,6 +2,8 @@ package partie;
 
 import java.util.ArrayList;
 import com.sun.javafx.tk.Toolkit;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import description.Couleur;
 import description.Description;
 import description.Tache;
@@ -468,6 +470,14 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		cc.add(realisations.get(realisations.size()-1));
 		return cc;
+	}
+	
+	public ArrayList<String> RealisationToString(){
+		ArrayList<String> res = new ArrayList<>();
+		for(Realisation r : this.cheminCritique()) {
+			res.add(r.getTache().getId());
+		}
+		return res;
 	}
 	
 }
