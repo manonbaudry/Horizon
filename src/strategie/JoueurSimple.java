@@ -40,7 +40,7 @@ public class JoueurSimple implements Strategie {
 		jalon1.add(d.getRealisation().get(1));
 		jalon1.add(d.getRealisation().get(2));
 		jalon1.add(d.getRealisation().get(3));
-		
+
 		jalon2.add(d.getRealisation().get(4));
 		jalon2.add(d.getRealisation().get(5));
 		jalon2.add(d.getRealisation().get(6));
@@ -50,36 +50,36 @@ public class JoueurSimple implements Strategie {
 		}else {
 			salut.addAll(jalon2);
 		}	
-			for(Realisation r : salut) {
-				//if(Integer.valueOf(r.getTache().getId()) < 5){
-				Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
-				Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
-				tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
-				tip2.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
-				r.alea_jaune.setTooltip(tip);
-				r.alea_jaune.setOnMouseClicked(e ->{
-					d.setProtection(r.getTache().getId(), Couleur.JAUNE, !r.isProtected(Couleur.JAUNE));
-					r.alea_jaune.setTooltip(null);
-				});
-				r.alea_rouge.setTooltip(tip);
-				r.alea_rouge.setOnMouseClicked(e ->{
-					d.setProtection(r.getTache().getId(), Couleur.ROUGE, !r.isProtected(Couleur.ROUGE));
-					r.alea_rouge.setTooltip(null);
-				});
-				r.alea_vert.setTooltip(tip);
-				r.alea_vert.setOnMouseClicked(e ->{
-					d.setProtection(r.getTache().getId(), Couleur.VERT, !r.isProtected(Couleur.VERT));
-					r.alea_vert.setTooltip(null);
-				});
-				r.cout_acceleration.setTooltip(tip2);
-				r.cout_acceleration.setOnMouseClicked(e ->{
-					d.setAcceleration(r.getTache().getId(), true);
-					r.cout_acceleration.setTooltip(null);
-				});
-			}
-			
+
+		for(Realisation r : salut) {
+			//if(Integer.valueOf(r.getTache().getId()) < 5){
+			Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
+			Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
+			tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
+			tip2.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
+			r.alea_jaune.setTooltip(tip);
+			r.alea_jaune.setOnMouseClicked(e ->{
+				d.setProtection(r.getTache().getId(), Couleur.JAUNE, !r.isProtected(Couleur.JAUNE));
+				r.alea_jaune.setTooltip(null);
+			});
+			r.alea_rouge.setTooltip(tip);
+			r.alea_rouge.setOnMouseClicked(e ->{
+				d.setProtection(r.getTache().getId(), Couleur.ROUGE, !r.isProtected(Couleur.ROUGE));
+				r.alea_rouge.setTooltip(null);
+			});
+			r.alea_vert.setTooltip(tip);
+			r.alea_vert.setOnMouseClicked(e ->{
+				d.setProtection(r.getTache().getId(), Couleur.VERT, !r.isProtected(Couleur.VERT));
+				r.alea_vert.setTooltip(null);
+			});
+			r.cout_acceleration.setTooltip(tip2);
+			r.cout_acceleration.setOnMouseClicked(e ->{
+				d.setAcceleration(r.getTache().getId(), true);
+				r.cout_acceleration.setTooltip(null);
+			});
+		}
 		affichage(d);
-		d.FinDuTour();
+		d.FinDuJalon();
 		nbjalon++;
 	}
 
@@ -113,7 +113,7 @@ public class JoueurSimple implements Strategie {
 		Scene scne = new Scene(bbox);
 		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
 
-		bbox.setPrefSize(299, 212);		
+		bbox.setPrefSize(400, 212);		
 		//root.setPrefSize(299, 212);
 		title.setPrefSize(Double.MAX_VALUE, 27);
 		question.setPrefSize(597, 87);
@@ -127,7 +127,7 @@ public class JoueurSimple implements Strategie {
 		valider.setAlignment(Pos.CENTER);
 
 		VBox.setMargin(reponse, new Insets(0,75, 15, 75));
-		VBox.setMargin(valider, new Insets(0,0,0,128));
+		VBox.setMargin(valider, new Insets(0,0, 15, 175));
 
 		valider.setOnAction(e ->{
 			if( reponse.getText().toUpperCase().equals(reponses.get(ligne))) {

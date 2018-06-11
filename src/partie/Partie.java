@@ -2,7 +2,6 @@ package partie;
 
 
 import description.Couleur;
-import description.Description;
 import description.TypeAlea;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -15,8 +14,7 @@ import strategie.JoueurSimple;
  *
  */
 public class Partie extends Application{
-	private Description description;
-	private String[] nom_joueurs = new String[] {"Fred"};
+	private static final String[] nom_joueurs = new String[] {"Joueur 1"};
 	private Donnees[] donnees_joueurs;
 	private Tour[] tours;
 	private int nbToursSemaines;
@@ -27,10 +25,8 @@ public class Partie extends Application{
 	 * @param description répresentant l'ensemble des Taches
 	 * @param nom_joueurs, les différents de la partie
 	 */
-	public Partie(Description description) {
-		this.description = description;
+	public Partie() {
 		nbToursSemaines = -1;
-		//this.nom_joueurs = nom_joueurs;
 		donnees_joueurs = new Donnees[nom_joueurs.length];
 		this.tours = new Tour[] {
 				Tour.JALON,
@@ -50,8 +46,6 @@ public class Partie extends Application{
 			donnees_joueurs[i] = new Donnees(nom_joueurs[i], new JoueurSimple());
 		}
 	}
-
-	public Partie() {};
 
 	/**
 	 * Permet de savoir sur quelle réalisation appliquer les aléas en fonction du tour
@@ -162,9 +156,8 @@ public class Partie extends Application{
 	public void tourFinal() {
 		for(int i = 0; i < donnees_joueurs.length; i++) {
 			for(Realisation r : donnees_joueurs[i].getRealisation()){
-				if(r.getEtat().equals(Etat.EN_COURS) || r.getEtat().equals(Etat.NON_ENTAMEE)) {
 					r.setAvancement(r.getDuree_reelle());
-				}
+					r.setTerminee();
 			}
 			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
@@ -183,15 +176,18 @@ public class Partie extends Application{
 	 * @param p, la partie en cours
 	 */
 	public void play(Partie p)  {
+		for( int j = 0; j < p.donnees_joueurs.length; j++) {
 		for (int i = 0 ; i < p.tours.length; i++) {
 			p.jouerTour(p.tours[i]);
-			p.donnees_joueurs[0].pause();		
+			p.donnees_joueurs[j].pause();		
+		}
 		}
 	}
 
 
 	public void start(Stage primaryStage) throws Exception {
-		Partie p = new Partie(new Description());	
+		
+		Partie p = new Partie();	
 		Scene scene = new Scene(p.donnees_joueurs[0].getVBox(),1550 , 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("HORIZONS G3");
@@ -201,6 +197,6 @@ public class Partie extends Application{
 	}
 
 	public static void main(String[] args)  {
-		launch(args);
+			launch(args);
 	}
 }

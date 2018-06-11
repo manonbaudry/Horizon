@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -18,7 +17,7 @@ import strategie.Strategie;
 
 /**
  * Rassemble toute les informations du joueur sur l'état de la partie propre à chaque joueur
- * @author sakid
+ * @author Quentin Duriez
  *
  */
 public class Donnees implements DonneesJoueur, VueJoueur{
@@ -28,16 +27,21 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private ArrayList<Realisation> realisations;
 	private Strategie strategie;
 	private Description description;
-	private int numeroTour;
-	private boolean realisationUnePassee = false;
+	public int numeroTour;
 	private HBox hbox = new HBox();
 	private VBox big = new VBox();
-	
 	public int tourd;
-	
 	public Label label_caisse, joueur, tour, qualité, label_tour;
 	public Button finDeTour; 
 
+	/**
+	 * Constructeur des données du joueur :
+	 * - initialise la caisse, la qualité
+	 * - crée les réalisations à partir des taches de la description
+	 * - donne au joueur sa stratégie
+	 * @param nom le nom du joueur
+	 * @param strategie la stratégie
+	 */
 	public Donnees(String nom, Strategie strategie) {
 		super();
 		tourd = 0;
@@ -66,6 +70,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	public void actualisation() {
 		setTermine();
+		setImminent();
 		setEnCours();
 
 	}
@@ -174,18 +179,23 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return this.strategie;
 	}
 
+	public void FinDuJalon() {
+		actualisation();
+		numeroTour++;
+	}
+
 	/**
 	 * Termine le tour, actualise la partie 
 	 */
 	public void FinDuTour() {
 		for(int i = 0; i< realisations.size(); i++) {
-			if(realisations.get(i).getEtat().equals(Etat.EN_COURS)) {
+			if(realisations.get(i).getEtat().equals(Etat.EN_COURS) || realisations.get(i).getEtat().equals(Etat.IMMINENT) ) {
 				realisations.get(i).incrementAvancement();
 			}
 		}
 		actualisation();
 		numeroTour++;	
-		
+
 	}
 
 	/**
@@ -247,7 +257,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 * @param id, l'id de la réalisation
 	 * @param active, boolean qui active ou non l'accéleration
 	 */
-
 	public void setAcceleration(String id, boolean active) {
 		for (Realisation realisation : realisations) {
 			if(!realisation.getAcceleration() && realisation.getTache().getId().equals(id) && caisse >= realisation.getTache().getCoutAcceleration()) {
@@ -267,11 +276,11 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 */
 	public void setProtection(String id, Couleur couleur, boolean active) {
 		for (Realisation realisation : realisations) {
-			if(realisation.getTache().getId().equals(id) && caisse >= 10 && !realisation.isProtected(couleur)) {
-					caisse -= 10;
-					label_caisse.setText("La caisse : "+this.caisse + " €");
-					realisation.getProtections().put(couleur, active);
-					realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
+			if(realisation.getTache().getId().equals(id) && caisse >= 10 && !realisation.isProtected(couleur) ) {
+				caisse -= 10;
+				label_caisse.setText("La caisse : "+this.caisse + " €");
+				realisation.getProtections().put(couleur, active);
+				realisation.QuelleCouleur(couleur).setStyle("-fx-background-color:  #accbef; -fx-alignment: center; -fx-text-fill: black;-fx-font-size:10;");
 			}
 		}
 	}
@@ -290,16 +299,17 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	 * 	- les réalisation précedant la réalisation sont bien TERMINEES
 	 */
 	private void setEnCours() {
-		if(! realisationUnePassee) {
-			realisations.get(0).setEnCours();	
-			realisationUnePassee = true;
-		}
 		for (Realisation realisation : realisations) {
-			if(!realisation.getEtat().equals(Etat.EN_COURS) && !realisation.estTerminee() && realisationUnePassee && PrecedentesTerminees(realisation) &&  ! realisation.equals(realisations.get(0))) {
-				realisation.setEnCours();
+			if(!realisation.estTerminee() && realisation.getAvancement() > 0) realisation.setEnCours();
+		}
+	}
+
+	private void setImminent() {
+		for (Realisation realisation : realisations) {
+			if(realisation.getAvancement() == 0 && !realisation.estTerminee() && PrecedentesTerminees(realisation)) {
+				realisation.setImminent();
 			}			
 		}
-
 	}
 
 	/**
@@ -308,7 +318,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 	private void setTermine() {
 		for(Realisation r : realisations) {
 			if(r.getDuree_reelle() <= r.getAvancement()) {
-				if(r.getDuree_reelle() < r.getAvancement()) r.setAvancement(r.getDuree_reelle());
+				r.setAvancement(r.getDuree_reelle());
 				r.setTerminee();
 			}
 		}
@@ -319,30 +329,29 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return "Donnees [caisse=" + caisse + ", nom=" + nom + ", qualite=" + qualite + ", realisations=" + realisations
 				+ ", strategie=" + strategie + ", description=" + description + ", numeroTour=" + numeroTour + "]";
 	}
- 
+
 	/**
 	 * 
 	 * @return 
 	 */
 	public int getCheminCritique() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	/**
 	 * Met en pause le jeu
 	 */
 	public void pause() {
 		Toolkit.getToolkit().enterNestedEventLoop(finDeTour);
 	}
-	
+
 	/**
 	 * Fait reprendre le jeu à l'appui du bouton de fin de tour
 	 */
-	public void resume() {
+	private void resume() {
 		Toolkit.getToolkit().exitNestedEventLoop(finDeTour, null);
 	}
-	
+
 	/**
 	 * Créer l'affichage de l'interface graphique :
 	 * - les différents attibuts des données 
@@ -359,11 +368,11 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		label_tour.setFont(new Font(54));
 		label_tour.setAlignment(Pos.CENTER);
 		finDeTour = new Button("Fin De tour");
-		
+
 		finDeTour.setOnAction(e ->{
 			this.resume();
 		});
-		
+
 		donnees.getChildren().addAll(joueur, tour, label_caisse, qualité, finDeTour);
 		donnees.setPrefSize(2000, 100);
 		donnees.setStyle("-fx-background-color: #e1e9f2; -fx-background-radius: 10; ");
@@ -379,9 +388,9 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		VBox.setMargin(finDeTour, new Insets(0, 0, 0, 25));
 		HBox.setMargin(donnees, new Insets(5,5 , 0, 0));
 		big.setStyle("-fx-font: 14px Roboto;");
-		
+
 	}
-	
+
 	/**
 	 * Met à jour la caisse, le tour et la qualité sur l'interface grpahique
 	 */
@@ -389,7 +398,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		label_caisse.setText("La caisse : "+this.caisse + " €");
 		tour.setText(( "Tour : " + this.getNumeroTour()));
 		qualité.setText(("Qualité : " + this.getQualite() + " %"));
-		
+
 	}
 	/**
 	 * @return la HBox utilisée pour illustrer les donnéees dans l'interface grpahique
@@ -416,7 +425,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 				}
 			}
 			if((! getSuccesseurs(derniereRealParc).isEmpty()) &&  ! dejaparcouru){
-					parcouru.add(getSuccesseurs(derniereRealParc).get(0));
+				parcouru.add(getSuccesseurs(derniereRealParc).get(0));
 			}else {
 				topo.add(derniereRealParc);
 				parcouru.remove(derniereRealParc);
@@ -424,7 +433,18 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			}
 			dejaparcouru=false;
 		}
-		return topo;
+		return reverse(topo);
 	}
-	
+
+	private ArrayList<Realisation> reverse(ArrayList<Realisation> a) {
+		ArrayList<Realisation> res = new ArrayList<>();
+		for(int i = a.size()-1; i >=0 ; i--) {
+			res.add(a.get(i));
+			System.out.println(a.get(i).getTache().getId());
+		}
+		return res;
+	}
+
+
+
 }

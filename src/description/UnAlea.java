@@ -10,23 +10,19 @@ public class UnAlea implements Alea {
 	private String nom;
 	private int gravite;
 	private TypeAlea type;
-	private boolean protection;
 
 		
 	public UnAlea(String nom, int gravite, TypeAlea type) {
 		this.nom = nom;
 		this.gravite = gravite;
 		this.type = type;
-		protection = false;
 	}
 
 	public int getGravite() {
-		// TODO Auto-generated method stub
 		return this.gravite;
 	}
 
 	public TypeAlea getType() {
-		// TODO Auto-generated method stub
 		return this.type;
 	}
 	

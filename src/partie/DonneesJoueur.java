@@ -1,6 +1,5 @@
 package partie;
 
-import graphe.Graphe;
 import strategie.Strategie;
 
 /**

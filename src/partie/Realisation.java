@@ -1,20 +1,13 @@
 package partie;
 
-
 import description.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-
-
 
 public class Realisation{
 	private int duree_reelle;
@@ -23,8 +16,8 @@ public class Realisation{
 	private Etat etat;
 	private int avancement;
 	private UneTache tamerelatache;
-	 private  GridPane pane;
-	 public Label id, description, cout_acceleration, duree_initiale, duree_max, alea_rouge, alea_jaune, alea_vert, labeletat, labelavancement;
+	private  GridPane pane;
+	public Label id, description, cout_acceleration, duree_initiale, duree_max, alea_rouge, alea_jaune, alea_vert, labeletat, labelavancement;
 
 	public Realisation() {};
 	public Realisation(Tache t) {
@@ -39,7 +32,7 @@ public class Realisation{
 		display();
 
 	}
-	
+
 	/**
 	 * Permet de renvoyer le label correspondant à la couleur passé en paramètre
 	 * @param color, la couleur 
@@ -50,7 +43,7 @@ public class Realisation{
 		if(color.equals(Couleur.ROUGE)) return alea_rouge;
 		return alea_vert;
 	}
-	
+
 	/**
 	 * Affichage graphique d'une réalisation
 	 */
@@ -58,9 +51,9 @@ public class Realisation{
 		pane = new GridPane();
 		pane.setPrefSize(400, 100);
 		pane.setGridLinesVisible(true);
-			initialize();		
+		initialize();		
 	}
-	
+
 	/**
 	 * 
 	 * @return la gridpane représentant la réalisation
@@ -79,42 +72,38 @@ public class Realisation{
 		id = new Label(this.getTache().getId());
 		id.setStyle("-fx-background-color: #c9cacc");
 		id.setPrefWidth(80);
-		
+
 		description = new Label(this.getTache().getDescription());
 		description.setPrefWidth(90);
 		description.setStyle("-fx-background-color: #c9cacc");
-		
+
 		cout_acceleration = new Label(this.getTache().getCoutAcceleration()+ " €");
 		cout_acceleration.setPrefWidth(80);
 		cout_acceleration.setStyle("-fx-background-color: #c9cacc;-fx-text-fill: #478752;");
-		
+
 		alea_rouge = new Label(this.getTache().getAlea(Couleur.ROUGE).getNom() +" : " + this.getTache().getAlea(Couleur.ROUGE).getType());
 		alea_rouge.setPrefWidth(80);
 		alea_rouge.setStyle("-fx-background-color:  #dd4949; -fx-alignment: center; -fx-text-fill: white; -fx-font-size:10;");
-		
+
 		alea_jaune = new Label(this.getTache().getAlea(Couleur.JAUNE).getNom() +" : "+ this.getTache().getAlea(Couleur.JAUNE).getType());
 		alea_jaune.setPrefWidth(90);
 		alea_jaune.setStyle("-fx-background-color:   #f4e838; -fx-alignment: center ; -fx-font-size:10; ");
-		
+
 		alea_vert = new Label(this.getTache().getAlea(Couleur.VERT).getNom() +" : "+ this.getTache().getAlea(Couleur.VERT).getType());
 		alea_vert.setPrefWidth(90);
 		alea_vert.setStyle("-fx-background-color:  #5b9960; -fx-alignment: center; -fx-text-fill: white; -fx-font-size:10;");
-		
+
 		labeletat = new Label("" + this.getEtat());
 		labeletat.setStyle(" -fx-text-fill: black; -fx-font-size:9;");
 		labeletat.setPrefSize(100, 30);
 
-		
 		duree_initiale = new Label( "Min : " +this.getTache().getDureeInitiale());
 		duree_max = new Label("Max : "+this.getTache().getDureeMax());
 		labelavancement = new Label(this.getAvancement()+ " / " + this.getDuree_reelle());
-		
+
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
 		pane.getColumnConstraints().add(new ColumnConstraints(90));
 		pane.getColumnConstraints().add(new ColumnConstraints(80));
-		
-		
-		
 		pane.add(id, 0, 0);
 		pane.add(description, 1, 0);
 		pane.add(cout_acceleration, 2, 0);
@@ -125,13 +114,12 @@ public class Realisation{
 		pane.add(alea_vert, 2, 2);
 		pane.add(labeletat, 0, 4);
 		pane.add(labelavancement, 2, 4);
-		
+
 		for(Node node : pane.getChildren()) {
 			GridPane.setMargin(node, new Insets(1));
 		}
-
 	}
-	
+
 	/**
 	 * @param l le label
 	 * @param t, le texte
@@ -139,7 +127,7 @@ public class Realisation{
 	public void setText(Label l, String t) {
 		l.setText(t);
 	}
-	
+
 	/**
 	 * @return vrai si la réalisation courante est terminées, faux sinon
 	 */
@@ -273,7 +261,6 @@ public class Realisation{
 	 */
 	public void setEnCours() {
 		this.etat = Etat.EN_COURS;
-		this.incrementAvancement();
 	}
 
 	/**
@@ -282,6 +269,10 @@ public class Realisation{
 	public void setTerminee() {
 		this.etat = Etat.TERMINE;
 
+	}
+
+	public void setImminent () {
+		this.etat = Etat.IMMINENT;
 	}
 
 }
