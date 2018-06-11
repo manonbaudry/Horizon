@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Une réalisation contient toutes les informations sur une tâche.
+ */
 public class Realisation{
 	private int duree_reelle;
 	private boolean acceleration;
@@ -178,7 +181,6 @@ public class Realisation{
 	public void setAcceleration(boolean acceleration) {
 		this.acceleration = acceleration;
 		duree_reelle --;
-
 	}
 
 	/**
@@ -268,7 +270,6 @@ public class Realisation{
 	 */
 	public void setTerminee() {
 		this.etat = Etat.TERMINE;
-
 	}
 
 	public void setImminent () {

@@ -1,6 +1,5 @@
 package strategie;
 
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,19 +19,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import partie.*;
 
-
-
 public class JoueurSimple implements Strategie {
 	private int nbjalon = 0;
 	private GridPane upane = new GridPane();
 
 	public void jouerSemaine( Donnees d) {		
-
 		affichage(d);	
 		d.FinDuTour();
 	}
 
 	public void jouerJalon( Donnees d) {
+		d.actualisation();
 		ArrayList<Realisation> salut = new ArrayList<>();
 		ArrayList<Realisation> jalon1 = new ArrayList<>();
 		ArrayList<Realisation> jalon2 = new ArrayList<>();
@@ -52,7 +49,6 @@ public class JoueurSimple implements Strategie {
 		}	
 
 		for(Realisation r : salut) {
-			//if(Integer.valueOf(r.getTache().getId()) < 5){
 			Tooltip tip = new Tooltip("Cliquez pour protéger la réalisation " + r.getTache().getId());
 			Tooltip tip2 = new Tooltip("Cliquez pour accélerer la réalisation " + r.getTache().getId());
 			tip.setStyle("-fx-background-color: #e1e9f2; -fx-text-fill: black;");
@@ -79,7 +75,7 @@ public class JoueurSimple implements Strategie {
 			});
 		}
 		affichage(d);
-		d.FinDuJalon();
+		d.FinDuTour();
 		nbjalon++;
 	}
 
@@ -114,7 +110,6 @@ public class JoueurSimple implements Strategie {
 		javafx.scene.control.TextField reponse = new javafx.scene.control.TextField();
 
 		bbox.setPrefSize(400, 212);		
-		//root.setPrefSize(299, 212);
 		title.setPrefSize(Double.MAX_VALUE, 27);
 		question.setPrefSize(597, 87);
 
@@ -173,7 +168,6 @@ public class JoueurSimple implements Strategie {
 			r.alea_rouge.setOnMouseClicked(e ->{});				
 			r.alea_vert.setOnMouseClicked(e ->{});			
 			r.cout_acceleration.setOnMouseClicked(e ->{});
-
 		}
 	}
 
@@ -198,17 +192,8 @@ public class JoueurSimple implements Strategie {
 		}
 	}
 
-
 	public GridPane getPane(Donnees d) {
 		display(d);
 		return upane;
 	}
-
-
-
-
-
-
-
-
 }

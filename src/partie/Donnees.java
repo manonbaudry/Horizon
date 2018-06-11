@@ -17,7 +17,6 @@ import strategie.Strategie;
 
 /**
  * Rassemble toute les informations du joueur sur l'état de la partie propre à chaque joueur
- * @author Quentin Duriez
  *
  */
 public class Donnees implements DonneesJoueur, VueJoueur{
@@ -179,10 +178,6 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		return this.strategie;
 	}
 
-	public void FinDuJalon() {
-		actualisation();
-		numeroTour++;
-	}
 
 	/**
 	 * Termine le tour, actualise la partie 
@@ -444,7 +439,4 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		return res;
 	}
-
-
-
 }
