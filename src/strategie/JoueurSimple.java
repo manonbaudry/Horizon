@@ -103,7 +103,6 @@ public class JoueurSimple implements Strategie {
 		int ligne = new Random().nextInt(reponses.size());
 
 		Stage s = new Stage();
-		//Pane root = new Pane();
 		VBox bbox = new VBox();
 		Label title = new Label("C'est l'heure du qu-qu-qu-quizz à 10 balles!");
 		Button valider = new Button("Valider");	
@@ -179,7 +178,6 @@ public class JoueurSimple implements Strategie {
 	 * @param d les données du joueur
 	 */
 	public void display(Donnees d) {
-		//chemin.setText("Chemin critique :" +  d.RealisationToString().toString());
 		upane.add(d.getRealisation().get(0).getPane(), 0, 1);	
 		upane.add(d.getRealisation().get(1).getPane(), 1, 0);
 		upane.add(d.getRealisation().get(2).getPane(), 1, 1);
