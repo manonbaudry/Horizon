@@ -327,10 +327,15 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	/**
 	 * 
-	 * @return 
+	 * @return durée de réalisations de toutes les tâches (durée du projet)
 	 */
-	public int getCheminCritique() {
-		return 0;
+	public int getDateFinDeProjet() {
+		ArrayList<Realisation> cheminCritique = cheminCritique();
+		int dureeMax = 0;
+		for (Realisation r : cheminCritique) {
+			dureeMax += r.getDuree_reelle();
+		}
+		return dureeMax;
 	}
 
 	/**
@@ -439,4 +444,41 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		return res;
 	}
+	/**
+	 * 
+	 * @return une Arraylist de Réalisations contenant le chemin critique.
+	 */
+	public ArrayList<Realisation> cheminCritique(){
+		ArrayList<Realisation> cc = new ArrayList<>();
+		ArrayList<Realisation> j1=new ArrayList<>();
+		ArrayList<Realisation> j2=new ArrayList<>();
+		ArrayList<Realisation> truc = new ArrayList<>();
+		int dureeComposee = 0;
+		cc.add(this.realisations.get(0));
+		j1.addAll(getSuccesseurs(cc.get(0)));
+		Realisation r = j1.get(0);
+		for(Realisation real : j1) {
+			if(real.getDuree_reelle() > r.getDuree_reelle()) r = real;
+		}
+		cc.add(r);
+		for (int i = 4; i < realisations.size()-1; i++) {
+			if(! j1.contains(realisations.get(i))) j2.add(realisations.get(i));
+		}
+		for (Realisation real : j2) {
+			if(real.getDuree_reelle() > dureeComposee) r = real;
+			if(j2.contains(getSuccesseurs(real).get(0))){
+				dureeComposee = real.getDuree_reelle() + getSuccesseurs(real).get(0).getDuree_reelle();
+				truc.add(real);
+				truc.add(getSuccesseurs(real).get(0));
+			}
+		}
+		if(r.getDuree_reelle() < dureeComposee) {
+			cc.addAll(truc);
+		}else {
+			cc.add(r);
+		}
+		cc.add(realisations.get(realisations.size()-1));
+		return cc;
+	}
+	
 }

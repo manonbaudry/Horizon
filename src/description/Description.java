@@ -87,7 +87,7 @@ public class Description{
 		liste_taches.add(t7);
 		liste_taches.add(t8);
 		
-		this.ajoutDesSuccesseursAuto();
+		//this.ajoutDesSuccesseursAuto();
 
 	}
 

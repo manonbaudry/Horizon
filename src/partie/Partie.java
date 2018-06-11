@@ -159,7 +159,7 @@ public class Partie extends Application{
 				r.setAvancement(r.getDuree_reelle());
 				r.setTerminee();
 			}
-			int part= ((32 + (24 - donnees_joueurs[i].getCheminCritique()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
+			int part= ((32 + (24 - donnees_joueurs[i].getDateFinDeProjet()) * (donnees_joueurs[i].getCaisse()+20))/8000)-(100-donnees_joueurs[i].getQualite());
 			donnees_joueurs[i].getStrategie().jouerSemaine(donnees_joueurs[i]);
 
 			donnees_joueurs[i].label_tour.setText("Terminé ! Votre part de marché est de : "+part+"%");
