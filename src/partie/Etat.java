@@ -31,7 +31,7 @@ public enum Etat {
 	}
 	/**
 	 * retourne le caractère correspondant à l'état.
-	 * @return
+	 * @return le caractère
 	 */
 	public char getChar() {
 		return this.type;

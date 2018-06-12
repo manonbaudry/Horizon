@@ -22,8 +22,6 @@ public class Partie extends Application{
 
 	/**
 	 * Initialisation de la partie 
-	 * @param description répresentant l'ensemble des Taches
-	 * @param nom_joueurs, les différents de la partie
 	 */
 	public Partie() {
 		nbToursSemaines = -1;

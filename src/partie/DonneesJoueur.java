@@ -26,21 +26,25 @@ public interface DonneesJoueur {
 	
 	/**
 	 * Méthode qui met à jour la cagnotte du Joueur en lui retirant la "somme".
+	 * @param somme ; la somme à prélever
 	 */
 	public void depense(int somme);
 	
 	/**
 	 * Fournit le montant actuel de la caisse de l'équipe (en euros).
+	 * @return la caisse du joueur
 	 */
 	public int getCaisse();
 	
 	/**
 	 * Fournit le nom de l'équipe.
+	 * @return le nom du joueur
 	 */
 	public String getNom();
 	
 	/**
 	 * Fournit la qualité actuelle du produit.
+	 * @return la qualité du projet
 	 */
 	public int getQualite();
 	
@@ -52,6 +56,7 @@ public interface DonneesJoueur {
 	
 	/**
 	 * Fournit l'objet qui prend les décisions pour l'équipe.
+	 * @return la stratégie associée au joueur
 	 */
 	public Strategie getStrategie();
 	

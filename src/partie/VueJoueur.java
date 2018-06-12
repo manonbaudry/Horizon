@@ -53,10 +53,7 @@ public interface VueJoueur {
 	
 	/**
 	 * Fournit l'état courant de la réalisation. 
-	 * Directement calculée par à partie de l'état d'avancement:
-        - 0 : Etat.NON_ENTAMEE ,
-        - > 0 et < durée réelle : Etat.EN_COURS
-        - durée rélle : Etat.TERMINEE.
+	 * Directement calculée par à partie de l'état d'avancement: 0 : Etat.NON_ENTAMEE , entre 0 et la durée réelle : Etat.EN_COURS, durée rélle : Etat.TERMINEE.
 	 * @param id de la tâche
 	 * @return l'état courant de la réalisation.
 	 */

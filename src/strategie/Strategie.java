@@ -9,7 +9,6 @@ public interface Strategie {
 	
 	/** 
 	 * 
-	 * @param equipe - L'équipe concernée.
 	 * @param d - L'interface du jeu
 	 * 
 	 * Validation d'un tour simple.
@@ -18,7 +17,6 @@ public interface Strategie {
 
 	/**
 	 * 
-	 * @param equipe - L'équipe concernée.
 	 * @param d - L'interface du jeu
 	 * 
 	 * Saisie des décisions d'accélération et de protection.
@@ -26,15 +24,22 @@ public interface Strategie {
 	void 	jouerJalon(Donnees d);
 	
 	/**
-	 * 
-	 * @param equipe - L'équipe concernée.
 	 * @param d - L'interface du jeu
 	 * 
 	 * Réponse à un quizz.
+	 * @return la fenêtre du quiz
 	 */
 	Stage 	jouerQuizz(Donnees d);
 	
+	/**
+	 * @param d - L'interface du jeu
+	 * @return la gridPane de données pour être récupérée par Partie
+	 */
 	GridPane getPane(Donnees d);
 	
+	/**
+	 * Réinitialise les valeurs de données dans l'interface graphique
+	 * @param d - L'interface du jeu
+	 */
 	void reset(Donnees d);
 }

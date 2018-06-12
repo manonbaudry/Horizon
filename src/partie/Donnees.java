@@ -129,7 +129,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 
 	/**
 	 * Retire de la caisse les dépenses faites par le joueur ou les Aléas de cout
-	 * @param la somme à prélever
+	 * @param somme à prélever
 	 */
 	public void depense(int somme) {
 		this.caisse-=somme;

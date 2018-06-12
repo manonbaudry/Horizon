@@ -152,7 +152,7 @@ public class Realisation{
 
 	/**
 	 * 
-	 * @param couleur
+	 * @param couleur la couleur 
 	 * @return vrai si la réalisation courante est protégée de la couleur en paramètre, faux sinon
 	 */
 	public boolean isProtected(Couleur couleur) {
@@ -160,7 +160,7 @@ public class Realisation{
 	}
 
 	/**
-	 * @param avancement the avancement to set
+	 * Incremente l'avancement de la réalisation
 	 */
 	public void incrementAvancement() {
 		this.avancement ++;
