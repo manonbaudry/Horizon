@@ -454,7 +454,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 			if(! j1.contains(realisations.get(i))) j2.add(realisations.get(i));
 		}
 		for (Realisation real : j2) {
-			if(real.getDuree_reelle() > dureeComposee) r = real;
+			if(real.getDuree_reelle() >= dureeComposee) r = real;
 			if(j2.contains(getSuccesseurs(real).get(0))){
 				dureeComposee = real.getDuree_reelle() + getSuccesseurs(real).get(0).getDuree_reelle();
 				truc.add(real);
@@ -463,7 +463,7 @@ public class Donnees implements DonneesJoueur, VueJoueur{
 		}
 		if(r.getDuree_reelle() < dureeComposee) {
 			cc.addAll(truc);
-		}else {
+		}else if(!cc.contains(r)){
 			cc.add(r);
 		}
 		cc.add(realisations.get(realisations.size()-1));
